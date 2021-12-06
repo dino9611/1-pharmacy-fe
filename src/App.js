@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom';
+import Marketplace from './pages/marketplace';
+import AdminDashboard from './pages/adminDashboard';
+import Checkout from './pages/checkout';
+import PageNotFound from './pages/pageNotFound';
+import PrivateRoute from './PrivateRoute';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {}
+  render() {
+    return (
+      <div>
+        <Switch>
+          <Route path="/" exact component={Marketplace} />
+          <PrivateRoute path="/dashboard" exact component={AdminDashboard} authorizedRole="admin"/>
+          <PrivateRoute path="/checkout" exact component={Checkout} authorizedRole="user"/>
+          <Route path="*" component={PageNotFound} />
+        </Switch>
+      </div>
+    );
+  }
 }
 
 export default App;
