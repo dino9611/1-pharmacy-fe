@@ -13,8 +13,8 @@ class App extends Component {
       <div>
         <Switch>
           <Route path="/" exact component={Marketplace} />
-          <PrivateRoute path="/dashboard" exact component={AdminDashboard} authorizedRole="admin"/>
-          <PrivateRoute path="/checkout" exact component={Checkout} authorizedRole="user"/>
+          <PrivateRoute path="/dashboard" exact component={AdminDashboard} adminAuth={true}/>
+          <PrivateRoute path="/checkout" exact component={Checkout} adminAuth={false}/>
           <Route path="*" component={PageNotFound} />
         </Switch>
       </div>

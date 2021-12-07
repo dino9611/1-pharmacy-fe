@@ -1,5 +1,5 @@
 const INITIAL_STATE = {
-    role: "",
+    isAdmin: false,
     isLoggedIn: false
 };
 

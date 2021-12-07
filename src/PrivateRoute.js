@@ -4,9 +4,9 @@ import { Route } from 'react-router-dom';
 import PageNotFound from './pages/pageNotFound';
 
 const PrivateRoute = (props) => {
-  const { isLoggedIn, role, ...rest } = props;
+  const { isLoggedIn, isAdmin, ...rest } = props;
 
-  if(!(isLoggedIn && role === props.authorizedRole)){
+  if(!(isLoggedIn && isAdmin === props.adminAuth)){
     return <Route component={PageNotFound} />;
   }
 
@@ -16,7 +16,7 @@ const PrivateRoute = (props) => {
 const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.auth.isLoggedIn,
-    role: state.auth.role
+    isAdmin: state.auth.isAdmin
   }
 }
   
