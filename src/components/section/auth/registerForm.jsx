@@ -42,10 +42,9 @@ const RegisterForm = (props) => {
                     email,
                     password                
                 });
-                console.log(response.data);
                 
-                localStorage.setItem("token-access", response.data.token);
-                dispatch({ type: "LOGIN", payload: response.data.data });
+                localStorage.setItem("token-access", response.token);
+                dispatch({ type: "LOGIN", payload: response.data });
 
                 alert("Registration is successful");
             } catch (error) {
