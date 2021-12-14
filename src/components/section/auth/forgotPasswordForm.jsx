@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, withRouter } from "react-router-dom";
-import axios from "axios";
+import useAxios from '../../../hooks/useAxios';
 import RedirectButton from '../../UI/authInventory/redirectButton';
 import Input from '../../UI/authInventory/input';
 
@@ -12,12 +12,21 @@ const ForgotPasswordForm = (props) => {
         setforgotPasswordEmail(value);
     };
 
+    const [requestBody, setRequestBody] = useState(null);
+
+    let { response, error, loading } = useAxios({
+        url: `http://localhost:2001/forgotPassword`,
+        method: 'post',
+        body: requestBody
+    });
+
     const onClickForgotPasswordButton = async (e) => {
         e.preventDefault();
         
         try {
-            const response = await axios.post(`http://localhost:2001/forgotPassword`, { email: forgotPasswordEmail });
-            console.log(response.data);
+            setRequestBody({
+                email: forgotPasswordEmail
+            });
 
             alert("Email is sent");
         } catch (error) {
