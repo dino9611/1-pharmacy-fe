@@ -2,7 +2,7 @@ const INITIAL_STATE = {
     id: 0,
     username: "",
     email: "",
-    isVerified: "",
+    isVerified: false,
     isAdmin: false,
     isLogin: false,
 };

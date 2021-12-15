@@ -8,7 +8,7 @@ function useAxios({ url, method, body = null, headers = null }) {
 
 	// fetching loading = true, error = '', response = null => initial state
 	useEffect(() => {
-		axios[method](url, JSON.parse(headers), JSON.parse(body))
+		axios[method](url, body, headers)
 			.then((res) => {
 				setResponse(res.data);
 				setLoading(false);

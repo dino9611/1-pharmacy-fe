@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import useAxios from '../../../hooks/useAxios';
 import Input from '../../UI/authInventory/input';
 import RedirectButton from '../../UI/authInventory/redirectButton';
@@ -32,12 +33,21 @@ const ResetPasswordForm = (props) => {
                     newPassword
                 });
     
-                alert("Email is sent");
+                toast.success("Password is reset!", {
+                    position: "top-right",
+                    icon: "🚀"
+                });
             } catch (error) {
-                alert("Server Error");
+                toast.error(error.response.data.message || "Server Error", {
+                    position: "top-right",
+                    icon: "😵"
+                });
             }
         } else {
-            alert("Password and confirm password does not match");
+            toast.error("Password and confirm password does not match", {
+                position: "top-right",
+                icon: "❎"
+            });
         }
     }
 

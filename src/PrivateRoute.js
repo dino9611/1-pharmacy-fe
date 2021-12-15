@@ -2,20 +2,36 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import PageNotFound from './pages/pageNotFound';
+import TopNavbar from './components/UI/adminInventory/topNavbar';
+import SideNavbar from './components/UI/adminInventory/sideNavbar';
 
 const PrivateRoute = (props) => {
-  const { isLoggedIn, isAdmin, ...rest } = props;
+  const { isLogin, isAdmin, ...rest } = props;
 
-  if(!(isLoggedIn && isAdmin === props.adminAuth)){
+  if(!(isLogin && isAdmin === props.adminAuth)){
     return <Route component={PageNotFound} />;
   }
 
-  return <Route {...rest} />
+  return (
+    <div 
+      className=""
+      style={{ 
+          height: "200vh",
+          backgroundColor: "#FFF6F6"
+      }}
+    >
+      <TopNavbar/>
+      <div className="d-flex flex-row">
+        <SideNavbar/>
+        <Route {...rest}/>
+      </div>
+    </div>
+  );
 }
 
 const mapStateToProps = (state) => {
   return {
-    isLoggedIn: state.auth.isLoggedIn,
+    isLogin: state.auth.isLogin,
     isAdmin: state.auth.isAdmin
   }
 }

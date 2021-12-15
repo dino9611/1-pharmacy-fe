@@ -7,10 +7,13 @@ import Login from './pages/login';
 import Register from './pages/register';
 import ForgotPassword from './pages/forgotPassword';
 import ResetPassword from './pages/resetPassword';
-import AdminDashboard from './pages/adminDashboard';
 import Checkout from './pages/checkout';
 import PageNotFound from './pages/pageNotFound';
 import PrivateRoute from './PrivateRoute';
+import Sales from './pages/sales';
+import AdminDashboard from './pages/adminDashboard';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
 	return (
@@ -23,10 +26,12 @@ function App() {
 				<Route path="/register" component={Register} />
 				<Route path="/forgotPassword" component={ForgotPassword} />
 				<Route path="/resetPassword" component={ResetPassword} />
-				<PrivateRoute path="/dashboard" exact component={AdminDashboard} adminAuth={true}/>
 				<PrivateRoute path="/checkout" exact component={Checkout} adminAuth={false}/>
+				<PrivateRoute path="/admin/dashboard" exact component={AdminDashboard} adminAuth={true}/>
+				<PrivateRoute path="/admin/sales" exact component={Sales} adminAuth={true}/>
 				<Route path="*" component={PageNotFound} />
 			</Switch>
+			<ToastContainer/>
 		</div>
 	);
 }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, withRouter } from "react-router-dom";
+import { toast } from 'react-toastify';
 import useAxios from '../../../hooks/useAxios';
 import Input from '../../UI/authInventory/input';
 import RedirectButton from '../../UI/authInventory/redirectButton';
@@ -46,12 +47,21 @@ const RegisterForm = (props) => {
                 localStorage.setItem("token-access", response.token);
                 dispatch({ type: "LOGIN", payload: response.data });
 
-                alert("Registration is successful");
+                toast.success("Registration is successful!", {
+                    position: "top-right",
+                    icon: "🔐"
+                });
             } catch (error) {
-                alert("Server Error");
+                toast.error(error.response.data.message || "Server Error", {
+                    position: "top-right",
+                    icon: "😵"
+                });
             };
         } else {
-            alert("Password and confirm password does not match");
+            toast.error("Password and confirm password does not match", {
+                position: "top-right",
+                icon: "❎"
+            });
         };
     };
 

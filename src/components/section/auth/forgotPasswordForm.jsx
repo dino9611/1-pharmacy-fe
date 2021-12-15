@@ -3,6 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import useAxios from '../../../hooks/useAxios';
 import RedirectButton from '../../UI/authInventory/redirectButton';
 import Input from '../../UI/authInventory/input';
+import { toast } from "react-toastify";
 
 const ForgotPasswordForm = (props) => {
 
@@ -28,9 +29,15 @@ const ForgotPasswordForm = (props) => {
                 email: forgotPasswordEmail
             });
 
-            alert("Email is sent");
+            toast.success("Email is sent!", {
+                position: "top-right",
+                icon: "🚀"
+            });
         } catch (error) {
-            alert("Server Error");
+            toast.error(error.response.data.message || "Server Error", {
+                position: "top-right",
+                icon: "😵‍💫"
+            });
         }
     }
 
