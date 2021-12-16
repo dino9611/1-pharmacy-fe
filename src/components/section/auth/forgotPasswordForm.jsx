@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, withRouter } from "react-router-dom";
-import useAxios from '../../../hooks/useAxios';
+import axios from 'axios';
 import RedirectButton from '../../UI/authInventory/redirectButton';
 import Input from '../../UI/authInventory/input';
 import { toast } from "react-toastify";
@@ -13,21 +13,11 @@ const ForgotPasswordForm = (props) => {
         setforgotPasswordEmail(value);
     };
 
-    const [requestBody, setRequestBody] = useState(null);
-
-    let { response, error, loading } = useAxios({
-        url: `http://localhost:2001/forgotPassword`,
-        method: 'post',
-        body: requestBody
-    });
-
     const onClickForgotPasswordButton = async (e) => {
         e.preventDefault();
         
         try {
-            setRequestBody({
-                email: forgotPasswordEmail
-            });
+            await axios.post(`http://localhost:2001/forgotPassword`, { email: forgotPasswordEmail });
 
             toast.success("Email is sent!", {
                 position: "top-right",
@@ -36,7 +26,7 @@ const ForgotPasswordForm = (props) => {
         } catch (error) {
             toast.error(error.response.data.message || "Server Error", {
                 position: "top-right",
-                icon: "😵‍💫"
+                icon: "😵"
             });
         }
     }
@@ -58,7 +48,7 @@ const ForgotPasswordForm = (props) => {
             </div>
             <div>
                 <p className="mb-0">Already have an account?</p>
-                <Link to="/login" style={{ color: "var(--blue-color)" }}>Login</Link> or <Link to="/register" style={{ color: "var(--blue-color)" }}>Sign Up</Link>
+                <Link to="/login" style={{ color: "var(--pink-color)" }}>Login</Link> or <Link to="/register" style={{ color: "var(--pink-color)" }}>Sign Up</Link>
             </div>
         </div>
     );

@@ -4,13 +4,14 @@ import NavbarButton from './navbarButton';
 
 const sideNavbar = (props) => {
     return (
-        <div className="d-flex flex-column p-4 align-items-start"
+        <div 
+            className="d-flex flex-column p-4 align-items-start"
             style={{ 
                 height: "190vh",
                 width: "20vw",
                 backgroundColor: "white",
                 borderRight: "2px solid lightgray",
-                boxShadow: "1px 0 15px -5px gray"
+                boxShadow: "1px 5px 15px -5px gray"
             }}
         >
             <p style={{ color: "var(--pink-color)", marginBottom: 5, fontSize: 16 }}>MENU</p>

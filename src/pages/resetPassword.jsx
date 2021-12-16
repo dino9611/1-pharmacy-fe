@@ -7,7 +7,8 @@ import Illustration from '../assets/MedicineIllustration3.svg'
 const ForgotPassword = () => {
     return (
         <div className="authPage d-flex justify-content-end align-items-end">
-            <img src={Illustration} 
+            <img 
+                src={Illustration} 
                 alt="" 
                 style={{
                     maxWidth: 450,

@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, withRouter } from "react-router-dom";
 import { toast } from 'react-toastify';
-import useAxios from '../../../hooks/useAxios';
 import Input from '../../UI/authInventory/input';
 import RedirectButton from '../../UI/authInventory/redirectButton';
+import axios from 'axios';
 
 const RegisterForm = (props) => {
     const dispatch = useDispatch();
@@ -22,28 +22,22 @@ const RegisterForm = (props) => {
         setRegisterData({ ...registerData, [name]: value });
     };
 
-    const [requestBody, setRequestBody] = useState(null);
-
-    let { response, error, loading } = useAxios({
-        url: `http://localhost:2001/register`,
-        method: 'post',
-        body: requestBody
-    });
-
     const onClickRegisterButton = async (e) => {
         e.preventDefault();
         const { firstName, lastName, username, email, password, confirmPassword } = registerData;
 
         if (password === confirmPassword) {
             try {
-                setRequestBody({
+                let dataBody = {
                     firstName, 
                     lastName,
                     username,
                     email,
                     password                
-                });
+                };
                 
+                const response = await axios.post(`http://localhost:2001/register`, dataBody);
+
                 localStorage.setItem("token-access", response.token);
                 dispatch({ type: "LOGIN", payload: response.data });
 
@@ -60,7 +54,7 @@ const RegisterForm = (props) => {
         } else {
             toast.error("Password and confirm password does not match", {
                 position: "top-right",
-                icon: "❎"
+                icon: "❌"
             });
         };
     };
@@ -126,7 +120,7 @@ const RegisterForm = (props) => {
             </div>
             <div>
                 <p className="mb-0">Already have an account?</p>
-                <Link to="/login" style={{ color: "var(--blue-color)" }}>Login</Link> or <Link to="/" style={{ color: "var(--blue-color)" }}>Go to Home</Link>
+                <Link to="/login" style={{ color: "var(--pink-color)" }}>Login</Link> or <Link to="/" style={{ color: "var(--pink-color)" }}>Go to Home</Link>
             </div>
         </div>
     );

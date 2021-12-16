@@ -6,7 +6,8 @@ const NavbarButton = (props) => {
     const { history } = props;
 
     return (
-        <button className={`navbarButton d-flex flex-row p-2 ${props.className}`}
+        <button 
+            className={`navbarButton d-flex flex-row p-2 ${props.className}`}
             onClick={() => {history.push(props.endpoint)}}
             style={{ marginBottom: 10 }}
         >

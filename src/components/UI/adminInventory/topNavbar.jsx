@@ -4,7 +4,8 @@ import Logo from "../../../assets/ShortNameLightmode.svg"
 
 const TopNavbar = (props) => {
     return (
-        <div class="d-flex 
+        <div 
+            class="d-flex 
             justify-content-between 
             align-items-center 
             flex-row px-4 py-2" 
@@ -17,7 +18,8 @@ const TopNavbar = (props) => {
             }}
         >
             <div class="flex-fill">
-                <img src={Logo} 
+                <img 
+                    src={Logo} 
                     alt=""
                     style={{
                         maxWidth: 150,

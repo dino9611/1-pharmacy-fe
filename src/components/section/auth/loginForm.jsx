@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, withRouter } from "react-router-dom";
 import { toast } from 'react-toastify';
-import useAxios from '../../../hooks/useAxios';
 import Input from '../../UI/authInventory/input';
 import RedirectButton from '../../UI/authInventory/redirectButton';
+import axios from 'axios';
 
 const LoginForm = (props) => {
     const dispatch = useDispatch();
@@ -28,23 +28,17 @@ const LoginForm = (props) => {
         setLoginData({...loginData, [name]: value });
     };
 
-    const [requestBody, setRequestBody] = useState(null);
-
-    let { response, error, loading } = useAxios({
-        url: `http://localhost:2001/login`,
-        method: 'post',
-        body: requestBody
-    });
-
     const onClickLoginButton = async (e) => {
         e.preventDefault();
         const { usernameOrEmail, password } = loginData;
         
         try {
-            setRequestBody({
+            let dataBody = {
                 usernameOrEmail,
                 password,             
-            });            
+            };            
+
+            const response = await axios.post(`http://localhost:2001/login`, dataBody);
 
             localStorage.setItem("token-access", response.token);
             dispatch({ type: "LOGIN", payload: response.data });
@@ -54,6 +48,7 @@ const LoginForm = (props) => {
                 icon: "🔓"
             });
         } catch (error) {
+            console.error(error.message)
             toast.error(error.response.data.message || "Server Error", {
                 position: "top-right",
                 icon: "😵‍💫"
@@ -82,7 +77,7 @@ const LoginForm = (props) => {
                     placeholder="username or email" 
                 />      
                 <Input 
-                    type="text"
+                    type="password"
                     onChange={onFormInputChange}
                     name="password"  
                     value={loginData.password}
@@ -97,14 +92,13 @@ const LoginForm = (props) => {
                         marginLeft: -25,
                     }}
                 >
-                    { maskedPassword === "password" ? <i class="fas fa-eye"></i> : <i class="fas fa-eye-slash"></i>}
                 </span>
                 <p><Link to="/forgotPassword" style={{ color: "var(--blue-color)" }}>Forgot your password?</Link></p>
                 <RedirectButton label="LOGIN" className="mt-4" onClick={onClickLoginButton}/>
             </div>
             <div>
                 <p className="mb-0">Don't have an account? Register now!</p>
-                <Link to="/register" style={{ color: "var(--blue-color)" }}>Sign Up</Link> or <Link to="/" style={{ color: "var(--blue-color)" }}>Go to Home</Link>
+                <Link to="/register" style={{ color: "var(--pink-color)" }}>Sign Up</Link> or <Link to="/" style={{ color: "var(--pink-color)" }}>Go to Home</Link>
             </div>
         </div>
     );

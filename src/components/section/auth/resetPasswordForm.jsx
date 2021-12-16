@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import useAxios from '../../../hooks/useAxios';
 import Input from '../../UI/authInventory/input';
 import RedirectButton from '../../UI/authInventory/redirectButton';
+import axios from 'axios';
 
 const ResetPasswordForm = (props) => {
     const [resetPassword, setResetPassword] = useState({
@@ -15,13 +16,6 @@ const ResetPasswordForm = (props) => {
         setResetPassword({...resetPassword, [name]: value });
     };
 
-    const [requestBody, setRequestBody] = useState(null);
-
-    let { response, error, loading } = useAxios({
-        url: `http://localhost:2001/resetPassword`,
-        method: 'post',
-        body: requestBody
-    });
 
     const onClickResetPasswordButton = async (e) => {
         e.preventDefault();
@@ -29,10 +23,8 @@ const ResetPasswordForm = (props) => {
 
         if (newPassword === confirmNewPassword) {
             try {
-                setRequestBody({
-                    newPassword
-                });
-    
+                await axios.post(`http://localhost:2001/register`, { newPassword });
+
                 toast.success("Password is reset!", {
                     position: "top-right",
                     icon: "🚀"

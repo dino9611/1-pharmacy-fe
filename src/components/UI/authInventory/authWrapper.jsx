@@ -3,7 +3,8 @@ import Logo from '../../../assets/FullNameLightmode.svg'
 
 const AuthWrapper = (props) => {
     return (
-        <div className={`d-flex 
+        <div    
+            className={`d-flex 
             justify-content-center 
             align-items-center 
             text-center 
@@ -19,7 +20,8 @@ const AuthWrapper = (props) => {
             }}
         >
             <div>
-                <img src={Logo} 
+                <img    
+                    src={Logo} 
                     alt="" 
                     style={{
                         maxWidth: 150,
@@ -27,7 +29,8 @@ const AuthWrapper = (props) => {
                     }}
                 ></img>
             </div>
-            <p style={{
+            <p 
+                style={{
                 color: "var(--black-color)", 
                 fontWeight: 700, 
                 fontSize: 45,
