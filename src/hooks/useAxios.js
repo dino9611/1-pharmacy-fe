@@ -7,8 +7,9 @@ function useAxios({ url, method, body = null, headers = null }) {
 	const [loading, setLoading] = useState(true);
 
 	// fetching loading = true, error = '', response = null => initial state
-	useEffect(() => {
-		axios[method](url, JSON.parse(headers), JSON.parse(body))
+
+	const process = () => {
+		axios[method](url, body, JSON.parse(headers))
 			.then((res) => {
 				setResponse(res.data);
 				setLoading(false);
@@ -19,7 +20,11 @@ function useAxios({ url, method, body = null, headers = null }) {
 				setLoading(false);
 				//if error, response = null, loading = false, error = err
 			});
-	}, [method, url, body, headers]);
+	};
+
+	useEffect(() => {
+		process();
+	}, [method, url, headers, body]);
 
 	return { response, error, loading };
 }

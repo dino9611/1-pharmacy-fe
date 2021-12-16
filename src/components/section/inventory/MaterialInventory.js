@@ -9,7 +9,7 @@ function MaterialInventory() {
 	let [page, setPage] = useState(1);
 
 	let { response, error, loading } = useAxios({
-		url: `http://localhost:2001/inventory/material/getList/${limit}/${offset}`,
+		url: `http://localhost:2001/material/getList/${limit}/${offset}`,
 		method: 'get',
 	});
 
@@ -33,8 +33,6 @@ function MaterialInventory() {
 		setOffset(limit * changePage - limit);
 		setPage(changePage);
 	};
-
-	console.log(response);
 
 	return (
 		<div>

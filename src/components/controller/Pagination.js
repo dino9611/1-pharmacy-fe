@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function Pagination(props) {
 	const onChangeHandler = (event) => {
