@@ -1,30 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import 'chart.js/auto';
-import { Bar } from 'react-chartjs-2'
+import { Doughnut } from 'react-chartjs-2'
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-function SalesChart () {
-    const [totalSales, setTotalSales] = useState([]);
+//<Doughnut title='Total orders categorized by age' endpoint='/admin/sales/orders-by-age' />
+//<Doughnut title='Total orders categorized by gender' endpoint='/admin/sales/orders-by-gender' />
+
+function SalesDoughnut (props) {
+    const [chartDatas, setChartDatas] = useState([]);
 
     useEffect(() => {
         const fetchdata = async () => {
             try {
-                const response = await axios.get(`http://localhost:2001/admin/sales/monthly-sales`);
-                setTotalSales(response.data)
+                const response = await axios.get(`http://localhost:2001/admin/sales/${props.endpoint}`);
+                setChartDatas(response.data)
             } catch (error) {
                 toast.error(error.response.data.message || "Server Error", {
                     position: "top-right",
                     icon: "😵"
-                });;
+                });
             }
         };
+
         fetchdata();
     }, []);
     
     return (
-        <div 
-            className="mt-4 mb-4 p-3 text-center" 
+        <div className="mt-4 mb-4 p-3 text-center" 
             style={{ 
                 backgroundColor: "whitesmoke", 
                 border: "1px solid gainsboro"
@@ -37,18 +40,17 @@ function SalesChart () {
                     fontSize: 20 
                 }}
             >
-                Total Sales per Month
+                {props.title}
             </p>
             <div 
-                style={{ width: "70vw" }}>
-                <Bar
+                style={{ width: "32vw" }}>
+                <Doughnut
                     data={{
-                        labels: totalSales.map(totalSale => totalSale.month),
+                        labels: chartDatas.map(chartData => chartData[props.labelField]),
                         datasets:[
                             {
-                                label: "Rp",
-                                data: totalSales.map(totalSale => totalSale.total_payment),
-                                backgroundColor: [
+                                data: chartDatas.map(chartData => chartData[props.dataField]),
+                                backgroundColor: [ 
                                     "powderblue", 
                                     "thistle", 
                                     "lightsalmon", 
@@ -56,28 +58,18 @@ function SalesChart () {
                                     "pink",
                                     "lightgreen",
                                     "burlywood",
-                                    "lightcoral",
-                                    "khaki",
-                                    "palevioletred"
-                                ]
+                                    "lightcoral"
+                                ],
                             },
                         ]
                     }}
-                    options={{ maintainAspectRatio: true }}
-                />
-                <br/>
-                <p 
-                    style={{ 
-                        color: "var(--pink-color)", 
-                        fontWeight: 400, 
-                        fontSize: 20 
+                    options={{ 
+                        maintainAspectRatio: true,
                     }}
-                >
-                    Current Gross Sales: Rp. {totalSales.reduce((prev, curr) => prev + curr.total_payment, 0)}
-                </p>
+                />
             </div>
         </div>
     );
 };
 
-export default SalesChart;
+export default SalesDoughnut;

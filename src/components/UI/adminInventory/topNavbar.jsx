@@ -1,6 +1,6 @@
 import React from 'react';
 import './style.css';
-import Logo from "../../../assets/ShortNameLightmode.svg"
+import Logo from '../../../assets/ShortNameLightmode.svg'
 
 const TopNavbar = (props) => {
     return (

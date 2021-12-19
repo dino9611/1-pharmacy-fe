@@ -16,14 +16,19 @@ const PrivateRoute = (props) => {
     <div 
       className=""
       style={{ 
-        height: "200vh",
-        backgroundColor: "#FFF6F6",
+        height: "100%",
+        backgroundColor: "#FFECEE",
       }}
     >
       <TopNavbar/>
       <div className="d-flex flex-row">
         <SideNavbar/>
-        <Route {...rest} />
+        <div 
+          className="d-flex flex-column justify-content-start m-5"
+          style={{ width: "min-content" }}
+        >
+          <Route {...rest} />
+        </div>
       </div>
     </div>
   );

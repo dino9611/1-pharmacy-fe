@@ -7,7 +7,7 @@ const sideNavbar = (props) => {
         <div 
             className="d-flex flex-column p-4 align-items-start"
             style={{ 
-                height: "190vh",
+                minHeight: "90vh",
                 width: "20vw",
                 backgroundColor: "white",
                 borderRight: "2px solid lightgray",

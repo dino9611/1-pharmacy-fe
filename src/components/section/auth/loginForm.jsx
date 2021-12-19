@@ -52,7 +52,7 @@ const LoginForm = (props) => {
             toast.error(error.response.data.message || "Server Error", {
                 position: "top-right",
                 icon: "😵‍💫"
-            });;
+            });
         }
     };
 
