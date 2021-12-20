@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import Input from '../../UI/authInventory/input';
 import RedirectButton from '../../UI/authInventory/redirectButton';
 import axios from 'axios';
+import { API_URL } from '../../../constants/api';
 
 const RegisterForm = (props) => {
     const dispatch = useDispatch();
@@ -36,9 +37,9 @@ const RegisterForm = (props) => {
                     password                
                 };
                 
-                const response = await axios.post(`http://localhost:2001/register`, dataBody);
+                const response = await axios.post(`${API_URL}/register`, dataBody);
 
-                localStorage.setItem("token-access", response.token);
+                localStorage.setItem("token-access", response.headers["x-access-token"]);
                 dispatch({ type: "LOGIN", payload: response.data });
 
                 toast.success("Registration is successful!", {

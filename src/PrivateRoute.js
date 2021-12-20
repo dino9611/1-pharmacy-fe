@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import PageNotFound from './pages/pageNotFound';
-import TopNavbar from './components/UI/adminInventory/topNavbar';
-import SideNavbar from './components/UI/adminInventory/sideNavbar';
+import TopNavbar from './components/section/admin/topNavbar';
+import SideNavbar from './components/section/admin/sideNavbar';
 
 const PrivateRoute = (props) => {
   const { isLogin, isAdmin, ...rest } = props;

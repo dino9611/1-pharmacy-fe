@@ -6,4 +6,5 @@
 
 .navbarButton:hover{
     color: var(--blue-color);
+    transition: 300ms;
 }

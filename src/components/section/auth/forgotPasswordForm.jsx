@@ -4,6 +4,7 @@ import axios from 'axios';
 import RedirectButton from '../../UI/authInventory/redirectButton';
 import Input from '../../UI/authInventory/input';
 import { toast } from "react-toastify";
+import { API_URL } from '../../../constants/api';
 
 const ForgotPasswordForm = (props) => {
 
@@ -17,7 +18,7 @@ const ForgotPasswordForm = (props) => {
         e.preventDefault();
         
         try {
-            await axios.post(`http://localhost:2001/forgotPassword`, { email: forgotPasswordEmail });
+            await axios.post(`${API_URL}/forgotPassword`, { email: forgotPasswordEmail });
 
             toast.success("Email is sent!", {
                 position: "top-right",

@@ -1,6 +1,5 @@
 import React from 'react';
-import './style.css';
-import NavbarButton from './navbarButton';
+import NavbarButton from '../../UI/adminInventory/navbarButton';
 
 const sideNavbar = (props) => {
     return (
@@ -11,7 +10,7 @@ const sideNavbar = (props) => {
                 width: "20vw",
                 backgroundColor: "white",
                 borderRight: "2px solid lightgray",
-                boxShadow: "1px 5px 15px -5px gray"
+                boxShadow: "1px 5px 15px -5px gray",
             }}
         >
             <p style={{ color: "var(--pink-color)", marginBottom: 5, fontSize: 16 }}>MENU</p>
@@ -21,7 +20,7 @@ const sideNavbar = (props) => {
             <NavbarButton endpoint="/admin/dashboard" icon="fas fa-user" label="User Accounts"/>
             <NavbarButton endpoint="/admin/dashboard" icon="fas fa-history" label="User History"/>
             <NavbarButton endpoint="/admin/sales" icon="fas fa-credit-card" label="Sales Report"/>
-            <NavbarButton endpoint="/admin/dashboard" icon="fas fa-money-check-alt" label="Revenue Report"/>
+            <NavbarButton endpoint="/admin/revenue" icon="fas fa-money-check-alt" label="Revenue Report"/>
             <br/>
             <p style={{ color: "var(--pink-color)", marginBottom: 5, fontSize: 16 }}>ONGOING TASKS</p>
             <NavbarButton endpoint="/admin/dashboard" icon="fas fa-plus-square" label="Order Request"/>

@@ -3,6 +3,7 @@ import 'chart.js/auto';
 import { Bar } from 'react-chartjs-2'
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { API_URL } from '../../../constants/api';
 
 function SalesChart () {
     const [totalSales, setTotalSales] = useState([]);
@@ -10,7 +11,7 @@ function SalesChart () {
     useEffect(() => {
         const fetchdata = async () => {
             try {
-                const response = await axios.get(`http://localhost:2001/admin/sales/monthly-sales`);
+                const response = await axios.get(`${API_URL}/admin/sales/monthly-sales`);
                 setTotalSales(response.data)
             } catch (error) {
                 toast.error(error.response.data.message || "Server Error", {

@@ -1,5 +1,4 @@
 import React from 'react';
-import './style.css';
 import Logo from '../../../assets/ShortNameLightmode.svg'
 
 const TopNavbar = (props) => {
@@ -13,8 +12,7 @@ const TopNavbar = (props) => {
                 height: "10vh",
                 backgroundColor: "white",
                 borderBottom: "2px solid lightgray",
-                boxShadow: "0 1px 15px -5px gray"
-
+                boxShadow: "0 1px 15px -5px gray",
             }}
         >
             <div class="flex-fill">

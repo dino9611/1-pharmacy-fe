@@ -3,9 +3,7 @@ import 'chart.js/auto';
 import { Doughnut } from 'react-chartjs-2'
 import axios from 'axios';
 import { toast } from 'react-toastify';
-
-//<Doughnut title='Total orders categorized by age' endpoint='/admin/sales/orders-by-age' />
-//<Doughnut title='Total orders categorized by gender' endpoint='/admin/sales/orders-by-gender' />
+import { API_URL } from '../../../constants/api';
 
 function SalesDoughnut (props) {
     const [chartDatas, setChartDatas] = useState([]);
@@ -13,7 +11,7 @@ function SalesDoughnut (props) {
     useEffect(() => {
         const fetchdata = async () => {
             try {
-                const response = await axios.get(`http://localhost:2001/admin/sales/${props.endpoint}`);
+                const response = await axios.get(`${API_URL}/admin/sales/${props.endpoint}`);
                 setChartDatas(response.data)
             } catch (error) {
                 toast.error(error.response.data.message || "Server Error", {

@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import Input from '../../UI/authInventory/input';
 import RedirectButton from '../../UI/authInventory/redirectButton';
 import axios from 'axios';
+import { API_URL } from '../../../constants/api';
 
 const LoginForm = (props) => {
     const dispatch = useDispatch();
@@ -38,9 +39,9 @@ const LoginForm = (props) => {
                 password,             
             };            
 
-            const response = await axios.post(`http://localhost:2001/login`, dataBody);
+            const response = await axios.post(`${API_URL}/login`, dataBody);
 
-            localStorage.setItem("token-access", response.token);
+            localStorage.setItem("token-access", response.headers["x-access-token"]);
             dispatch({ type: "LOGIN", payload: response.data });
 
             toast.success("Login is successful!", {
@@ -51,7 +52,7 @@ const LoginForm = (props) => {
             console.error(error.message)
             toast.error(error.response.data.message || "Server Error", {
                 position: "top-right",
-                icon: "😵‍💫"
+                icon: "😵"
             });
         }
     };
