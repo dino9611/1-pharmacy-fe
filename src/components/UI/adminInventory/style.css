@@ -1,0 +1,10 @@
+.navbarButton{
+    background-color: transparent;
+    border: 0px solid white;
+    color: var(--black-color);
+}
+
+.navbarButton:hover{
+    color: var(--blue-color);
+    transition: 300ms;
+}
