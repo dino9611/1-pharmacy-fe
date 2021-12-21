@@ -28,7 +28,8 @@ function SalesChart () {
             className="mt-4 mb-4 p-3 text-center" 
             style={{ 
                 backgroundColor: "whitesmoke", 
-                border: "1px solid gainsboro"
+                border: "1px solid lightgray",
+                width: "100%"
             }}
         >
             <p 
@@ -40,8 +41,7 @@ function SalesChart () {
             >
                 Total Sales per Month
             </p>
-            <div 
-                style={{ width: "70vw" }}>
+            <div>
                 <Bar
                     data={{
                         labels: totalSales.map(totalSale => totalSale.month),

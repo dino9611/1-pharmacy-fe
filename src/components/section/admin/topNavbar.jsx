@@ -50,7 +50,7 @@ const TopNavbar = (props) => {
                     }}>
                     <i class="far fa-bell"></i>
                 </button>
-            </div>            
+            </div>   
         </div>
     );
 }

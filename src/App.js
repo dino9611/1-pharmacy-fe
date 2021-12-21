@@ -18,7 +18,7 @@ import "react-toastify/dist/ReactToastify.css";
   
 function App() {
 	return (
-		<div className='App'>
+		<div className="App" style={{ overflowY: "hidden", height: "100vh" }}>
 			{/* <ProductInventory /> */}
 			{/* <MaterialInventory /> */}
 			<Switch>

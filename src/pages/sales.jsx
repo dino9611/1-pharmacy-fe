@@ -5,7 +5,7 @@ import SalesTable from '../components/UI/adminInventory/salesTable';
 
 const AdminDashboard = (props) => {
     return (
-        <div className="text-center">
+        <div className="text-center m-5">
             <h3>Real Time Sales Report Year 2021</h3>
             <SalesChart/>
             <br />
@@ -20,7 +20,7 @@ const AdminDashboard = (props) => {
                 <SalesTable
                     endpoint="orders-by-age-range"
                     title="Total Orders Categorized by Age"
-                    style={{ height: "85%" }}
+                    style={{ height: "90%" }}
                     labelCategory="Age Range"
                     dataCategory="Orders"
                     labelField="age"
@@ -30,7 +30,7 @@ const AdminDashboard = (props) => {
             <div className="d-flex flex-row justify-content-between">
                 <SalesDoughnut 
                    endpoint="current-orders-status" 
-                   title="Current Active Orders Categorized by Status" 
+                   title="Current Ongoing Orders Categorized by Status" 
                    labelField="status" 
                    dataField="current_orders"
                />
