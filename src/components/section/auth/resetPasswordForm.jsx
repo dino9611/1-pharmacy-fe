@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import Input from '../../UI/authInventory/input';
 import RedirectButton from '../../UI/authInventory/redirectButton';
+import qs from "query-string";
 import axios from 'axios';
 import { API_URL } from '../../../constants/api';
 
@@ -11,19 +12,24 @@ const ResetPasswordForm = (props) => {
         confirmNewPassword: "",
     });
 
-
     const onFormInputChange = (value, name) => {
         setResetPassword({...resetPassword, [name]: value });
     };
 
-
     const onClickResetPasswordButton = async (e) => {
         e.preventDefault();
         const { newPassword, confirmNewPassword } = resetPassword;
+        const { token } = qs.parse(window.location.search);
+        console.log(token);
 
         if (newPassword === confirmNewPassword) {
             try {
-                await axios.post(`${API_URL}/register`, { newPassword });
+                const response = await axios.post(`${API_URL}/resetPassword`, { newPassword }, {
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                    }
+                });
+                console.log(response.data);
 
                 toast.success("Password is reset!", {
                     position: "top-right",

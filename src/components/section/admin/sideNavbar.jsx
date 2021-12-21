@@ -17,7 +17,7 @@ const sideNavbar = (props) => {
             <NavbarButton endpoint="/admin/dashboard" icon="fas fa-prescription-bottle-alt" label="Product List"/>
             <NavbarButton endpoint="/admin/dashboard" icon="fas fa-tablets" label="Material List"/>
             <NavbarButton endpoint="/admin/dashboard" icon="fas fa-user" label="User Accounts"/>
-            <NavbarButton endpoint="/admin/dashboard" icon="fas fa-history" label="User History"/>
+            <NavbarButton endpoint="/admin/userHistory" icon="fas fa-history" label="User History"/>
             <NavbarButton endpoint="/admin/sales" icon="fas fa-credit-card" label="Sales Report"/>
             <NavbarButton endpoint="/admin/revenue" icon="fas fa-money-check-alt" label="Revenue Report"/>
             <br/>

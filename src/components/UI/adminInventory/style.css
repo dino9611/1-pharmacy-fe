@@ -1,7 +1,6 @@
 .navbarButton{
     background-color: transparent;
     border: 0px solid white;
-    color: var(--black-color);
 }
 
 .navbarButton:hover{

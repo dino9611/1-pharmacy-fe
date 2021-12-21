@@ -6,7 +6,7 @@ import RevenueText4 from '../components/UI/adminInventory/revenueText4';
 
 const Revenue = (props) => {
     return (
-        <div className="m-5" style={{ width: "70vw" }}>
+        <div className="m-5">
             <h3 className="text-center mb-4">Real Time Revenue Report Year 2021</h3>
             <div className="d-flex flex-row justify-content-between mb-5">
                 <RevenueText1/>

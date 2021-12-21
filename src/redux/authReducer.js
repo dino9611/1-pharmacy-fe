@@ -3,8 +3,8 @@ const INITIAL_STATE = {
     username: "",
     email: "",
     isVerified: false,
-    isAdmin: true,
-    isLogin: true,
+    isAdmin: false,
+    isLogin: false,
 };
 
 const authReducer = (state = INITIAL_STATE, action) => {
