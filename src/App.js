@@ -1,35 +1,36 @@
-import Basic from './components/controller/Basic';
-import MaterialForm from './components/controller/MaterialForm';
-import SearchBar from './components/controller/SearchBar';
-import UploadImage from './components/controller/UploadImage';
-import ProductPagination from './components/section/E-Pharma/ProductPagination';
-import AddInventory from './components/section/inventory/AddInventory';
-import AddMaterial from './components/section/inventory/AddMaterial';
-import AddMedicineIngredients from './components/section/inventory/AddMedicineIngredients';
-import EditMaterial from './components/section/inventory/EditMaterial';
-import MaterialInventory from './components/section/inventory/MaterialInventory';
-import ProductInventory from './components/section/inventory/ProductInventory';
-import UserProfile from './components/section/UserProfile/UserProfileForm';
-import AddMedicinePage from './pages/AddMedicinePage';
-import MaterialInventoryPage from './pages/MaterialInventoryPage';
-import UserProfilePage from './pages/UserProfilePage';
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
+import Marketplace from './pages/marketplace';
+import Login from './pages/login';
+import Register from './pages/register';
+import ForgotPassword from './pages/forgotPassword';
+import ResetPassword from './pages/resetPassword';
+import Checkout from './pages/checkout';
+import PageNotFound from './pages/pageNotFound';
+import PrivateRoute from './PrivateRoute';
+import Sales from './pages/sales';
+import Revenue from './pages/revenue';
+import AdminDashboard from './pages/adminDashboard';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+  
 
 function App() {
 	return (
-		<div className='App'>
-			{/* <ProductInventory /> */}
-			{/* <AddMaterial /> */}
-			<MaterialInventory />
-			{/* <SearchBar url={`http://localhost:2001/material/search`} /> */}
-			{/* <AddMedicinePage /> */}
-			{/* <MaterialForm /> */}
-			{/* <ProductPagination /> */}
-			{/* <AddInventory /> */}
-			{/* <Basic /> */}
-			{/* <MaterialInventoryPage /> */}
-			{/* <AddInventory /> */}
-			{/* <UserProfilePage /> */}
-			{/* <UploadImage /> */}
+		<div className='App'>	
+			<Switch>
+				<Route path="/" exact component={Marketplace} />
+				<Route path="/login" component={Login} />
+				<Route path="/register" component={Register} />
+				<Route path="/forgotPassword" component={ForgotPassword} />
+				<Route path="/resetPassword" component={ResetPassword} />
+				<PrivateRoute path="/checkout" exact component={Checkout} adminAuth={false}/>
+				<PrivateRoute path="/admin/dashboard" exact component={AdminDashboard} adminAuth={true}/>
+				<PrivateRoute path="/admin/sales" exact component={Sales} adminAuth={true}/>
+				<PrivateRoute path="/admin/revenue" exact component={Revenue} adminAuth={true}/>
+				<Route path="*" component={PageNotFound} />
+			</Switch>
+			<ToastContainer/>
 		</div>
 	);
 }
