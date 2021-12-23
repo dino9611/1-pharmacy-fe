@@ -1,4 +1,6 @@
 import React from 'react';
+import ActionButtonEdit from '../../controller/ActionButton';
+import EditProduct from '../../section/inventory/EditProduct';
 
 function ProductTable(props) {
 	return (
@@ -25,16 +27,22 @@ function ProductTable(props) {
 							<td>{element.price}</td>
 							<td>{element.quantityInStock}</td>
 							<td>
-								<div className='btn-group'>
-									<button
-										className='btn btn-outline-primary'
-										data-bs-toggle='offcanvas'
-										data-bs-target='#topbar'
-									>
-										Edit
-									</button>
-									<button className='btn btn-outline-danger'>delete</button>
-								</div>
+								<ActionButtonEdit
+									id={element.id}
+									title={`Edit ${element.name}`}
+									deleteUrl='http://localhost:2001/inventory'
+								>
+									<EditProduct
+										id={element.id}
+										name={element.name}
+										price={element.price}
+										description={element.description}
+										image={element.image}
+										serving={element.serving}
+										quantityInStock={element.quantityInStock}
+										materialsList={element.materials}
+									/>
+								</ActionButtonEdit>
 							</td>
 						</tr>
 					);

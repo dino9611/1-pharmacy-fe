@@ -5,9 +5,6 @@ import MaterialTable from '../../UI/materialInventory/MaterialTable';
 import OffCanvas from '../../UI/utility/OffCanvas';
 import SearchBar from '../../controller/SearchBar';
 import AddMaterial from './AddMaterial';
-import axios from 'axios';
-import { useEffect } from 'react/cjs/react.development';
-import EditMaterial from './EditMaterial';
 
 function MaterialInventory() {
 	let [limit, setLimit] = useState(9);
