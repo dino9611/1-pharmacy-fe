@@ -6,31 +6,34 @@ import CustomForm from '../../UI/utility/CustomForm';
 import CustomSelect from '../../UI/utility/CustomSelect';
 import CustomTextInput from '../../UI/utility/CustomTextInput';
 
-function AddMaterial(props) {
+function EditMaterial(props) {
 	const [body, setBody] = useState();
 
 	const { response, loading, error } = useAxios({
-		method: 'post',
-		url: 'http://localhost:2001/material',
+		method: 'put',
+		url: `http://localhost:2001/material/${props.id}`,
 		body,
 	});
 
 	const onFormSubmitHandler = async (value) => {
 		setBody(value);
-		props.onAddMaterial();
+		console.log(value);
 	};
+
+	const initialValue = {
+		name: props.name,
+		price: props.price,
+		bottle_quantity: props.bottle_quantity,
+		quantity_per_bottle: props.quantity_per_bottle,
+		stock_quantity: props.stock_quantity,
+	};
+	console.log(body);
+	console.log(response);
 
 	return (
 		<div>
 			<CustomForm
-				initial={{
-					name: '',
-					price: '',
-					bottle_quantity: '',
-					quantity_per_bottle: '',
-					stock_quantity: '',
-					UnitId: 1,
-				}}
+				initial={initialValue}
 				validate={Yup.object().shape({
 					name: Yup.string()
 						.min(5, 'Must be 5 character or more')
@@ -90,6 +93,7 @@ function AddMaterial(props) {
 							type='number'
 							placeholder='bottle quantity'
 						/>
+						Bottle
 					</div>
 				</div>
 				<div className='row justify-content-center mb-4'>
@@ -118,7 +122,7 @@ function AddMaterial(props) {
 					<CustomSelect
 						className='form-select'
 						classLabel='form-label'
-						label='UnitId'
+						label='Unit'
 						name='UnitId'
 					>
 						<option value={1}>mg</option>
@@ -127,13 +131,10 @@ function AddMaterial(props) {
 						<option value={4}>cl</option>
 					</CustomSelect>
 				</div>
-				<button type='submit' className='btn btn-primary'>
-					submit
-				</button>
+				<input type='submit'></input>
 			</CustomForm>
-			{props.children}
 		</div>
 	);
 }
 
-export default AddMaterial;
+export default EditMaterial;

@@ -50,7 +50,7 @@ function MaterialForm() {
 			>
 				{(props) => (
 					<Form>
-						<h1>Add Material</h1>
+						<h4>Add Material</h4>
 						<CustomTextInput
 							label='name'
 							name='name'
@@ -81,7 +81,11 @@ function MaterialForm() {
 							name='stock_quantity'
 							placeholder='Stock Quantity'
 						/>
-						<CustomSelect label='UnitId' name='UnitId'>
+						<CustomSelect
+							className='btn btn-secondary dropdown-toggle'
+							label='UnitId'
+							name='UnitId'
+						>
 							<option value={1}>mg</option>
 							<option value={2}>gr</option>
 							<option value={3}>ml</option>

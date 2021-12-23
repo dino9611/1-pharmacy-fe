@@ -6,7 +6,9 @@ function CustomSelect({ label, ...props }) {
 
 	return (
 		<>
-			<label htmlFor={props.id || props.name}>{label}</label>
+			<label htmlFor={props.id || props.name} className={props.classLabel}>
+				{label}
+			</label>
 			<select {...field} {...props} />
 			{meta.touched && meta.error ? (
 				<h6 style={{ color: 'red' }}>{meta.error}</h6>

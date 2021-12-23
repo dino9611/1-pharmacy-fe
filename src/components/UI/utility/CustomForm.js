@@ -10,6 +10,7 @@ function CustomForm(props) {
 	return (
 		<div className={props.className}>
 			<Formik
+				enableReinitialize
 				initialValues={props.initial}
 				validationSchema={props.validate}
 				onSubmit={onSubmitHandler}

@@ -1,13 +1,14 @@
-import { Field } from 'formik';
+import { Field, Form, Formik, useField } from 'formik';
 import React from 'react';
-import { useState } from 'react/cjs/react.development';
+import { useEffect, useState } from 'react/cjs/react.development';
 import useAxios from '../../../hooks/useAxios';
-import CustomForm from '../../UI/utility/CustomForm';
 import CustomSelect from '../../UI/utility/CustomSelect';
 import CustomTextInput from '../../UI/utility/CustomTextInput';
+import * as Yup from 'yup';
 
 function AddMedicineIngredients(props) {
 	const [input, setInput] = useState('');
+	const [isError, setIsError] = useState(false);
 	let { response, error, loading } = useAxios({
 		url:
 			'http://localhost:2001/inventory/medicines' +
@@ -15,54 +16,78 @@ function AddMedicineIngredients(props) {
 		method: 'get',
 	});
 
-	const formSubmitHandler = (value, event) => {
-		console.log(value);
-		event.preventDefault();
-		// props.onAddMaterial(value);
+	useEffect(() => {
+		if (response) {
+			let data = response.map((element) => {
+				return element.name;
+			});
+
+			let checked = data.find((element) => element === input);
+
+			if (data && checked) {
+				setIsError(false);
+			} else {
+				setIsError(true);
+			}
+		}
+		console.log(isError);
+	}, [input]);
+
+	const formSubmitHandler = (value, { setSubmitting, resetForm }) => {
+		props.onAddMaterial({ ...value, name: input });
 	};
 	return (
 		<div>
-			<CustomForm
-				initial={{
-					name: '',
+			<Formik
+				initialValues={{
 					quantity: '',
 					UnitId: 1,
 				}}
-				submitHandler={formSubmitHandler}
-				buttonName='add'
+				validationSchema={Yup.object().shape({
+					quantity: Yup.number()
+						.min(1, ' minimum of 1')
+						.max(10, 'maximum of 10')
+						.required('Required'),
+					UnitId: Yup.number()
+						.oneOf([1, 2, 3, 4], 'invalid option')
+						.required('Required'),
+				})}
+				onSubmit={formSubmitHandler}
 			>
-				{/* <Field name='name' value={input} /> */}
+				<Form>
+					<Field
+						type='text'
+						name='name'
+						list='names'
+						id='name'
+						onChange={(event) => setInput(event.target.value)}
+						value={input}
+					/>
+					<datalist id='names'>
+						{response &&
+							response.map((element) => {
+								return <option value={element.name}>{element.name}</option>;
+							})}
+					</datalist>
+					{isError && <h6 style={{ color: 'red' }}>Material not found</h6>}
+					<CustomTextInput
+						label='quantity'
+						name='quantity'
+						type='text'
+						placeholder='quantity'
+					/>
 
-				<Field
-					list='materialName'
-					id='materialName'
-					name='name'
-					// value={input}
-					onChange={(event, value) => setInput(value)}
-				/>
-				<datalist id='materialName'>
-					{response &&
-						response.map((element) => {
-							<option
-								value={element.name}
-								onClick={(event, value) => setInput(value)}
-							/>;
-						})}
-				</datalist>
-				<CustomTextInput
-					label='quantity'
-					name='quantity'
-					type='number'
-					placeholder='quantity'
-				/>
-				<CustomSelect label='UnitId' name='UnitId'>
-					<option value={1}>mg</option>
-					<option value={2}>gr</option>
-					<option value={3}>ml</option>
-					<option value={4}>cl</option>
-				</CustomSelect>
-				<button type='submit'>add</button>
-			</CustomForm>
+					<CustomSelect label='UnitId' name='UnitId'>
+						<option value={1}>mg</option>
+						<option value={2}>gr</option>
+						<option value={3}>ml</option>
+						<option value={4}>cl</option>
+					</CustomSelect>
+					<button type='submit' disabled={isError ? true : false}>
+						Submit
+					</button>
+				</Form>
+			</Formik>
 		</div>
 	);
 }

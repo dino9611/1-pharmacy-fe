@@ -1,36 +1,38 @@
 import React, { isValidElement, useState } from 'react';
 import useAxios from '../../hooks/useAxios';
+import useDebounce from '../../hooks/useDebounce';
 
 function SearchBar(props) {
-	let [isAdded, setIsAdded] = useState(false);
 	let [input, setInput] = useState('');
+
+	let { debounceValue } = useDebounce({ value: input, delay: 400 });
+
 	let { response, error, loading } = useAxios({
-		url: props.url + `/?name=${input ? input : 'a'}`,
+		url: props.url + `/?name=${debounceValue ? debounceValue : 'a'}`,
 		method: 'get',
 	});
 
 	const onChangeHandler = (event) => {
 		setInput(event.target.value);
-		setIsAdded(false);
 	};
 
 	const onClickHandler = (event) => {
 		let id = +event.target.id;
 		const result = response.filter((element) => element.id === id);
 		setInput(result[0].name);
-		setIsAdded(true);
 		props.onSearchClick(result);
 	};
 
 	return (
 		<div>
 			<input
+				className='form-control me-2'
 				type='text'
 				placeholder='search'
 				onChange={onChangeHandler}
 				value={input}
 			/>
-			{response && !isAdded && input ? (
+			{response && input ? (
 				response.map((element) => {
 					return (
 						<div key={element.id} id={element.id} onClick={onClickHandler}>

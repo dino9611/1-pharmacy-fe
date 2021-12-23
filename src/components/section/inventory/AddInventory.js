@@ -6,26 +6,43 @@ import * as Yup from 'yup';
 import useAxios from '../../../hooks/useAxios';
 import SearchBar from '../../controller/SearchBar';
 import AddMedicineIngredients from './AddMedicineIngredients';
+import axios from 'axios';
+import { useEffect } from 'react/cjs/react.development';
 
 function AddInventory(props) {
 	const [body, setBody] = useState();
 	const [materials, setMaterials] = useState([]);
-	const [addMaterial, setAddMaterial] = useState(false);
-	let { response, error, loading } = useAxios({
-		url: 'http://localhost:2001/inventory',
+
+	// useEffect(async () => {
+	// 	if (body) {
+	// 		const data = await axios.post('http://localhost:2001/inventory', body);
+	// 	}
+	// 	return setBody();
+	// }, [body]);
+
+	const { response, loading, error } = useAxios({
 		method: 'post',
+		url: 'http://localhost:2001/inventory',
 		body,
 	});
 
-	const onFormSubmitHandler = (value) => {
-		console.log(value);
-		setBody(JSON.stringify(value));
+	console.log(response);
+
+	const onFormSubmitHandler = async (value) => {
+		value.materials = materials;
+		setBody(value);
+		setMaterials([]);
 	};
 	const onAddMaterialHandler = (value) => {
 		const output = [...materials, value];
 		setMaterials(output);
-		console.log(materials);
 	};
+
+	const onClickDelete = (event) => {
+		// console.log(event.target);
+	};
+	console.log(body);
+
 	return (
 		<div>
 			<CustomForm
@@ -62,8 +79,6 @@ function AddInventory(props) {
 						.required('Required'),
 				})}
 				submitHandler={onFormSubmitHandler} //required to pass in data from form input
-				loading={loading}
-				error={error}
 				buttonName='submit'
 			>
 				<h1>Add Product</h1>
@@ -99,14 +114,14 @@ function AddInventory(props) {
 				/>
 				<button type='submit'>submit</button>
 			</CustomForm>
-			<button onClick={() => setAddMaterial(true)}>Add Material</button>
-			{addMaterial && <AddMedicineIngredients />}
-			{materials.length > 0 &&
-				materials.map((element) => {
-					<ul>
-						<li>element.name</li>
-					</ul>;
-				})}
+			<AddMedicineIngredients onAddMaterial={onAddMaterialHandler} />
+			{materials.map((element) => {
+				return (
+					<button id={element.id} onClick={onClickDelete} value={element.name}>
+						{element.name}
+					</button>
+				);
+			})}
 		</div>
 	);
 }

@@ -1,83 +1,68 @@
-import React, { useState } from 'react';
+import React from 'react';
+import usePagination from '../../hooks/usePagination';
 
 function Pagination(props) {
-	const onChangeHandler = (event) => {
-		props.limitChangeHandler(event.target.value);
+	const {
+		onPageChange,
+		totalCount,
+		siblingCount = 1,
+		currentPage,
+		pageSize,
+	} = props;
+	const [paginationRange, DOTS] = usePagination({
+		currentPage,
+		totalCount,
+		siblingCount,
+		pageSize,
+	});
+	//conditional rendering logic
+	if (currentPage === 0 || paginationRange.length < 2) return null;
+
+	const onNext = () => {
+		onPageChange(currentPage + 1);
 	};
 
-	const onClickHandler = (event) => {
-		props.pageChangeHandler(event.target.value);
+	const onPrevious = () => {
+		onPageChange(currentPage - 1);
 	};
 
-	//both onChangeHandler and onClickHandler used to control state in parrent
+	let lastPage = paginationRange[paginationRange.length - 1]; // extract last element of range array
 
-	const onPageClickHandler = (event) => {
-		props.directPageChangeHandler(event.target.value);
-	};
-
-	const pageNavLoop = (itemCount) => {
-		let output = [];
-
-		if (itemCount % props.limit === 0) {
-			for (let i = 1; i <= itemCount / props.limit; i++) {
-				output.push(i);
-			}
-			return;
-		}
-		for (let i = 1; i <= itemCount / props.limit; i++) {
-			output.push(Math.ceil(i));
-			if (i + 1 > itemCount / props.limit) {
-				output.push(Math.ceil(i + 1));
-			}
-		}
-
-		return output;
-	};
 	return (
-		<div className='pagination'>
-			<select name='limit' id='item-limit' onChange={onChangeHandler}>
-				<option value='10'>10</option>
-				<option value='15'>15</option>
-				<option value='20'>20</option>
-			</select>
+		<div className='container'>
 			{props.children}
-			<button
-				onClick={onClickHandler}
-				value='prev'
-				disabled={props.page <= 1 && true}
-			>
-				previous page
-			</button>
-			{props.itemCount &&
-				pageNavLoop(props.itemCount).map((element) => {
+
+			<div className='col d-flex justify-content-center'>
+				<button
+					className='btn btn-dark'
+					disabled={currentPage === 1}
+					onClick={onPrevious}
+				>
+					prev
+				</button>
+				{paginationRange.map((pageNumber) => {
+					if (pageNumber === DOTS) {
+						return <div className='p-1'>{DOTS}</div>;
+					}
 					return (
-						<button value={element} onClick={onPageClickHandler}>
-							{element}
+						<button
+							className='btn btn-outline-dark'
+							onClick={() => onPageChange(pageNumber)}
+						>
+							{pageNumber}
 						</button>
 					);
 				})}
-			<button
-				onClick={onClickHandler}
-				value='next'
-				disabled={
-					props.itemCount && pageNavLoop(props.itemCount).length === props.page
-				}
-			>
-				next page
-			</button>
+				<button
+					className='btn btn-dark'
+					disabled={currentPage === lastPage}
+					onClick={onNext}
+				>
+					next
+				</button>
+			</div>
 		</div>
 	);
 }
-
-/**
- * how to use?
- * - put in the the component to the desire section
- * - pass in props:
- * 		- limitChangeHandler(handler for limit item per page)
- * 		- pageChangeHandler(handler for page changes)
- * 		- itemCount(count total item for page)
- * 		- page (current page status)
- * 		- limit (limit item per page)
- */
 
 export default Pagination;

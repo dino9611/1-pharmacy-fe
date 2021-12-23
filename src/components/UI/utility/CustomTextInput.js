@@ -6,8 +6,10 @@ function CustomTextInput({ label, ...props }) {
 
 	return (
 		<>
-			<label htmlFor={props.id || props.name}>{label}</label>
-			<Field className='text-input' {...field} {...props} />
+			<label htmlFor={props.id || props.name} className={props.classLabel}>
+				{label}
+			</label>
+			<Field {...field} {...props} />
 			{props.children}
 			{meta.touched && meta.error ? (
 				<h6 style={{ color: 'red' }}>{meta.error}</h6>

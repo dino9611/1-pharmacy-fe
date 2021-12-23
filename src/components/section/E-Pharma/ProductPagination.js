@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import Pagination from '../../controller/Pagination';
 import useAxios from '../../../hooks/useAxios';
-import ProductListWrapper from '../../UI/productInventory/ProductListWrapper';
-import ProductTable from '../../UI/productInventory/ProductTable';
-import OffCanvas from '../../UI/utility/OffCanvas';
+import ProductListWrapper from '../../UI/E-Pharma/ProductListWrapper';
 
-function ProductInventory() {
+function ProductPagination() {
 	let [limit, setLimit] = useState(9);
 	let [page, setPage] = useState(1);
 
@@ -32,20 +30,14 @@ function ProductInventory() {
 				currentPage={page}
 				pageSize={limit}
 			>
-				<ProductTable
+				<ProductListWrapper
 					data={response && response.list}
 					isError={error}
 					isLoading={loading}
 				/>
-				{/* <ProductListWrapper
-					data={response && response.list}
-					isError={error}
-					isLoading={loading}
-				/> */}
 			</Pagination>
-			<OffCanvas />
 		</div>
 	);
 }
 
-export default ProductInventory;
+export default ProductPagination;

@@ -9,7 +9,7 @@ function useAxios({ url, method, body = null, headers = null }) {
 	// fetching loading = true, error = '', response = null => initial state
 
 	const process = () => {
-		axios[method](url, body, JSON.parse(headers))
+		axios[method](url, body, headers)
 			.then((res) => {
 				setResponse(res.data);
 				setLoading(false);
@@ -23,7 +23,14 @@ function useAxios({ url, method, body = null, headers = null }) {
 	};
 
 	useEffect(() => {
-		process();
+		if (method === 'get' || method === 'delete') {
+			process();
+		} else {
+			if (!body) {
+				return;
+			}
+			process();
+		}
 	}, [method, url, headers, body]);
 
 	return { response, error, loading };
