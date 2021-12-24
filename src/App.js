@@ -1,5 +1,3 @@
-// import MaterialInventory from './components/section/inventory/MaterialInventory';
-// import ProductInventory from './components/section/inventory/ProductInventory';
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Marketplace from './pages/marketplace';
@@ -16,11 +14,10 @@ import AdminDashboard from './pages/adminDashboard';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
   
+
 function App() {
 	return (
-		<div className='App'>
-			{/* <ProductInventory /> */}
-			{/* <MaterialInventory /> */}
+		<div className='App'>	
 			<Switch>
 				<Route path="/" exact component={Marketplace} />
 				<Route path="/login" component={Login} />
