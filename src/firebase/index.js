@@ -2,13 +2,13 @@ import { initializeApp } from 'firebase/app';
 import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
-	apiKey: process.env.FIREBASE_API_KEY,
-	authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-	projectId: process.env.FIREBASE_PROJECT_ID,
-	storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-	messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-	appId: process.env.FIREBASE_APP_ID,
-	measurementId: process.env.FIREBASE_MEASUREMENT_ID,
+	apiKey: 'AIzaSyBR9XU6sbgvvPxHiPAlhYWd-D0eaAtoM0Y',
+	authDomain: 'pharma-e2bef.firebaseapp.com',
+	projectId: 'pharma-e2bef',
+	storageBucket: 'pharma-e2bef.appspot.com',
+	messagingSenderId: '208385451402',
+	appId: '1:208385451402:web:70dc4b547c3ec850b8d473',
+	measurementId: 'G-ZKCH2RYZQ4',
 };
 const app = initializeApp(firebaseConfig);
 

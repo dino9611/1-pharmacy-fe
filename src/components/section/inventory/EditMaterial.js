@@ -1,9 +1,6 @@
-import axios from 'axios';
 import { Form, Formik } from 'formik';
 import React, { useState, useEffect } from 'react';
-import * as Yup from 'yup';
 import useAxios from '../../../hooks/useAxios';
-import CustomForm from '../../UI/utility/CustomForm';
 import CustomSelect from '../../UI/utility/CustomSelect';
 import CustomTextInput from '../../UI/utility/CustomTextInput';
 
@@ -16,9 +13,8 @@ function EditMaterial(props) {
 		body,
 	});
 
-	const onFormSubmitHandler = async (value) => {
+	const onFormSubmitHandler = (value) => {
 		setBody(value);
-		console.log(value);
 	};
 
 	const initialValue = {
@@ -107,7 +103,13 @@ function EditMaterial(props) {
 							<option value={4}>cl</option>
 						</CustomSelect>
 					</div>
-					<input type='submit'></input>
+					<button
+						type='submit'
+						className='btn btn-primary'
+						onClick={props.onEditHandler}
+					>
+						Submit
+					</button>
 				</Form>
 			</Formik>
 		</div>

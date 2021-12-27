@@ -5,6 +5,7 @@ import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 function UploadImage(props) {
 	const [image, setImage] = useState(null);
 	const [percentage, setPercentage] = useState(0);
+	const [err, setErr] = useState(null);
 
 	const changeHandler = (event) => {
 		if (event.target.files[0]) {
@@ -26,20 +27,31 @@ function UploadImage(props) {
 				setPercentage(progress);
 			},
 			(err) => {
-				console.log(err);
+				setErr(true);
 			},
 			() => {
-				getDownloadURL(uploadTask.snapshot.ref).then((url) => console.log(url)); // url to download the image will be stored to database
+				getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+					props.uploadUrl(url);
+				}); // url to download the image will be stored to database
 			},
 		);
 	};
 
 	return (
 		<div>
-			<h1>Upload Image</h1>
 			<input type='file' onChange={changeHandler} />
 			<button onClick={uploadHandler}>Upload</button>
-			<h3>Loading {percentage} %</h3>
+			<div class='progress'>
+				<div
+					class='progress-bar'
+					role='progressbar'
+					style={{ width: `${percentage}%` }}
+					aria-valuenow='25'
+					aria-valuemin='0'
+					aria-valuemax='100'
+				></div>
+			</div>
+			{err && <h6 style={{ color: 'red' }}>Error !!</h6>}
 		</div>
 	);
 }

@@ -1,24 +1,16 @@
 import React, { useState } from 'react';
 import CustomForm from '../../UI/utility/CustomForm';
-import CustomSelect from '../../UI/utility/CustomSelect';
 import CustomTextInput from '../../UI/utility/CustomTextInput';
 import * as Yup from 'yup';
 import useAxios from '../../../hooks/useAxios';
-import SearchBar from '../../controller/SearchBar';
 import AddMedicineIngredients from './AddMedicineIngredients';
-import axios from 'axios';
-import { useEffect } from 'react/cjs/react.development';
+import UploadImage from '../../controller/UploadImage';
+import { connectStorageEmulator } from 'firebase/storage';
 
 function AddInventory(props) {
 	const [body, setBody] = useState();
 	const [materials, setMaterials] = useState([]);
-
-	// useEffect(async () => {
-	// 	if (body) {
-	// 		const data = await axios.post('http://localhost:2001/inventory', body);
-	// 	}
-	// 	return setBody();
-	// }, [body]);
+	const [image, setImage] = useState('');
 
 	const { response, loading, error } = useAxios({
 		method: 'post',
@@ -30,8 +22,10 @@ function AddInventory(props) {
 
 	const onFormSubmitHandler = async (value) => {
 		value.materials = materials;
+		value.image = image;
 		setBody(value);
 		setMaterials([]);
+		props.onAddProduct();
 	};
 	const onAddMaterialHandler = (value) => {
 		const output = [...materials, value];
@@ -50,8 +44,6 @@ function AddInventory(props) {
 					name: '',
 					price: '',
 					description: '',
-					image:
-						'https://www.therecoveryvillage.com/wp-content/uploads/2020/06/Oxycodone-and-Mental-Health-Disorders.jpg',
 					serving: '',
 					quantityInStock: '',
 					isDeleted: false,
@@ -80,39 +72,48 @@ function AddInventory(props) {
 				})}
 				submitHandler={onFormSubmitHandler} //required to pass in data from form input
 				buttonName='submit'
+				className=''
 			>
-				<h1>Add Product</h1>
+				<UploadImage uploadUrl={(value) => setImage(value)} />
 				<CustomTextInput
+					className='form-control'
 					label='name'
 					name='name'
 					type='text'
 					placeholder='name'
 				/>
 				<CustomTextInput
+					className='form-control'
 					label='price'
 					type='number'
 					name='price'
 					placeholder='price'
 				/>
 				<CustomTextInput
+					className='form-control'
 					label='Description'
 					name='description'
 					type='text'
 					placeholder='description'
 				/>
 				<CustomTextInput
+					className='form-control'
 					label='serving'
 					type='number'
 					name='serving'
 					placeholder='serving'
 				/>
 				<CustomTextInput
+					className='form-control'
 					label='Quantity in Stock'
 					type='number'
 					name='quantityInStock'
 					placeholder='Quantity in Stock'
 				/>
-				<button type='submit'>submit</button>
+
+				<button className='btn btn-primary' type='submit'>
+					submit
+				</button>
 			</CustomForm>
 			<AddMedicineIngredients onAddMaterial={onAddMaterialHandler} />
 			{materials.map((element) => {
