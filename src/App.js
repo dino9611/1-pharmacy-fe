@@ -17,11 +17,13 @@ import ProductDetailPage from './pages/ProductDetailPage';
 import UserProfilePage from './pages/UserProfilePage';
 import ProductInventoryPage from './pages/ProductInventoryPage';
 import MaterialInventory from './components/section/inventory/MaterialInventory';
+import Navbar from './components/section/utility/Navbar';
 
 function App() {
 	return (
 		<div className='App'>
-			<Switch>
+			{/* <Navbar /> */}
+			{/* <Switch>
 				<Route path='/' exact component={Marketplace} />
 				<Route path='/login' component={Login} />
 				<Route path='/register' component={Register} />
@@ -69,7 +71,8 @@ function App() {
 				/>
 				<Route path='*' component={PageNotFound} />
 			</Switch>
-			<ToastContainer />
+			<ToastContainer /> */}
+			<UserProfilePage />
 		</div>
 	);
 }

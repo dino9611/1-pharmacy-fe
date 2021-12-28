@@ -56,4 +56,6 @@ function UploadImage(props) {
 	);
 }
 
+// set upload when user proceed with edit profilex
+
 export default UploadImage;

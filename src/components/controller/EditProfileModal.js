@@ -1,8 +1,9 @@
 import React, { useRef, useState } from 'react';
 import { Modal } from 'bootstrap';
 import AddMaterial from '../section/inventory/AddMaterial';
+import UserProfileForm from '../section/UserProfile/UserProfileForm';
 
-function EditProfileModal() {
+function EditProfileModal(props) {
 	const modalRef = useRef();
 
 	const showModal = () => {
@@ -18,19 +19,20 @@ function EditProfileModal() {
 		const modalElement = modalRef.current;
 		const bsModal = Modal.getInstance(modalElement);
 		bsModal.hide();
+		props.onSubmitReload();
 	};
 
 	return (
 		<div>
 			<button className='btn btn-primary' onClick={showModal}>
-				Add
+				Edit Profile
 			</button>
 			<div className='modal fade' ref={modalRef} tabIndex='-1'>
 				<div className='modal-dialog'>
 					<div className='modal-content'>
 						<div className='modal-header'>
 							<h5 className='modal-title' id='staticBackdropLabel'>
-								Modal title
+								Edit profile
 							</h5>
 							<button
 								type='button'
@@ -40,7 +42,18 @@ function EditProfileModal() {
 							></button>
 						</div>
 						<div className='modal-body'>
-							<AddMaterial onAddMaterial={() => closeModal()} />
+							<UserProfileForm
+								id={props.id}
+								firstName={props.firstName}
+								lastName={props.lastName}
+								gender={props.gender}
+								birthdate={props.birthdate}
+								address={props.address}
+								username={props.username}
+								email={props.email}
+								avatar={props.avatar}
+								onEditSubmitHandler={closeModal}
+							/>
 						</div>
 					</div>
 				</div>

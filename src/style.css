@@ -1,19 +1,19 @@
 * {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 400;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 400;
 }
 
 :root {
-    --red-color: #FF4858;
-    --pink-color: #FF7B87;
-    --black-color: #474747;
-    --blue-color: #05AFD1;
-    --beige-color: #F4E4CD;
-    --gray-color: #848484;
+	--red-color: #ff4858;
+	--pink-color: #ff7b87;
+	--black-color: #474747;
+	--blue-color: #05afd1;
+	--beige-color: #f4e4cd;
+	--gray-color: #848484;
 }
 
 .authPage {
-    height: 100vh;
-    width: 100vw;
-    background-color: var(--pink-color);
+	height: 100vh;
+	width: 100vw;
+	background-color: var(--pink-color);
 }
