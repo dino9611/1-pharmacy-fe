@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { API_URL } from '../../../constants/api';
 import RevenueCard from '../../section/admin/revenueCard';
 import './style.css';
 
@@ -15,6 +18,23 @@ const RevenueText1 = (props) => {
         return new Date(date).toLocaleString("en-EN", options);
     };
 
+    // const [datas, setDatas] = useState([]);
+
+    // useEffect(() => {
+    //     const fetchdata = async () => {
+    //         try {
+    //             const response = await axios.get(`${API_URL}/admin/total-revenue`);
+    //             setDatas(response.data)
+    //         } catch (error) {
+    //             toast.error(error.response.data.message || "Server Error", {
+    //                 position: "top-right",
+    //                 icon: "😵"
+    //             });;
+    //         }
+    //     };
+    //     fetchdata();
+    // }, []);
+
     return (
         <RevenueCard 
             style={{ 
@@ -29,13 +49,13 @@ const RevenueText1 = (props) => {
                     color: "var(--black-color)" 
                 }}
             >
-                Total Revenue
+                Grand Total Revenue
             </p>
             <p 
                 style={{ 
                     fontSize: 20,
                     color: "whitesmoke", 
-                    backgroundColor: "var(--pink-color)", 
+                    backgroundColor: "var(--lighter-pink-color)", 
                     width: "fit-content",
                     borderRadius: 15, 
                     padding: 3, 
@@ -52,7 +72,7 @@ const RevenueText1 = (props) => {
                     color: "darkred",         
                 }}
             >
-                Rp. ???
+                Rp. 50425000
             </p>
         </RevenueCard>
     );

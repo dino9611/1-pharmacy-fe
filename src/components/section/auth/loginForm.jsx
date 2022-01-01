@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, withRouter } from "react-router-dom";
 import { toast } from 'react-toastify';
 import Input from '../../UI/authInventory/input';
-import RedirectButton from '../../UI/authInventory/redirectButton';
+import SquareButton from '../../UI/authInventory/squareButton';
 import axios from 'axios';
 import { API_URL } from '../../../constants/api';
 
@@ -43,7 +43,7 @@ const LoginForm = (props) => {
 
             localStorage.setItem("token-access", response.headers["x-access-token"]);
             dispatch({ type: "LOGIN", payload: response.data });
-
+            
             toast.success("Login is successful!", {
                 position: "top-right",
                 icon: "🔓"
@@ -63,7 +63,11 @@ const LoginForm = (props) => {
         };
     });
 
-    if (Auth.isLogin) {
+    if (Auth.isAdmin && Auth.isLogin) {
+        return <Redirect to="/admin/dashboard" />;
+    }
+
+    if (!Auth.isAdmin && Auth.isLogin) {
         return <Redirect to="/" />;
     }
 
@@ -95,7 +99,7 @@ const LoginForm = (props) => {
                 >
                 </span>
                 <p><Link to="/forgotPassword" style={{ color: "var(--blue-color)" }}>Forgot your password?</Link></p>
-                <RedirectButton label="LOGIN" className="mt-4" onClick={onClickLoginButton}/>
+                <SquareButton label="LOGIN" className="mt-4" onClick={onClickLoginButton}/>
             </div>
             <div>
                 <p className="mb-0">Don't have an account? Register now!</p>

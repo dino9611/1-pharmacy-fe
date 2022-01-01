@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import Input from '../../UI/authInventory/input';
-import RedirectButton from '../../UI/authInventory/redirectButton';
+import SquareButton from '../../UI/authInventory/squareButton';
 import qs from "query-string";
 import axios from 'axios';
 import { API_URL } from '../../../constants/api';
@@ -66,7 +66,7 @@ const ResetPasswordForm = (props) => {
                     value={resetPassword.confirmNewPassword} 
                     placeholder="confirm new password"
                 />
-                <RedirectButton label="SEND EMAIL" className="mt-4" onClick={onClickResetPasswordButton}/>        
+                <SquareButton label="SEND EMAIL" className="mt-4" onClick={onClickResetPasswordButton}/>        
             </div>
         </div>
     );

@@ -16,7 +16,7 @@ const VerifyAccount = () => {
                     transform: "translateX(-60px) translateY(-230px)"
                 }}
             ></img>
-            <AuthWrapper title="Profile">
+            <AuthWrapper>
                 <AccountStatus/>
             </AuthWrapper>
         </div>

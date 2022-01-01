@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, withRouter } from "react-router-dom";
 import { toast } from 'react-toastify';
 import Input from '../../UI/authInventory/input';
-import RedirectButton from '../../UI/authInventory/redirectButton';
 import axios from 'axios';
 import { API_URL } from '../../../constants/api';
 
@@ -43,7 +42,7 @@ const RegisterForm = (props) => {
                 localStorage.setItem("token-access", response.headers["x-access-token"]);
                 dispatch({ type: "LOGIN", payload: response.data });
 
-                toast.success("Registration is successful!", {
+                toast.success("Registration is successful! Check your email for account verification.", {
                     position: "top-right",
                     icon: "🔐"
                 });
@@ -118,7 +117,7 @@ const RegisterForm = (props) => {
                     value={registerData.confirmPassword} 
                     placeholder="confirm password" 
                 />
-                <RedirectButton label="SIGNUP" className="mt-4" onClick={onClickRegisterButton}/>        
+                <on label="SIGNUP" className="mt-4" onClick={onClickRegisterButton}/>        
             </div>
             <div>
                 <p className="mb-0">Already have an account?</p>

@@ -1,10 +1,12 @@
 import React from 'react';
+import UserHistoryTable from '../components/UI/adminInventory/userHistoryTable';
 import '../style.css';
 
 const UserHistory = () => {
     return (
         <div className="m-5">
-            ddsfd user
+            <h3 className="mb-4">User Transactions History</h3>
+            <UserHistoryTable/>
         </div>
     );
 }

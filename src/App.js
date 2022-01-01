@@ -16,6 +16,7 @@ import AdminDashboard from './pages/adminDashboard';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import UserHistory from './pages/userHistory';
+import UserTransactions from './pages/userTransactions';
 import VerifyAccount from './pages/verifyAccount';
   
 function App() {
@@ -35,6 +36,7 @@ function App() {
 				<PrivateRoute path="/admin/sales" exact component={Sales} adminAuth={true}/>
 				<PrivateRoute path="/admin/revenue" exact component={Revenue} adminAuth={true}/>
 				<PrivateRoute path="/admin/userHistory" exact component={UserHistory} adminAuth={true}/>
+				<PrivateRoute path="/admin/userHistory/userTransactions" exact component={UserTransactions} adminAuth={true}/>
 				<Route path="*" component={PageNotFound} />
 			</Switch>
 			<ToastContainer/>

@@ -12,12 +12,12 @@ const RevenueText2 = (props) => {
         const fetchdata = async () => {
             try {
                 const response = await axios.get(`${API_URL}/admin/revenue/total-orders`);
-                setDatas(response.data)
+                setDatas(response.data);
             } catch (error) {
                 toast.error(error.response.data.message || "Server Error", {
                     position: "top-right",
                     icon: "😵"
-                });;
+                });
             }
         };
         fetchdata();

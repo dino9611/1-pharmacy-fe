@@ -6,13 +6,13 @@ import { toast } from 'react-toastify';
 import { API_URL } from '../../../constants/api';
 
 function SalesDoughnut (props) {
-    const [doughnutDatas, setDoughnutDatas] = useState([]);
+    const [datas, setDatas] = useState([]);
 
     useEffect(() => {
         const fetchdata = async () => {
             try {
-                const response = await axios.get(`${API_URL}/admin/sales/${props.endpoint}`);
-                setDoughnutDatas(response.data)
+                const response = await axios.get(`${API_URL}/admin/sales/${props.endpoint}?year=${props.year}`);
+                setDatas(response.data);
             } catch (error) {
                 toast.error(error.response.data.message || "Server Error", {
                     position: "top-right",
@@ -22,7 +22,7 @@ function SalesDoughnut (props) {
         };
 
         fetchdata();
-    }, [props.endpoint]);
+    }, [props.endpoint, props.year]);
     
     return (
         <div className="mt-4 mb-4 p-3 text-center" 
@@ -44,10 +44,10 @@ function SalesDoughnut (props) {
             <div>
                 <Doughnut
                     data={{
-                        labels: doughnutDatas.map(doughnutdata => doughnutdata[props.labelField]),
+                        labels: datas.map(data => data[props.labelField]),
                         datasets:[
                             {
-                                data: doughnutDatas.map(doughnutdata => doughnutdata[props.dataField]),
+                                data: datas.map(data => data[props.dataField]),
                                 backgroundColor: [ 
                                     "powderblue", 
                                     "thistle", 

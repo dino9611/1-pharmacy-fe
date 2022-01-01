@@ -4,13 +4,13 @@ import { toast } from 'react-toastify';
 import { API_URL } from '../../../constants/api';
 
 function SalesTable (props) {
-    const [tableDatas, setTableDatas] = useState([]);
+    const [datas, setDatas] = useState([]);
 
     useEffect(() => {
         const fetchdata = async () => {
             try {
-                const response = await axios.get(`${API_URL}/admin/sales/${props.endpoint}`);
-                setTableDatas(response.data)
+                const response = await axios.get(`${API_URL}/admin/sales/${props.endpoint}?year=${props.year}`);
+                setDatas(response.data)
             } catch (error) {
                 toast.error(error.response.data.message || "Server Error", {
                     position: "top-right",
@@ -20,7 +20,7 @@ function SalesTable (props) {
         };
 
         fetchdata();
-    }, [props.endpoint]);
+    }, [props.endpoint, props.year]);
     
     return (
         <div 
@@ -41,7 +41,7 @@ function SalesTable (props) {
             </p>
             <table 
                 class="table table-bordered"
-                style={{ ...props.style }}
+                style={{ height: "85%" }}
             >
             <thead style={{ backgroundColor: "lightgray" }}>
                 <tr>
@@ -51,13 +51,13 @@ function SalesTable (props) {
                 </tr>
             </thead>
             { 
-                tableDatas.map((tableData, index) => {
+                datas.map((data, index) => {
                     return (
                         <tbody style={{ backgroundColor: "linen" }}>
                             <tr>
                             <th scope="row" style={{ backgroundColor: "antiquewhite" }}>{1 + index}</th>
-                            <td>{[tableData[props.labelField]]}</td>
-                            <td>{[tableData[props.dataField]]}</td>
+                            <td style={{ ...props.labelStyle }}>{[data[props.labelField]]}</td>
+                            <td>{[data[props.dataField]]}</td>
                             </tr>
                         </tbody>
                     );

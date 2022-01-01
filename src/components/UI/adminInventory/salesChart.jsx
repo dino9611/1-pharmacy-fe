@@ -5,14 +5,14 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { API_URL } from '../../../constants/api';
 
-function SalesChart () {
-    const [totalSales, setTotalSales] = useState([]);
+function SalesChart (props) {
+    const [datas, setDatas] = useState([]);
 
     useEffect(() => {
         const fetchdata = async () => {
             try {
-                const response = await axios.get(`${API_URL}/admin/sales/monthly-sales`);
-                setTotalSales(response.data)
+                const response = await axios.get(`${API_URL}/admin/sales/${props.endpoint}?year=${props.year}`);
+                setDatas(response.data)
             } catch (error) {
                 toast.error(error.response.data.message || "Server Error", {
                     position: "top-right",
@@ -21,7 +21,7 @@ function SalesChart () {
             }
         };
         fetchdata();
-    }, []);
+    }, [props.endpoint, props.year]);
     
     return (
         <div 
@@ -39,16 +39,16 @@ function SalesChart () {
                     fontSize: 20 
                 }}
             >
-                Total Sales per Month
+                {props.title}
             </p>
             <div>
                 <Bar
                     data={{
-                        labels: totalSales.map(totalSale => totalSale.month),
+                        labels: datas.map(data => data[props.labelField]),
                         datasets:[
                             {
                                 label: "Rp",
-                                data: totalSales.map(totalSale => totalSale.total_payment),
+                                data: datas.map(data => data[props.dataField]),
                                 backgroundColor: [
                                     "powderblue", 
                                     "thistle", 
@@ -74,7 +74,7 @@ function SalesChart () {
                         fontSize: 20 
                     }}
                 >
-                    Current Gross Sales: Rp. {totalSales.reduce((prev, curr) => prev + curr.total_payment, 0)}
+                    {props.subTitle}: Rp. {datas.reduce((prev, curr) => prev + curr.total_payment, 0)}
                 </p>
             </div>
         </div>

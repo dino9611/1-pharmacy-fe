@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import qs from "query-string";
+import qs from 'query-string';
 import axios from 'axios';
 import { API_URL } from '../../../constants/api';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const AccountStatus = () => {
     const [status, setStatus] = useState(1);
@@ -51,7 +51,7 @@ const AccountStatus = () => {
         return (
         <div>
             <h1>Account is verified</h1>
-            <Link to="/">Home</Link>
+            <Link to="/" style={{ color: "var(--pink-color)", fontSize: 18 }}>Go to Home</Link>
         </div>
         );
     };
@@ -59,7 +59,7 @@ const AccountStatus = () => {
     return (
         <div>
             <h1>Account verification failed</h1>
-            <Link to="/">Home</Link>   
+            <Link to="/" style={{ color: "var(--pink-color)", fontSize: 18 }}>Go to Home</Link>
         </div>
     );
 }

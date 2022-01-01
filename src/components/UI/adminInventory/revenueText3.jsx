@@ -11,7 +11,7 @@ const RevenueText3 = (props) => {
     useEffect(() => {
         const fetchdata = async () => {
             try {
-                const response = await axios.get(`${API_URL}/admin/sales/current-orders-status`);
+                const response = await axios.get(`${API_URL}/admin/revenue/potential-revenue`);
                 setDatas(response.data)
             } catch (error) {
                 toast.error(error.response.data.message || "Server Error", {
@@ -23,54 +23,30 @@ const RevenueText3 = (props) => {
         fetchdata();
     }, []);
 
+    const Text = (props) => {
+        return (
+            <div className="d-flex justify-content-between">
+                <span className={props.className} style={{ fontSize: 25 }}> 
+                    {props.title}
+                </span>
+                <span style={{ fontSize: 25, color: "darkred" }}>
+                    {datas.map(data => data[props.dataField])}
+                </span>
+            </div>
+        )
+    }
+
     return (
-        <RevenueCard 
+        <RevenueCard
             style={{ 
-                width: "43%", 
-                height: "70vh",
+                width: "100%", 
+                height: "100%",
+                color: "var(--black-color)"
             }}
         >
-            <p 
-                className="text-center mb-4" 
-                style={{ 
-                    fontSize: 25, 
-                    lineHeight: 1.2,
-                    color: "var(--black-color)"
-                }}
-            >
-                Current Ongoing Orders Categorized by Status
-            </p>
-            {
-                datas.map((data) => {
-                    return (
-                        <div>
-                            <p 
-                                style={{
-                                    fontSize: 17,
-                                    marginBottom: 0, 
-                                    color: "whitesmoke", 
-                                    backgroundColor: "var(--pink-color)", 
-                                    borderRadius: 15, 
-                                    padding: 3, 
-                                    paddingLeft: 10 
-                                }}
-                            >
-                                {data.status}
-                            </p>
-                            <p 
-                                style={{
-                                    fontSize: 30, 
-                                    textAlign: "end",
-                                    paddingRight: 15, 
-                                    color: "darkred"
-                                }}
-                            >
-                                {data.current_orders}
-                            </p>
-                        </div>
-                    );
-                })
-            }            
+            <Text className="mb-3" title="Current Ongoing Carts" dataField="current_carts"/>
+            <Text className="mb-3" title="Current Ongoing Checkout" dataField="current_checkout"/>
+            <Text title="Total Current Potential Revenue" dataField=""/>
         </RevenueCard>
     );
 }
