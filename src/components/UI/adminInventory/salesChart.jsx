@@ -74,7 +74,7 @@ function SalesChart (props) {
                         fontSize: 20 
                     }}
                 >
-                    {props.subTitle}: Rp. {datas.reduce((prev, curr) => prev + curr.total_payment, 0)}
+                    {props.subTitle}: Rp. {datas.reduce((prev, curr) => prev + curr.total_payment, 0).toLocaleString("in", "ID")}
                 </p>
             </div>
         </div>

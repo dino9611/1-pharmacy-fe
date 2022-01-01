@@ -9,7 +9,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import SquareButton from './../authInventory/squareButton';
+import SquareButton from '../authInventory/squareButton';
 import { withRouter } from 'react-router';
 import { Modal, ModalBody, ModalHeader } from 'reactstrap';
 import { API_URL } from '../../../constants/api';
@@ -55,7 +55,7 @@ const columns = [
   },
 ];
 
-const UserHistoryTable = (props) => {
+const UserDatasTable = (props) => {
   const { history } = props;
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(25);
@@ -75,7 +75,7 @@ const UserHistoryTable = (props) => {
   useEffect(() => {
     const fetchdata = async () => {
       try {
-        const response = await axios.get(`${API_URL}/admin/transactions/userHistory?page=${page}&limit=${rowsPerPage}`);
+        const response = await axios.get(`${API_URL}/admin/transactions/userDatas?page=${page}&limit=${rowsPerPage}`);
         setUserDatas(response.data.data);
         setTotal(response.data.meta.total[0].total_data);
       } catch (error) {
@@ -94,7 +94,7 @@ const UserHistoryTable = (props) => {
 
   const fetchUserDetails = async (id) => {
     try {
-      const response = await axios.get(`${API_URL}/admin/transactions/userHistory/user-details?id=${id}`);
+      const response = await axios.get(`${API_URL}/admin/transactions/userDatas/user-details?id=${id}`);
       setOpenModal(!openModal);
       setUserDetailsDatas(response.data.data[0]);
     } catch (error) {
@@ -161,7 +161,8 @@ const UserHistoryTable = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {userDatas.map((userData) => {
+            {
+              userDatas.map((userData) => {
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={userData.code}>
                     {columns.map((column) => {
@@ -183,7 +184,7 @@ const UserHistoryTable = (props) => {
                             <SquareButton 
                               label="View Details" 
                               style={{ width: 120, padding: 5 }}
-                              onClick={() => {history.push("/admin/userHistory/userTransactions")}}
+                              onClick={() => {history.push(`/admin/userDatas/orderHistory/${userData.id}`)}}
                             ></SquareButton>
                           )}
                         </TableCell>
@@ -191,7 +192,8 @@ const UserHistoryTable = (props) => {
                     })}
                   </TableRow>
                 );
-              })}
+              })
+            }
           </TableBody>
         </Table>
       </TableContainer>
@@ -208,4 +210,4 @@ const UserHistoryTable = (props) => {
   );
 }
 
-export default withRouter(UserHistoryTable);
+export default withRouter(UserDatasTable);

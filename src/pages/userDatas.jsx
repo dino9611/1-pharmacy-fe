@@ -1,14 +1,14 @@
 import React from 'react';
-import UserHistoryTable from '../components/UI/adminInventory/userHistoryTable';
+import UserDatasTable from '../components/UI/adminInventory/userDatasTable';
 import '../style.css';
 
-const UserHistory = () => {
+const UserDatas = () => {
     return (
         <div className="m-5">
             <h3 className="mb-4">User Transactions History</h3>
-            <UserHistoryTable/>
+            <UserDatasTable/>
         </div>
     );
 }
  
-export default UserHistory;
+export default UserDatas;

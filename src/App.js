@@ -15,8 +15,8 @@ import Revenue from './pages/revenue';
 import AdminDashboard from './pages/adminDashboard';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import UserHistory from './pages/userHistory';
-import UserTransactions from './pages/userTransactions';
+import UserDatas from './pages/userDatas';
+import OrderHistory from './pages/orderHistory';
 import VerifyAccount from './pages/verifyAccount';
   
 function App() {
@@ -35,8 +35,8 @@ function App() {
 				<PrivateRoute path="/admin/dashboard" exact component={AdminDashboard} adminAuth={true}/>
 				<PrivateRoute path="/admin/sales" exact component={Sales} adminAuth={true}/>
 				<PrivateRoute path="/admin/revenue" exact component={Revenue} adminAuth={true}/>
-				<PrivateRoute path="/admin/userHistory" exact component={UserHistory} adminAuth={true}/>
-				<PrivateRoute path="/admin/userHistory/userTransactions" exact component={UserTransactions} adminAuth={true}/>
+				<PrivateRoute path="/admin/userDatas" exact component={UserDatas} adminAuth={true}/>
+				<PrivateRoute path="/admin/userDatas/orderHistory/:id" exact component={OrderHistory} adminAuth={true}/>
 				<Route path="*" component={PageNotFound} />
 			</Switch>
 			<ToastContainer/>
