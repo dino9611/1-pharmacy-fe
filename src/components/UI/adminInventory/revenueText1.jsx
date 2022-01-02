@@ -21,7 +21,7 @@ const RevenueText1 = (props) => {
     // const [datas, setDatas] = useState([]);
 
     // useEffect(() => {
-    //     const fetchdata = async () => {
+    //     const fetchData = async () => {
     //         try {
     //             const response = await axios.get(`${API_URL}/admin/total-revenue`);
     //             setDatas(response.data)
@@ -32,7 +32,7 @@ const RevenueText1 = (props) => {
     //             });;
     //         }
     //     };
-    //     fetchdata();
+    //     fetchData();
     // }, []);
 
     return (

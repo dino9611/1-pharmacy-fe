@@ -9,7 +9,7 @@ const RevenueText3 = (props) => {
     const [datas, setDatas] = useState([]);
 
     useEffect(() => {
-        const fetchdata = async () => {
+        const fetchData = async () => {
             try {
                 const response = await axios.get(`${API_URL}/admin/revenue/potential-revenue`);
                 setDatas(response.data)
@@ -17,10 +17,10 @@ const RevenueText3 = (props) => {
                 toast.error(error.response.data.message || "Server Error", {
                     position: "top-right",
                     icon: "😵"
-                });;
+                });
             }
         };
-        fetchdata();
+        fetchData();
     }, []);
 
     const Text = (props) => {

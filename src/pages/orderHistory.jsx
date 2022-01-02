@@ -31,7 +31,6 @@ const OrderHistory = (props) => {
     }, [id, status])
 
     const [openModalShippingDetails, setOpenModalShippingDetails] = useState(false);
-    const [openModalOrderDetails, setOpenModalOrderDetails] = useState(false);
 
     const RenderShippingDetailsModal = () => {
         return (
@@ -71,71 +70,77 @@ const OrderHistory = (props) => {
         );
     };
 
+    const [openModalOrderDetails, setOpenModalOrderDetails] = useState(false);
+    const [orderDetails, setOrderDetails] = useState([]);
+
+    const fetchOrderDetailsData = async () => {
+        try {
+            const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory/order-details?id=${id}&status=${status}`);
+            setOrderDetails(response.data);
+            setOpenModalOrderDetails(!openModalOrderDetails)
+        } catch (error) {
+            toast.error(error.response.data.message || "Server Error", {
+                position: "top-right",
+                icon: "😵"
+            });
+        }
+    };
+
     const RenderOrderDetailsModal = () => {
         return (
-            orders.map((order) => {   
-                return (
-                  <div>
-                    <Modal
-                        scrollable
-                        centered
-                        size="lg"
-                        isOpen={openModalOrderDetails} 
-                        toggle={() => setOpenModalOrderDetails(!openModalOrderDetails)}
-                    >
-                        <ModalHeader style={{ color: "var(--pink-color)"}}>
-                            <i class="fas fa-shopping-bag pe-2"></i> Order Details
-                        </ModalHeader>
-                        <ModalBody>
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                    <th scope="col">No.</th>
-                                    <th scope="col">Photo</th>
-                                    <th scope="col">Order</th>
-                                    <th scope="col">Quantity</th>
-                                    <th scope="col">Price</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                    <th scope="row">1</th>
-                                    <td>foto</td>
-                                    <td>{order.recipent_name}</td>
-                                    <td>4</td>
-                                    <td>Rp. 429393</td>
-                                    </tr>
-                                    <tr>
-                                    <th scope="row">2</th>
-                                    <td>foto</td>
-                                    <td>Jacob</td>
-                                    <td>3</td>
-                                    <td>Rp. 429393</td>
-                                    </tr>
-                                    <tr>
-                                    <th scope="row">3</th>
-                                    <td>foto</td>
-                                    <td>Larry the Bird</td>
-                                    <td>23</td>
-                                    <td>Rp. 429393</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </ModalBody>
-                        <ModalFooter className="d-flex flex-row justify-content-between">
-                            <div>
-                                <p>PAYMENT PROOF HERE</p>
-                            </div>
-                            <div className="d-flex flex-column align-items-end">
-                                <p>Shipping Method: {order.shipping_method}</p>
-                                <p>Shipping Cost: Rp. {order.shipping_cost.toLocaleString("in", "ID")}</p>
-                                <p>Total Payment: Rp. xxxx</p>
-                            </div>
-                        </ModalFooter>
-                    </Modal>
-                  </div>
-                );
-            })
+            <div>
+                <Modal
+                    scrollable
+                    centered
+                    size="xl"
+                    isOpen={openModalOrderDetails} 
+                    toggle={() => setOpenModalOrderDetails(!openModalOrderDetails)}
+                >
+                    <ModalHeader style={{ color: "var(--pink-color)"}}>
+                        <i class="fas fa-shopping-bag pe-2"></i> Order Details
+                    </ModalHeader>
+                    <ModalBody>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                <th scope="col">No.</th>
+                                <th scope="col">Photo</th>
+                                <th scope="col">Order</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Total Price</th>
+                                </tr>
+                            </thead>
+                            {
+                                orderDetails.map((orderDetail, index) => {
+                                    return (
+                                        <tbody>
+                                            <tr>
+                                            <th scope="row">{index + 1}.</th>
+                                            <td>medicine_image</td>
+                                            <td>{orderDetail.medicine_name}</td>
+                                            <td>{orderDetail.quantity}</td>
+                                            <td>Rp. {orderDetail.price.toLocaleString("in", "ID")}</td>
+                                            <td>Rp. {orderDetail.total_price.toLocaleString("in", "ID")}</td>
+                                            </tr>
+                                        </tbody>
+                                    );
+                                })
+                            }
+                        </table>
+                    </ModalBody>
+                    <ModalFooter className="d-flex flex-row justify-content-between">
+                        <div>
+                            <p>payment_image_proof</p>
+                        </div>
+                        <div className="d-flex flex-column align-items-end">
+                            <p>Shipping Method: {orders.map(order => order.shipping_method)}</p>
+                            <p>Shipping Cost: Rp. {orders.map(order => order.shipping_cost.toLocaleString("in", "ID"))}</p>
+                            <p>Total Payment: Rp. {orderDetails.reduce((prev, curr) => prev + curr.total_price, 0).toLocaleString("in", "ID")}</p>
+                        </div>
+                    </ModalFooter>
+                </Modal>
+            </div>
         );
     };
 
@@ -202,7 +207,9 @@ const OrderHistory = (props) => {
             </div>
 
 
-            {
+            {   
+                (orders.length) 
+                ?
                 orders.map((order) => {
                     return (
                         <div 
@@ -223,7 +230,7 @@ const OrderHistory = (props) => {
                             </div>
                             <hr className="mt-0"/>
                             <div className="d-flex flex-row justify-content-between" style={{ fontSize: 18 }}>
-                                <p>Total Payment: Rp. xxx</p>
+                                <p>Total Payment: Rp. {orderDetails.reduce((prev, curr) => prev + curr.total_price, 0).toLocaleString("in", "ID")}</p>
                                 <div>
                                     <SquareButton 
                                         className="me-3" 
@@ -232,13 +239,24 @@ const OrderHistory = (props) => {
                                     /> 
                                     <SquareButton 
                                         label="ORDER DETAILS" 
-                                        onClick={() => setOpenModalOrderDetails(!openModalOrderDetails)}
+                                        onClick={() => fetchOrderDetailsData()}
                                     /> 
                                 </div>
                             </div>
                         </div>
                     );
                 })
+                :
+                <div 
+                    className="d-flex justify-content-center align-items-center" 
+                    style={{ 
+                        height: "100%", 
+                        color: "var(--pink-color)",
+                        fontSize: 18
+                    }}
+                >
+                    <i class="fas fa-info-circle pe-2"></i> No Data Available
+                </div>
             }
         </div>
     );

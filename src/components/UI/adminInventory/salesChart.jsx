@@ -9,7 +9,7 @@ function SalesChart (props) {
     const [datas, setDatas] = useState([]);
 
     useEffect(() => {
-        const fetchdata = async () => {
+        const fetchData = async () => {
             try {
                 const response = await axios.get(`${API_URL}/admin/sales/${props.endpoint}?year=${props.year}`);
                 setDatas(response.data)
@@ -20,7 +20,7 @@ function SalesChart (props) {
                 });;
             }
         };
-        fetchdata();
+        fetchData();
     }, [props.endpoint, props.year]);
     
     return (

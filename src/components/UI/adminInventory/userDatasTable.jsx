@@ -85,7 +85,6 @@ const UserDatasTable = (props) => {
         });
       }
     };
-
     fetchdata();
   }, [page, rowsPerPage]);
 
