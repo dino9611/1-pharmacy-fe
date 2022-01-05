@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Modal } from 'bootstrap';
-import EditMaterial from '../section/inventory/EditMaterial';
+import EditMaterial from '../../section/inventory/EditMaterial';
 import axios from 'axios';
 
-function ActionButton(props) {
+function ProductActionButton(props) {
 	const [deleteItem, setDeleteItem] = useState(false);
 	const [close, setClose] = useState(true);
 	const modalRef = useRef();
@@ -81,4 +81,4 @@ function ActionButton(props) {
 	);
 }
 
-export default ActionButton;
+export default ProductActionButton;

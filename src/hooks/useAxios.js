@@ -10,8 +10,8 @@ function useAxios({ url, method, body = null, headers = null }) {
 	const process = () => {
 		axios[method](url, body, headers)
 			.then((res) => {
-				setResponse(res.data);
 				setLoading(false);
+				setResponse(res.data);
 				//if nothing wrong, response = res.data, error = '', loading=false
 			})
 			.catch((err) => {
@@ -30,7 +30,7 @@ function useAxios({ url, method, body = null, headers = null }) {
 			}
 			process();
 		}
-	}, [method, url, headers, body]);
+	}, [method, url, body]);
 
 	return { response, error, loading };
 }

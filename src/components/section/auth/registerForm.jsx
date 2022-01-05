@@ -37,7 +37,7 @@ const RegisterForm = (props) => {
                     password                
                 };
                 
-                const response = await axios.post(`${API_URL}/register`, dataBody);
+                const response = await axios.post(`${API_URL}/auth/register`, dataBody);
 
                 localStorage.setItem("token-access", response.headers["x-access-token"]);
                 dispatch({ type: "LOGIN", payload: response.data });

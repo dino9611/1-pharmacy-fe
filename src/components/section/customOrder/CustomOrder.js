@@ -4,16 +4,17 @@ import useAxios from '../../../hooks/useAxios';
 import AddProductModal from '../../controller/inventory/AddProductModal';
 import SearchBar from '../../controller/SearchBar';
 import ProductActionButton from '../../controller/inventory/ProductActionButton';
+import CustomOrderAction from '../../controller/inventory/CustomOrderAction';
 
-function ProductInventory() {
+function CustomOrder() {
 	let [limit, setLimit] = useState(9);
 	let [page, setPage] = useState(1);
 
 	let data = useAxios({
-		url: `http://localhost:2001/inventory/${page}/${limit}`,
+		url: `http://localhost:2001/custom/${page}/${limit}`,
 		method: 'get',
 	});
-
+	console.log(data.response);
 	return (
 		<div>
 			<nav className='row'>
@@ -39,24 +40,19 @@ function ProductInventory() {
 						//solve for extra feature later
 					/>
 				</div>
-				<div className='col-2'>
-					<AddProductModal />
-				</div>
 			</nav>
 			<table className='table'>
 				<thead className='text-center'>
 					<tr>
 						<th scope='col'>id</th>
 						<th scope='col'>image</th>
-						<th scope='col'>name</th>
-						<th scope='col'>price</th>
-						<th scope='col'>quantity in stock</th>
-						<th scope='col'>Action</th>
+						<th scope='col'>user id</th>
+						<th scope='col'>actions</th>
 					</tr>
 				</thead>
 				<tbody>
 					{data.response &&
-						data.response.list.map((element) => {
+						data.response.prescriptionList.map((element) => {
 							return (
 								<tr scope={element.scope} className='w-100 h-25'>
 									<td>{element.id}</td>
@@ -66,11 +62,11 @@ function ProductInventory() {
 											src={element.image}
 										/>
 									</td>
-									<td>{element.name}</td>
-									<td>{element.price}</td>
-									<td>{element.quantityInStock}</td>
+									<td>{element.UserId}</td>
 									<td>
-										<ProductActionButton
+										<CustomOrderAction
+											userId={element.UserId}
+											prescriptionId={element.id}
 											onChangeReload={() => console.log('reload')}
 										/>
 									</td>
@@ -91,4 +87,4 @@ function ProductInventory() {
 	);
 }
 
-export default ProductInventory;
+export default CustomOrder;

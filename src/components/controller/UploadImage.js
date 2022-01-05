@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { storage } from '../../firebase/index';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 
@@ -6,6 +6,12 @@ function UploadImage(props) {
 	const [image, setImage] = useState(null);
 	const [percentage, setPercentage] = useState(0);
 	const [err, setErr] = useState(null);
+	const [user, setUser] = useState('');
+
+	useEffect(() => {
+		const userId = localStorage.getItem('token-access');
+		return setUser(userId);
+	}, [user]);
 
 	const changeHandler = (event) => {
 		if (event.target.files[0]) {
@@ -39,8 +45,10 @@ function UploadImage(props) {
 
 	return (
 		<div>
-			<input type='file' onChange={changeHandler} />
-			<button onClick={uploadHandler}>Upload</button>
+			<input type='file' onChange={changeHandler}></input>
+			<button onClick={uploadHandler} className='btn btn-primary'>
+				Upload
+			</button>
 			<div class='progress'>
 				<div
 					class='progress-bar'

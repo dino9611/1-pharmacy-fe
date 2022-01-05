@@ -15,7 +15,6 @@ function UserProfilePage(props) {
 	useEffect(() => {
 		return setReload(false);
 	}, [reload]);
-	console.log(response.avatar);
 	return (
 		<div>
 			<NavbarUser />

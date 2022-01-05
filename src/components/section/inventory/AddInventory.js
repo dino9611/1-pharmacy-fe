@@ -5,7 +5,6 @@ import * as Yup from 'yup';
 import useAxios from '../../../hooks/useAxios';
 import AddMedicineIngredients from './AddMedicineIngredients';
 import UploadImage from '../../controller/UploadImage';
-import { connectStorageEmulator } from 'firebase/storage';
 
 function AddInventory(props) {
 	const [body, setBody] = useState();
@@ -18,8 +17,6 @@ function AddInventory(props) {
 		body,
 	});
 
-	console.log(response);
-
 	const onFormSubmitHandler = async (value) => {
 		value.materials = materials;
 		value.image = image;
@@ -31,11 +28,6 @@ function AddInventory(props) {
 		const output = [...materials, value];
 		setMaterials(output);
 	};
-
-	const onClickDelete = (event) => {
-		// console.log(event.target);
-	};
-	console.log(body);
 
 	return (
 		<div>
@@ -118,7 +110,7 @@ function AddInventory(props) {
 			<AddMedicineIngredients onAddMaterial={onAddMaterialHandler} />
 			{materials.map((element) => {
 				return (
-					<button id={element.id} onClick={onClickDelete} value={element.name}>
+					<button id={element.id} value={element.name}>
 						{element.name}
 					</button>
 				);

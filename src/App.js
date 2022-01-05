@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 import Marketplace from './pages/marketplace';
 import Login from './pages/login';
 import Register from './pages/register';
@@ -17,16 +17,21 @@ import ProductDetailPage from './pages/ProductDetailPage';
 import UserProfilePage from './pages/UserProfilePage';
 import ProductInventoryPage from './pages/ProductInventoryPage';
 import MaterialInventory from './components/section/inventory/MaterialInventory';
-import Navbar from './components/section/utility/Navbar';
-
+import CustomOrder from './components/section/customOrder/CustomOrder';
 function App() {
 	return (
 		<div className='App'>
-			{/* <Navbar /> */}
-			{/* <Switch>
+			<CustomOrder />
+			{/* <Link to='/users/login'>
+				<button className='btn btn-primary'>Sign in</button>
+			</Link>
+			<Link to='/users/register'>
+				<button className='btn btn-secondary'>Sign up</button>
+			</Link>
+			<Switch>
 				<Route path='/' exact component={Marketplace} />
-				<Route path='/login' component={Login} />
-				<Route path='/register' component={Register} />
+				<Route path='/users/login' component={Login} />
+				<Route path='/users/register' component={Register} />
 				<Route path='/forgotPassword' component={ForgotPassword} />
 				<Route path='/resetPassword' component={ResetPassword} />
 				<Route path='/product/:id' component={ProductDetailPage} />
@@ -72,7 +77,6 @@ function App() {
 				<Route path='*' component={PageNotFound} />
 			</Switch>
 			<ToastContainer /> */}
-			<UserProfilePage />
 		</div>
 	);
 }

@@ -39,7 +39,7 @@ const LoginForm = (props) => {
                 password,             
             };            
 
-            const response = await axios.post(`${API_URL}/login`, dataBody);
+            const response = await axios.post(`${API_URL}/auth/login`, dataBody);
 
             localStorage.setItem("token-access", response.headers["x-access-token"]);
             dispatch({ type: "LOGIN", payload: response.data });

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Pagination from '../../controller/Pagination';
 import useAxios from '../../../hooks/useAxios';
 import SearchBar from '../../controller/SearchBar';
-import AddMaterialModal from '../../controller/AddMaterialModal';
-import ActionButton from '../../controller/ActionButton';
+import AddMaterialModal from '../../controller/inventory/AddMaterialModal';
+import ActionButton from '../../controller/inventory/ActionButton';
 import axios from 'axios';
 
 function MaterialInventory() {

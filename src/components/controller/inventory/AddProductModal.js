@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { Modal } from 'bootstrap';
-import AddInventory from '../section/inventory/AddInventory';
+import AddInventory from '../../section/inventory/AddInventory';
 
 function AddProductModal() {
 	const modalRef = useRef();

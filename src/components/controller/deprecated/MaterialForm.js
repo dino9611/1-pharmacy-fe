@@ -1,8 +1,8 @@
 import { Form, Formik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
-import CustomSelect from '../UI/utility/CustomSelect';
-import CustomTextInput from '../UI/utility/CustomTextInput';
+import CustomSelect from '../../UI/utility/CustomSelect';
+import CustomTextInput from '../../UI/utility/CustomTextInput';
 
 function MaterialForm() {
 	const onSubmitHandler = async (values, { setSubmitting, resetForm }) => {
