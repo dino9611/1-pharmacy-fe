@@ -44,7 +44,11 @@ function SalesDoughnut (props) {
             <div>
                 <Doughnut
                     data={{
-                        labels: datas.map(data => data[props.labelField]),
+                        labels: 
+                            (props.endpoint === "current-orders-status") 
+                            ? datas.map((data, index) => (index + 1) + " - " + data[props.labelField])
+                            : datas.map((data) => data[props.labelField])
+                        ,
                         datasets:[
                             {
                                 data: datas.map(data => data[props.dataField]),

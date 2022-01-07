@@ -5,14 +5,13 @@ import SalesTable from '../components/UI/adminInventory/salesTable';
 import StatsHeader from '../components/UI/adminInventory/statsHeader';
 
 const AdminDashboard = (props) => {
-    const currentYear = new Date().getFullYear();
-    const [year, setYear] = useState(2021);
+    const [year, setYear] = useState(new Date().getFullYear());
 
     return (
         <div className="text-center m-5">
             <StatsHeader
                 title={`Real Time Sales Report Year ${year}`}
-                setYear={setYear}
+                setYear={setYear} 
             />
             <SalesChart
                 endpoint="monthly-sales"

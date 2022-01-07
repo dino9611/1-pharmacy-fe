@@ -62,11 +62,11 @@
 }
 
 .fa-external-link-alt{
-    color: var(--black-color);
+    color: var(--pink-color);
     transition: 300ms;
 }
 
 .fa-external-link-alt:hover{
-    color: var(--blue-color);
+    opacity: 0.5;
     transition: 300ms;
 }
