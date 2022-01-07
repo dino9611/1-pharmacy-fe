@@ -20,6 +20,7 @@ const ResetPasswordForm = (props) => {
         e.preventDefault();
         const { newPassword, confirmNewPassword } = resetPassword;
         const { token } = qs.parse(window.location.search);
+        
         console.log(token);
 
         if (newPassword === confirmNewPassword) {

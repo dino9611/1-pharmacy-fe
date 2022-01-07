@@ -1,5 +1,5 @@
 import React from 'react';
-import UserDatasTable from '../components/UI/adminInventory/userDatasTable';
+import UserDatasTable from '../components/section/admin/userDatasTable';
 import '../style.css';
 
 const UserDatas = () => {

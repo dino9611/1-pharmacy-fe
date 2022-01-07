@@ -9,10 +9,10 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import SquareButton from '../authInventory/squareButton';
+import SquareButton from '../../UI/authInventory/squareButton';
 import { withRouter } from 'react-router';
-import { Modal, ModalBody, ModalHeader } from 'reactstrap';
 import { API_URL } from '../../../constants/api';
+import DetailsModal from '../..//UI/adminInventory/detailsModal';
 
 const columns = [
   {
@@ -88,13 +88,13 @@ const UserDatasTable = (props) => {
     fetchdata();
   }, [page, rowsPerPage]);
 
-  const [openModal, setOpenModal] = useState(false);
+  const [openModalUserDetails, setOpenModalUserDetails] = useState(false);
   const [userDetailsDatas, setUserDetailsDatas] = useState([]);
 
-  const fetchUserDetails = async (id) => {
+  const fetchUserDetailsData = async (id) => {
     try {
       const response = await axios.get(`${API_URL}/admin/transactions/userDatas/user-details?id=${id}`);
-      setOpenModal(!openModal);
+      setOpenModalUserDetails(!openModalUserDetails);
       setUserDetailsDatas(response.data.data[0]);
     } catch (error) {
       toast.error(error.response.data.data.message || "Server Error", {
@@ -104,41 +104,34 @@ const UserDatasTable = (props) => {
     }
   };
 
-  const RenderModal = () => {
+  const RenderUserDetailsModal = () => {
     return (
-      <div>
-        <Modal
-          centered
-          size="md"
-          isOpen={openModal} 
-          toggle={() => setOpenModal(!openModal)}
-        >
-          <ModalHeader style={{ color: "var(--pink-color)"}}>
-            <i class="fas fa-user pe-2"></i> User Details
-          </ModalHeader>
-          <ModalBody>
-            <p>
-              Gender: {userDetailsDatas.gender}
-            </p>
-            <p>
-              Birthdate: {userDetailsDatas.birthdate}
-            </p>
-            <p>
-              Address: {userDetailsDatas.address}
-            </p>
-            <p>
-              Verified: {userDetailsDatas.isVerified}
-            </p>
-          </ModalBody>
-        </Modal>
-      </div>
+      <DetailsModal
+        isOpen={openModalUserDetails} 
+        toggle={() => setOpenModalUserDetails(!openModalUserDetails)}
+        title="User Details"
+        size="md"
+      >
+        <p>
+          Gender: {userDetailsDatas.gender}
+        </p>
+        <p>
+          Birthdate: {userDetailsDatas.birthdate}
+        </p>
+        <p>
+          Address: {userDetailsDatas.address}
+        </p>
+        <p>
+          Verified: {userDetailsDatas.isVerified}
+        </p>
+      </DetailsModal>
     )
   }
 
 
   return (
     <Paper sx={{ width: '100%', boxShadow: "1px 5px 15px -5px gray" }}>
-      <RenderModal/>
+      <RenderUserDetailsModal/>
       <TableContainer sx={{ maxHeight: '100%' }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
@@ -176,7 +169,7 @@ const UserDatasTable = (props) => {
                             <SquareButton 
                               label="View Details" 
                               style={{ width: 120, padding: 5 }}
-                              onClick={() => fetchUserDetails(userData.id)}
+                              onClick={() => fetchUserDetailsData(userData.id)}
                             ></SquareButton>
                           )}
                           {column.format === 'buttonTransactionsDetails' && (

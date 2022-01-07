@@ -12,7 +12,7 @@ const RevenueText3 = (props) => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(`${API_URL}/admin/revenue/potential-revenue`);
-                setDatas(response.data)
+                setDatas(response.data);
             } catch (error) {
                 toast.error(error.response.data.message || "Server Error", {
                     position: "top-right",

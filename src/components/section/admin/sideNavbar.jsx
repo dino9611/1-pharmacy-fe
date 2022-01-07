@@ -23,8 +23,7 @@ const sideNavbar = (props) => {
             <NavbarButton endpoint="/admin/revenue" icon="fas fa-money-check-alt" label="Revenue Report"/>
             <br/>
             <p style={{ color: "var(--pink-color)", marginBottom: 5, fontSize: 16 }}>ONGOING TASKS</p>
-            <NavbarButton endpoint="/admin/dashboard" icon="fas fa-plus-square" label="Order Request"/>
-            <NavbarButton endpoint="/admin/dashboard" icon="fas fa-shopping-basket" label="Ongoing Order"/>
+            <NavbarButton endpoint="/admin/orderRequest" icon="fas fa-plus-square" label="Order Request"/>
         </div>
     );
 }
