@@ -6,12 +6,6 @@ function UploadImage(props) {
 	const [image, setImage] = useState(null);
 	const [percentage, setPercentage] = useState(0);
 	const [err, setErr] = useState(null);
-	const [user, setUser] = useState('');
-
-	useEffect(() => {
-		const userId = localStorage.getItem('token-access');
-		return setUser(userId);
-	}, [user]);
 
 	const changeHandler = (event) => {
 		if (event.target.files[0]) {
@@ -21,7 +15,7 @@ function UploadImage(props) {
 
 	const uploadHandler = () => {
 		if (!image) return;
-		const storageRef = ref(storage, `/profile/${image.name}`); // change profile to props folder to put in the image
+		const storageRef = ref(storage, `/${props.folder}/${image.name}`); // change profile to props folder to put in the image
 		const uploadTask = uploadBytesResumable(storageRef, image);
 
 		uploadTask.on(

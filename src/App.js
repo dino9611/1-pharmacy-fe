@@ -18,10 +18,11 @@ import UserProfilePage from './pages/UserProfilePage';
 import ProductInventoryPage from './pages/ProductInventoryPage';
 import MaterialInventory from './components/section/inventory/MaterialInventory';
 import CustomOrder from './components/section/customOrder/CustomOrder';
+import EditProfileModal from './components/controller/EditProfileModal';
 function App() {
 	return (
 		<div className='App'>
-			<CustomOrder />
+			{/* <CustomOrder /> */}
 			{/* <Link to='/users/login'>
 				<button className='btn btn-primary'>Sign in</button>
 			</Link>

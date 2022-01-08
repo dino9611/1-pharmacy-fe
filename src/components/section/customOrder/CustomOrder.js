@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import Pagination from '../../controller/Pagination';
 import useAxios from '../../../hooks/useAxios';
-import AddProductModal from '../../controller/inventory/AddProductModal';
 import SearchBar from '../../controller/SearchBar';
-import ProductActionButton from '../../controller/inventory/ProductActionButton';
 import CustomOrderAction from '../../controller/inventory/CustomOrderAction';
 
 function CustomOrder() {
@@ -14,10 +12,9 @@ function CustomOrder() {
 		url: `http://localhost:2001/custom/${page}/${limit}`,
 		method: 'get',
 	});
-	console.log(data.response);
 	return (
 		<div>
-			<nav className='row'>
+			<nav className='row mt-3'>
 				<div className='col-3'>
 					<label className='px-2' htmlFor='limit'>
 						Item Limit
@@ -41,20 +38,20 @@ function CustomOrder() {
 					/>
 				</div>
 			</nav>
-			<table className='table'>
+			<table className='table align-middle mt-3'>
 				<thead className='text-center'>
-					<tr>
-						<th scope='col'>id</th>
-						<th scope='col'>image</th>
-						<th scope='col'>user id</th>
-						<th scope='col'>actions</th>
+					<tr className='table-primary'>
+						<th scope='col'>Id</th>
+						<th scope='col'>Image</th>
+						<th scope='col'>User Id</th>
+						<th scope='col'>Actions</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody className='table table-hover'>
 					{data.response &&
 						data.response.prescriptionList.map((element) => {
 							return (
-								<tr scope={element.scope} className='w-100 h-25'>
+								<tr className='w-100 h-25 text-center '>
 									<td>{element.id}</td>
 									<td className=''>
 										<img
@@ -67,6 +64,7 @@ function CustomOrder() {
 										<CustomOrderAction
 											userId={element.UserId}
 											prescriptionId={element.id}
+											image={element.image}
 											onChangeReload={() => console.log('reload')}
 										/>
 									</td>

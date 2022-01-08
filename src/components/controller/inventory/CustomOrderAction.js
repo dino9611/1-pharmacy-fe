@@ -1,23 +1,33 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Modal } from 'bootstrap';
-import EditMaterial from '../../section/inventory/EditMaterial';
+import CustomOrder from '../../section/inventory/CreateCustomOrder';
 import axios from 'axios';
-import AddMaterial from '../../section/inventory/AddMaterial';
-import AddMedicineIngredients from '../../section/inventory/AddMedicineIngredients';
-import AddInventory from '../../section/inventory/AddInventory';
 
 function CustomOrderAction(props) {
-	const [deleteItem, setDeleteItem] = useState(false);
+	const [materials, setMaterials] = useState([]);
+	const [serving, setServing] = useState(0);
+	const [reject, setReject] = useState(false);
 	const [close, setClose] = useState(true);
 	const modalRef = useRef();
 
-	useEffect(() => {
-		if (deleteItem) {
-			axios.delete(`http://localhost:2001/material/${props.id}`);
+	const onConfirmMaterial = () => {
+		const body = {
+			PrescriptionId: props.prescriptionId,
+			serving,
+			image: props.image,
+			materials,
+		};
+		setServing(0);
+		axios.post('http://localhost:2001/custom/create/order', body);
+		setClose(false);
+		const modalElement = modalRef.current;
+		const bsModal = Modal.getInstance(modalElement);
+		if (close) {
+			bsModal.hide();
+			setClose(true);
 			props.onChangeReload();
 		}
-		return setDeleteItem(false);
-	}, [deleteItem]);
+	};
 
 	const showModal = () => {
 		const modalElement = modalRef.current;
@@ -38,6 +48,7 @@ function CustomOrderAction(props) {
 			props.onChangeReload();
 		}
 	};
+
 	return (
 		<div className='btn-group'>
 			<button
@@ -47,14 +58,14 @@ function CustomOrderAction(props) {
 			>
 				edit
 			</button>
-			<div className='modal fade' ref={modalRef} tabIndex='-1'>
-				<div className='modal-dialog'>
+			<div className='modal fade ' ref={modalRef} tabIndex='-1'>
+				<div className='modal-dialog modal-xl'>
 					<div className='modal-content'>
 						<div className='modal-header'>
-							<h5 className='modal-title' id='staticBackdropLabel'>
+							<h3 className='modal-title ' id='staticBackdropLabel'>
 								Order {props.prescriptionId}
 								{props.userId}
-							</h5>
+							</h3>
 							<button
 								type='button'
 								className='btn-close'
@@ -62,15 +73,56 @@ function CustomOrderAction(props) {
 								aria-label='Close'
 							></button>
 						</div>
-						<div className='modal-body'>
-							<AddInventory />
+						<div className='row'>
+							<div className='modal-body d-flex flex-row'>
+								<div className='col'>
+									<img src={props.image} />
+								</div>
+								<div className='col ms-4'>
+									<CustomOrder
+										onAddMaterial={(value) =>
+											setMaterials([...materials, value])
+										}
+										material={materials}
+									/>
+								</div>
+							</div>
+						</div>
+						<div className='row'>
+							<div className='modal-footer d-flex justify-content-start ps-4'>
+								<div className='row'>
+									<input
+										type='number'
+										placeholder='serving'
+										onChange={(event) => setServing(event.target.value)}
+									/>
+								</div>
+								<div className='row'>
+									<div className='col'>
+										<button
+											className='btn btn-primary'
+											onClick={onConfirmMaterial}
+											disabled={serving === 0 ? true : false}
+										>
+											confirm
+										</button>
+										<button
+											className='btn btn-secondary'
+											onClick={closeModal}
+											aria-label='Close'
+										>
+											cancel
+										</button>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<button
 				className='btn btn-outline-danger'
-				onClick={() => setDeleteItem(true)}
+				onClick={() => setReject(true)}
 			>
 				Reject
 			</button>
