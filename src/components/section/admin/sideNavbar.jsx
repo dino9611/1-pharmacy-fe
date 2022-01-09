@@ -1,7 +1,7 @@
 import React from 'react';
 import NavbarButton from '../../UI/adminInventory/navbarButton';
 
-const sideNavbar = (props) => {
+const SideNavbar = (props) => {
     return (
         <div 
             className="d-flex flex-column p-4 align-items-start"
@@ -10,12 +10,14 @@ const sideNavbar = (props) => {
                 backgroundColor: "white",
                 borderRight: "2px solid lightgray",
                 boxShadow: "1px 5px 15px -5px gray",
+                WebkitBoxShadow: "1px 5px 15px -5px gray",
+                MozBoxShadow: "1px 5px 15px -5px gray",
             }}
         >
             <p style={{ color: "var(--pink-color)", marginBottom: 5, fontSize: 16 }}>MENU</p>
             <NavbarButton endpoint="/admin/dashboard" icon="fas fa-home" label="Dashboard"/>
-            <NavbarButton endpoint="/admin/dashboard" icon="fas fa-prescription-bottle-alt" label="Product List"/>
-            <NavbarButton endpoint="/admin/dashboard" icon="fas fa-tablets" label="Material List"/>
+            <NavbarButton endpoint="/admin/productList" icon="fas fa-prescription-bottle-alt" label="Product List"/>
+            <NavbarButton endpoint="/admin/materialList" icon="fas fa-tablets" label="Material List"/>
             <NavbarButton endpoint="/admin/userDatas" icon="fas fa-user" label="User History"/>
             <br/>
             <p style={{ color: "var(--pink-color)", marginBottom: 5, fontSize: 16 }}>STATS</p>
@@ -28,4 +30,4 @@ const sideNavbar = (props) => {
     );
 }
  
-export default sideNavbar;
+export default SideNavbar;

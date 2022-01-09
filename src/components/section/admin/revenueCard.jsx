@@ -7,6 +7,8 @@ const RevenueCard = (props) => {
                 backgroundColor: "seashell",
                 border: "2px solid var(--black-color)",
                 boxShadow: "1px 5px 15px -5px gray",
+                WebkitBoxShadow: "1px 5px 15px -5px gray",
+                MozBoxShadow: "1px 5px 15px -5px gray",
                 borderRadius: 20,
                 ...props.style
             }}

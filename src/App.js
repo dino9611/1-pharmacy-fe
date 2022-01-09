@@ -1,6 +1,5 @@
-// import MaterialInventory from './components/section/inventory/MaterialInventory';
-// import ProductInventory from './components/section/inventory/ProductInventory';
-import React from 'react';
+import React, { useDispatch, useCallback, useEffect } from 'react';
+import axios from 'axios';
 import { Switch, Route } from 'react-router-dom';
 import Marketplace from './pages/marketplace';
 import Login from './pages/login';
@@ -13,15 +12,33 @@ import PrivateRoute from './PrivateRoute';
 import Sales from './pages/sales';
 import Revenue from './pages/revenue';
 import Dashboard from './pages/dashboard';
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import 'sweetalert2/src/sweetalert2.scss';
+import 'react-circular-progressbar/dist/styles.css';
 import UserDatas from './pages/userDatas';
 import OrderHistory from './pages/orderHistory';
 import VerifyAccount from './pages/verifyAccount';
 import OrderRequest from './pages/orderRequest';
-  
+import { API_URL } from './constants/api';
+
 function App() {
+	// const dispatch = useDispatch();
+
+    // const keepLogin = useCallback(async () => {
+    //     let token = localStorage.getItem("token-access");
+    //     const response = await axios.get(`${API_URL}/keepLogin`, {
+    //         headers: {
+    //             Authorization: "Bearer " + token,
+    //         },
+    //     });
+    //     dispatch({ type: "LOGIN", payload: response.data });
+    // }, [dispatch]);
+    
+    // useEffect(() => {
+    //     keepLogin();
+    // }, [keepLogin]);
+
 	return (
 		<div className="App" style={{ overflowY: "hidden", height: "100vh" }}>
 			{/* <ProductInventory /> */}

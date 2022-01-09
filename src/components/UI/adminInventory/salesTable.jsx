@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { API_URL } from '../../../constants/api';
+import PlainTable from './plainTable';
 
 function SalesTable (props) {
     const [datas, setDatas] = useState([]);
@@ -39,31 +40,23 @@ function SalesTable (props) {
             >
                 {props.title}
             </p>
-            <table 
-                class="table table-bordered"
+            <PlainTable
                 style={{ height: "85%" }}
+                labelCategory={props.labelCategory}
+                dataCategory={props.dataCategory}
             >
-            <thead style={{ backgroundColor: "lightgray" }}>
-                <tr>
-                <th scope="col">No.</th>
-                <th scope="col">{props.labelCategory}</th>
-                <th scope="col">{props.dataCategory}</th>
-                </tr>
-            </thead>
-            { 
-                datas.map((data, index) => {
-                    return (
-                        <tbody style={{ backgroundColor: "linen" }}>
+                { 
+                    datas.map((data, index) => {
+                        return (
                             <tr>
-                            <th scope="row" style={{ backgroundColor: "antiquewhite" }}>{1 + index}</th>
-                            <td style={{ ...props.labelStyle }}>{[data[props.labelField]]}</td>
-                            <td>{[data[props.dataField]]}</td>
+                                <th scope="row" style={{ backgroundColor: "antiquewhite" }}>{1 + index}</th>
+                                <td style={{ ...props.labelStyle }}>{[data[props.labelField]]}</td>
+                                <td>{[data[props.dataField]]}</td>
                             </tr>
-                        </tbody>
-                    );
-                })
-            }   
-            </table>
+                        );
+                    })
+                }   
+            </PlainTable>
         </div>
     );
 }

@@ -7,6 +7,7 @@ import axios from 'axios';
 import { API_URL } from '../../../constants/api';
 import DetailsModal from '../../UI/adminInventory/detailsModal';
 import Swal from 'sweetalert2';
+import Pagination from '../../controller/Pagination';
 
 const OrderRequestTable = (props) => {
     const [orders, setOrders] = useState([]);
@@ -219,8 +220,6 @@ const OrderRequestTable = (props) => {
         );
     };
 
-
-
     const rejectAlert = (transaction_number, newStatus) => {
         return (
             Swal.fire({
@@ -265,7 +264,7 @@ const OrderRequestTable = (props) => {
                                 <div className="d-flex flex-row" style={{ fontSize: 18 }}>
                                     Custom Prescription Request:
                                     <div className="ms-3" style={{ textAlign: "start" }}>
-                                        <img src={orderDetails.map(orderDetail => orderDetail.payment_image_proof)} alt="" height="110" width="200"/>
+                                        <img src="" alt="" height="110" width="200"/>
                                     </div>
                                 </div>
                                 {
@@ -308,6 +307,7 @@ const OrderRequestTable = (props) => {
                     <i class="fas fa-info-circle pe-2"></i> No Data Available
                 </div>
             }
+            <Pagination/>
         </>
     );
 }

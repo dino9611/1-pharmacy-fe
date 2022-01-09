@@ -13,6 +13,8 @@ const TopNavbar = (props) => {
                 backgroundColor: "white",
                 borderBottom: "2px solid lightgray",
                 boxShadow: "0 1px 15px -5px gray",
+                WebkitBoxShadow: "0 1px 15px -5px gray",
+                MozBoxShadow: "0 1px 15px -5px gray",
             }}
         >
             <div class="flex-fill">

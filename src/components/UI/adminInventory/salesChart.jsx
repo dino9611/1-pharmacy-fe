@@ -11,13 +11,13 @@ function SalesChart (props) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${API_URL}/admin/sales/${props.endpoint}?year=${props.year}`);
+                const response = await axios.get(`${API_URL}/admin/${props.endpoint}?year=${props.year}`);
                 setDatas(response.data)
             } catch (error) {
                 toast.error(error.response.data.message || "Server Error", {
                     position: "top-right",
                     icon: "😵"
-                });;
+                });
             }
         };
         fetchData();
@@ -61,8 +61,8 @@ function SalesChart (props) {
                                     "khaki",
                                     "palevioletred"
                                 ]
-                            },
-                        ]
+                            }
+                        ],
                     }}
                     options={{ maintainAspectRatio: true }}
                 />
@@ -74,7 +74,7 @@ function SalesChart (props) {
                         fontSize: 20 
                     }}
                 >
-                    {props.subTitle}: Rp. {datas.reduce((prev, curr) => prev + curr.total_payment, 0).toLocaleString("in", "ID")}
+                    {props.subTitle}: Rp. {datas.reduce((prev, curr) => prev + curr[props.dataField], 0).toLocaleString("in", "ID")}
                 </p>
             </div>
         </div>

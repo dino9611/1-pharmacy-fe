@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import Input from '../../UI/authInventory/input';
 import axios from 'axios';
 import { API_URL } from '../../../constants/api';
+import SquareButton from '../../UI/authInventory/squareButton';
 
 const RegisterForm = (props) => {
     const dispatch = useDispatch();
@@ -39,7 +40,8 @@ const RegisterForm = (props) => {
                 const response = await axios.post(`${API_URL}/register`, dataBody);
                 console.log(response.headers);
 
-                localStorage.setItem("token-access", response.headers["x-access-token"]);
+                // localStorage.setItem("token-access", response.headers["x-access-token"]);
+                localStorage.setItem("token-access", response.data.token);
                 dispatch({ type: "LOGIN", payload: response.data });
 
                 toast.success("Registration is successful! Check your email for account verification.", {
@@ -117,7 +119,7 @@ const RegisterForm = (props) => {
                     value={registerData.confirmPassword} 
                     placeholder="confirm password" 
                 />
-                <on label="SIGNUP" className="mt-4" onClick={onClickRegisterButton}/>        
+                <SquareButton label="SIGNUP" className="mt-4" onClick={onClickRegisterButton}/>        
             </div>
             <div>
                 <p className="mb-0">Already have an account?</p>

@@ -6,13 +6,14 @@ import './style.css';
 import { toast } from 'react-toastify';
 
 const RevenueText3 = (props) => {
-    const [datas, setDatas] = useState([]);
+    const [potentialOrders, setPotentialOrders] = useState([]);
+    const [potentialRevenue, setPotentialRevenue] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchPotentialOrders = async () => {
             try {
-                const response = await axios.get(`${API_URL}/admin/revenue/potential-revenue`);
-                setDatas(response.data);
+                const response = await axios.get(`${API_URL}/admin/revenue/potential-orders`);
+                setPotentialOrders(response.data);
             } catch (error) {
                 toast.error(error.response.data.message || "Server Error", {
                     position: "top-right",
@@ -20,7 +21,21 @@ const RevenueText3 = (props) => {
                 });
             }
         };
-        fetchData();
+        fetchPotentialOrders();
+
+        const fetchPotentialRevenue = async () => {
+            try {
+                const response = await axios.get(`${API_URL}/admin/revenue/total-revenue?filter=potentialRevenue`);
+                setPotentialRevenue(response.data)
+            } catch (error) {
+                toast.error(error.response.data.message || "Server Error", {
+                    position: "top-right",
+                    icon: "😵"
+                });
+            }
+        };
+
+        fetchPotentialRevenue();
     }, []);
 
     const Text = (props) => {
@@ -29,9 +44,17 @@ const RevenueText3 = (props) => {
                 <span className={props.className} style={{ fontSize: 25 }}> 
                     {props.title}
                 </span>
-                <span style={{ fontSize: 25, color: "darkred" }}>
-                    {datas.map(data => data[props.dataField])}
-                </span>
+                {
+                    (props.dataSet === potentialRevenue)
+                    ?
+                    <span style={{ fontSize: 25, color: "darkred" }}>
+                        Rp. {props.dataSet.map(data => data[props.dataField]).toLocaleString("in", "ID")}
+                    </span>
+                    :
+                    <span style={{ fontSize: 25, color: "darkred" }}>
+                        {props.dataSet.map(data => data[props.dataField])}
+                    </span>
+                }
             </div>
         )
     }
@@ -44,9 +67,9 @@ const RevenueText3 = (props) => {
                 color: "var(--black-color)"
             }}
         >
-            <Text className="mb-3" title="Current Ongoing Carts" dataField="current_carts"/>
-            <Text className="mb-3" title="Current Ongoing Checkout" dataField="current_checkout"/>
-            <Text title="Total Current Potential Revenue" dataField=""/>
+            <Text className="mb-3" dataSet={potentialOrders} title="Current Ongoing Carts" dataField="current_carts"/>
+            <Text className="mb-3" dataSet={potentialOrders} title="Current Ongoing Checkout" dataField="current_checkout"/>
+            <Text dataSet={potentialRevenue} title="Total Current Potential Revenue" dataField="total_revenue"/>
         </RevenueCard>
     );
 }

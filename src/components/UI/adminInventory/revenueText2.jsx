@@ -33,11 +33,11 @@ const RevenueText2 = (props) => {
             <p 
                 className="mb-0" 
                 style={{ 
-                    fontSize: 35, 
+                    fontSize: 27, 
                     color: "var(--black-color)"
                     }}
                 >
-                Total Finished Orders
+                Successfully Delivered and Finished Orders
             </p>
             <p 
                 style={{ 

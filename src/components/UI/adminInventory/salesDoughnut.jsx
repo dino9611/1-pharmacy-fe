@@ -11,7 +11,11 @@ function SalesDoughnut (props) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${API_URL}/admin/sales/${props.endpoint}?year=${props.year}`);
+                const response = await axios.get(`${API_URL}/admin/sales/${props.endpoint}?year=${props.year}`, {
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem("token-access")}`
+                    }
+                });
                 setDatas(response.data);
             } catch (error) {
                 toast.error(error.response.data.message || "Server Error", {
@@ -46,7 +50,7 @@ function SalesDoughnut (props) {
                     data={{
                         labels: 
                             (props.endpoint === "current-orders-status") 
-                            ? datas.map((data, index) => (index + 1) + " - " + data[props.labelField])
+                            ? datas.map((data, index) => (index + 1) + " - " + data[props.labelField] + "  ")
                             : datas.map((data) => data[props.labelField])
                         ,
                         datasets:[

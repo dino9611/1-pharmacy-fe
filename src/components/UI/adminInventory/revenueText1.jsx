@@ -18,22 +18,22 @@ const RevenueText1 = (props) => {
         return new Date(date).toLocaleString("en-EN", options);
     };
 
-    // const [datas, setDatas] = useState([]);
+    const [datas, setDatas] = useState([]);
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const response = await axios.get(`${API_URL}/admin/total-revenue`);
-    //             setDatas(response.data)
-    //         } catch (error) {
-    //             toast.error(error.response.data.message || "Server Error", {
-    //                 position: "top-right",
-    //                 icon: "😵"
-    //             });;
-    //         }
-    //     };
-    //     fetchData();
-    // }, []);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`${API_URL}/admin/revenue/total-revenue`);
+                setDatas(response.data)
+            } catch (error) {
+                toast.error(error.response.data.message || "Server Error", {
+                    position: "top-right",
+                    icon: "😵"
+                });;
+            }
+        };
+        fetchData();
+    }, []);
 
     return (
         <RevenueCard 
@@ -72,7 +72,7 @@ const RevenueText1 = (props) => {
                     color: "darkred",         
                 }}
             >
-                Rp. 50425000
+                Rp. {datas.map(data => data.total_revenue).toLocaleString("in", "ID")}
             </p>
         </RevenueCard>
     );

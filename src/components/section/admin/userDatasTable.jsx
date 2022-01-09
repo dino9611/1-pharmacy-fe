@@ -130,7 +130,14 @@ const UserDatasTable = (props) => {
 
 
   return (
-    <Paper sx={{ width: '100%', boxShadow: "1px 5px 15px -5px gray" }}>
+    <Paper 
+      sx={{ 
+        width: '100%', 
+        boxShadow: "1px 5px 15px -5px gray",
+        WebkitBoxShadow: "1px 5px 15px -5px gray",
+        MozBoxShadow: "1px 5px 15px -5px gray",
+      }}
+    >
       <RenderUserDetailsModal/>
       <TableContainer sx={{ maxHeight: '100%' }}>
         <Table stickyHeader aria-label="sticky table">

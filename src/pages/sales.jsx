@@ -5,34 +5,37 @@ import SalesTable from '../components/UI/adminInventory/salesTable';
 import StatsHeader from '../components/UI/adminInventory/statsHeader';
 
 const AdminDashboard = (props) => {
-    const [year, setYear] = useState(new Date().getFullYear());
+    const [year, setYear] = useState(2021); // useState(new Date().getFullYear());
+    const years = [ 2020, 2021, 2022 ];
 
     return (
         <div className="text-center m-5">
             <StatsHeader
                 title={`Real Time Sales Report Year ${year}`}
-                setYear={setYear} 
+                label="Filter by Year" 
+                onClick={(value, index) => setYear(value)} 
+                datas={years}
             />
             <SalesChart
-                endpoint="monthly-sales"
+                endpoint="/sales/monthly-sales"
                 year={year}
-                title="Total Sales per Month"
+                title={`Total Sales per Month Year ${year}`}
                 subTitle="Current Gross Sales"
                 labelField="month"
-                dataField="total_payment"
+                dataField="total_sales"
             />
             <div className="d-flex flex-row justify-content-between">
                 <SalesDoughnut 
                     endpoint="orders-by-gender" 
                     year={year}
-                    title="Total Orders Categorized by Gender" 
+                    title={`Total Orders Categorized by Gender Year ${year}`}
                     labelField="gender" 
                     dataField="total_orders"
                 />
                 <SalesTable
                     endpoint="orders-by-age-range"
                     year={year}
-                    title="Total Orders Categorized by Age"
+                    title={`Total Orders Categorized by Age Year ${year}`}
                     labelCategory="Age Range"
                     dataCategory="Orders"
                     labelField="age"
@@ -43,14 +46,14 @@ const AdminDashboard = (props) => {
                 <SalesDoughnut 
                     endpoint="current-orders-status" 
                     year={year}
-                    title="Current Ongoing Orders Categorized by Status" 
+                    title={`Total Orders Categorized by Status Year ${year}`}
                     labelField="status" 
                     dataField="current_orders"
                />
                 <SalesTable
-                    endpoint="medicine-orders"
+                    endpoint="top-medicine-orders"
                     year={year}
-                    title="Top 10 Medicine Orders"
+                    title={`Top 10 Medicine Orders Year ${year}`}
                     labelStyle={{ textAlign: "left" }}
                     labelCategory="Medicine Name"
                     dataCategory="Orders"
