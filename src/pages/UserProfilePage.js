@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import EditProfileModal from '../components/controller/EditProfileModal';
-import UserProfileForm from '../components/section/UserProfile/UserProfileForm';
-import NavbarUser from '../components/UI/utility/NavbarUser';
+
 import useAxios from '../hooks/useAxios';
 
 function UserProfilePage(props) {
@@ -13,11 +12,11 @@ function UserProfilePage(props) {
 	});
 
 	useEffect(() => {
+		console.log('reload');
 		return setReload(false);
 	}, [reload]);
 	return (
 		<div>
-			<NavbarUser />
 			{response && (
 				<div className='container rounded bg-white'>
 					<div className='row'>

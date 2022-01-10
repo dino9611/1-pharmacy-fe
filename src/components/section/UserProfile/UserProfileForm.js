@@ -27,13 +27,41 @@ function UserProfileForm(props) {
 		<div>
 			{props && (
 				<div>
-					<UploadImage />
+					<div className='d-flex flex-row align-items-center justify-content-center'>
+						<UploadImage
+							uploadUrl={(value) => setImage(value)}
+							avatar={`https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg`}
+						/>
+					</div>
 					<CustomForm initial={initialValue} submitHandler={formSubmitHandler}>
-						<CustomTextInput label='username' name='username' type='text' />
-						<CustomTextInput label='first name' name='firstName' type='text' />
-						<CustomTextInput label='last name' name='lastName' type='text' />
+						<CustomTextInput
+							className='form-control'
+							classLabel='form-label'
+							label='username'
+							name='username'
+							type='text'
+						/>
+						<CustomTextInput
+							className='form-control'
+							classLabel='form-label'
+							label='first name'
+							name='firstName'
+							type='text'
+						/>
+						<CustomTextInput
+							className='form-control'
+							classLabel='form-label'
+							label='last name'
+							name='lastName'
+							type='text'
+						/>
 
-						<CustomSelect label='gender' name='gender'>
+						<CustomSelect
+							className='form-select'
+							classLabel='form-label'
+							label='gender'
+							name='gender'
+						>
 							<option
 								value={'male'}
 								selected={props.gender === 'male' && 'selected'}
@@ -47,14 +75,30 @@ function UserProfileForm(props) {
 								female
 							</option>
 						</CustomSelect>
-						<CustomTextInput label='email' name='email' type='email' />
 						<CustomTextInput
+							className='form-control'
+							classLabel='form-label'
+							label='email'
+							name='email'
+							type='email'
+						/>
+						<CustomTextInput
+							className='form-control'
+							classLabel='form-label'
 							label='birthdate'
 							name='birthdate'
-							type='datetime'
+							type='date'
 						/>
-						<CustomTextInput label='address' name='address' type='text' />
-						<button type='submit'>Submit</button>
+						<CustomTextInput
+							className='form-control'
+							classLabel='form-label'
+							label='address'
+							name='address'
+							type='text'
+						/>
+						<button type='submit' className='btn btn-primary'>
+							Submit
+						</button>
 					</CustomForm>
 				</div>
 			)}

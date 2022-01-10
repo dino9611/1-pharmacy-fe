@@ -17,25 +17,20 @@ import ProductDetailPage from './pages/ProductDetailPage';
 import UserProfilePage from './pages/UserProfilePage';
 import ProductInventoryPage from './pages/ProductInventoryPage';
 import MaterialInventory from './components/section/inventory/MaterialInventory';
-import CustomOrder from './components/section/customOrder/CustomOrder';
-import EditProfileModal from './components/controller/EditProfileModal';
+import NavbarUser from './components/UI/utility/NavbarUser';
 function App() {
 	return (
 		<div className='App'>
-			{/* <CustomOrder /> */}
-			{/* <Link to='/users/login'>
-				<button className='btn btn-primary'>Sign in</button>
-			</Link>
-			<Link to='/users/register'>
-				<button className='btn btn-secondary'>Sign up</button>
-			</Link>
+			<NavbarUser />
 			<Switch>
 				<Route path='/' exact component={Marketplace} />
+				<Route path='/users/:id' exact component={UserProfilePage} />
 				<Route path='/users/login' component={Login} />
 				<Route path='/users/register' component={Register} />
 				<Route path='/forgotPassword' component={ForgotPassword} />
 				<Route path='/resetPassword' component={ResetPassword} />
 				<Route path='/product/:id' component={ProductDetailPage} />
+
 				<PrivateRoute
 					path='/checkout'
 					exact
@@ -77,7 +72,7 @@ function App() {
 				/>
 				<Route path='*' component={PageNotFound} />
 			</Switch>
-			<ToastContainer /> */}
+			<ToastContainer />
 		</div>
 	);
 }

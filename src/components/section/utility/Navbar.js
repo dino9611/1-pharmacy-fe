@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 function Navbar() {
 	return (
 		<div>
-			<Link to='/login'>login</Link>
+			{/* <Link to='/login'>login</Link>
 			<Link to='/register'>register</Link>
 			<Link to='/forgotPassword'>forgot password</Link>
 			<Link to='/resetPassword'>reset password</Link>
@@ -16,7 +16,7 @@ function Navbar() {
 			<Link to='/admin/inventory/product'>product inventory page</Link>
 			<Link to='/admin/inventory/material'>material inventory</Link>
 			<Link to='/login'>login</Link>
-			<Link to='/login'>login</Link>
+			<Link to='/login'>login</Link> */}
 		</div>
 	);
 }

@@ -37,13 +37,22 @@ function UploadImage(props) {
 		);
 	};
 
+	useEffect(() => {
+		return uploadHandler();
+	}, [image]);
+
 	return (
-		<div>
-			<input type='file' onChange={changeHandler}></input>
-			<button onClick={uploadHandler} className='btn btn-primary'>
-				Upload
-			</button>
-			<div class='progress'>
+		<div className='container align-items-center justify-content-center'>
+			<label for='imageUpload'>
+				<img className='rounded-circle w-75 mx-5 ' src={props.avatar} />
+			</label>
+			<input
+				type='file'
+				onChange={changeHandler}
+				id='imageUpload'
+				style={{ opacity: 0, zIndex: -1 }}
+			/>
+			{/* <div class='progress'>
 				<div
 					class='progress-bar'
 					role='progressbar'
@@ -52,7 +61,7 @@ function UploadImage(props) {
 					aria-valuemin='0'
 					aria-valuemax='100'
 				></div>
-			</div>
+			</div> */}
 			{err && <h6 style={{ color: 'red' }}>Error !!</h6>}
 		</div>
 	);
