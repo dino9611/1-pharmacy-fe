@@ -22,6 +22,9 @@ function App() {
 	return (
 		<div className='App'>
 			<NavbarUser />
+			<Link to='/product/10'>
+				<button>Product detail</button>
+			</Link>
 			<Switch>
 				<Route path='/' exact component={Marketplace} />
 				<Route path='/users/:id' exact component={UserProfilePage} />
