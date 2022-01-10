@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import PageNotFound from './pages/pageNotFound';
-import TopNavbar from './components/UI/adminInventory/topNavbar';
-import SideNavbar from './components/UI/adminInventory/sideNavbar';
+import TopNavbar from './components/section/admin/topNavbar';
+import SideNavbar from './components/section/admin/sideNavbar';
 
 const PrivateRoute = (props) => {
   const { isLogin, isAdmin, ...rest } = props;
@@ -16,14 +16,19 @@ const PrivateRoute = (props) => {
     <div 
       className=""
       style={{ 
-        height: "200vh",
-        backgroundColor: "#FFF6F6",
+        backgroundColor: "#FFECEE",
       }}
     >
       <TopNavbar/>
-      <div className="d-flex flex-row">
+      <div className="d-flex flex-row" style={{ height: '90vh' }}>
         <SideNavbar/>
-        <Route {...rest} />
+        <div 
+          className="d-flex flex-column justify-content-start"
+          style={{ width: "80vw", overflowY: "scroll" }}
+        >
+          <Route {...rest} />
+          {/* <div style={{ backgroundColor: 'red', width: '100%', height: '500px'}} /> */}
+        </div>
       </div>
     </div>
   );

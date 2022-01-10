@@ -1,22 +1,66 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SalesChart from '../components/UI/adminInventory/salesChart';
+import SalesDoughnut from '../components/UI/adminInventory/salesDoughnut';
+import SalesTable from '../components/UI/adminInventory/salesTable';
+import StatsHeader from '../components/UI/adminInventory/statsHeader';
 
-const AdminDashboard = () => {
+const AdminDashboard = (props) => {
+    const [year, setYear] = useState(2021); // useState(new Date().getFullYear());
+    const years = [ 2020, 2021, 2022 ];
+
     return (
-        <div 
-            className="d-flex flex-column justify-content-start align-items-center p-5 ms-3"
-            style={{ width: "min-content" }}
-        >
-            <h4>Sales Revenue Year 2021</h4>
-            <SalesChart/>
-            <br/>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                Distinctio, eius possimus illo magnam laborum reprehenderit sint in libero aperiam 
-                modi ab atque ex dicta cum voluptates delectus dolorem, blanditiis necessitatibus?
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsum quae inventore dolorem 
-                ipsa harum consequatur eius accusantium mollitia, quo error. Totam, maiores tempora. Porro 
-                ab ex modi repellat expedita dolorem.
-            </p>
+        <div className="text-center m-5">
+            <StatsHeader
+                title={`Real Time Sales Report Year ${year}`}
+                label="Filter by Year" 
+                onClick={(value, index) => setYear(value)} 
+                datas={years}
+            />
+            <SalesChart
+                endpoint="/sales/monthly-sales"
+                year={year}
+                title={`Total Sales per Month Year ${year}`}
+                subTitle="Current Gross Sales"
+                labelField="month"
+                dataField="total_sales"
+            />
+            <div className="d-flex flex-row justify-content-between">
+                <SalesDoughnut 
+                    endpoint="orders-by-gender" 
+                    year={year}
+                    title={`Total Orders Categorized by Gender Year ${year}`}
+                    labelField="gender" 
+                    dataField="total_orders"
+                />
+                <SalesTable
+                    endpoint="orders-by-age-range"
+                    year={year}
+                    title={`Total Orders Categorized by Age Year ${year}`}
+                    labelCategory="Age Range"
+                    dataCategory="Orders"
+                    labelField="age"
+                    dataField="total_orders"
+                />
+            </div>
+            <div className="d-flex flex-row justify-content-between">
+                <SalesDoughnut 
+                    endpoint="current-orders-status" 
+                    year={year}
+                    title={`Total Orders Categorized by Status Year ${year}`}
+                    labelField="status" 
+                    dataField="current_orders"
+               />
+                <SalesTable
+                    endpoint="top-medicine-orders"
+                    year={year}
+                    title={`Top 10 Medicine Orders Year ${year}`}
+                    labelStyle={{ textAlign: "left" }}
+                    labelCategory="Medicine Name"
+                    dataCategory="Orders"
+                    labelField="medicine"
+                    dataField="total_medicine_orders"
+                />
+            </div>
         </div>
     );
 }

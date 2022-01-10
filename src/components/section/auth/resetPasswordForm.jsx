@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import useAxios from '../../../hooks/useAxios';
 import Input from '../../UI/authInventory/input';
-import RedirectButton from '../../UI/authInventory/redirectButton';
+import SquareButton from '../../UI/authInventory/squareButton';
+import qs from "query-string";
 import axios from 'axios';
+import { API_URL } from '../../../constants/api';
 
 const ResetPasswordForm = (props) => {
     const [resetPassword, setResetPassword] = useState({
@@ -11,19 +12,25 @@ const ResetPasswordForm = (props) => {
         confirmNewPassword: "",
     });
 
-
     const onFormInputChange = (value, name) => {
         setResetPassword({...resetPassword, [name]: value });
     };
 
-
     const onClickResetPasswordButton = async (e) => {
         e.preventDefault();
         const { newPassword, confirmNewPassword } = resetPassword;
+        const { token } = qs.parse(window.location.search);
+        
+        console.log(token);
 
         if (newPassword === confirmNewPassword) {
             try {
-                await axios.post(`http://localhost:2001/register`, { newPassword });
+                const response = await axios.post(`${API_URL}/resetPassword`, { newPassword }, {
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                    }
+                });
+                console.log(response.data);
 
                 toast.success("Password is reset!", {
                     position: "top-right",
@@ -60,7 +67,7 @@ const ResetPasswordForm = (props) => {
                     value={resetPassword.confirmNewPassword} 
                     placeholder="confirm new password"
                 />
-                <RedirectButton label="SEND EMAIL" className="mt-4" onClick={onClickResetPasswordButton}/>        
+                <SquareButton label="SEND EMAIL" className="mt-4" onClick={onClickResetPasswordButton}/>        
             </div>
         </div>
     );

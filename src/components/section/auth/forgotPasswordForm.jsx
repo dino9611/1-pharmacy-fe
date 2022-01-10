@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Link, withRouter } from "react-router-dom";
 import axios from 'axios';
-import RedirectButton from '../../UI/authInventory/redirectButton';
+import SquareButton from '../../UI/authInventory/squareButton';
 import Input from '../../UI/authInventory/input';
 import { toast } from "react-toastify";
+import { API_URL } from '../../../constants/api';
 
 const ForgotPasswordForm = (props) => {
 
@@ -17,7 +18,7 @@ const ForgotPasswordForm = (props) => {
         e.preventDefault();
         
         try {
-            await axios.post(`http://localhost:2001/forgotPassword`, { email: forgotPasswordEmail });
+            await axios.post(`${API_URL}/forgotPassword`, { email: forgotPasswordEmail });
 
             toast.success("Email is sent!", {
                 position: "top-right",
@@ -44,7 +45,7 @@ const ForgotPasswordForm = (props) => {
                     value={forgotPasswordEmail} 
                     placeholder="email"
                 />
-                <RedirectButton label="SEND EMAIL" className="mt-4" onClick={onClickForgotPasswordButton}/>        
+                <SquareButton label="SEND EMAIL" className="mt-4" onClick={onClickForgotPasswordButton}/>        
             </div>
             <div>
                 <p className="mb-0">Already have an account?</p>
