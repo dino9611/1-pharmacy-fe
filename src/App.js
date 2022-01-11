@@ -18,12 +18,21 @@ import UserProfilePage from './pages/UserProfilePage';
 import ProductInventoryPage from './pages/ProductInventoryPage';
 import MaterialInventory from './components/section/inventory/MaterialInventory';
 import NavbarUser from './components/UI/utility/NavbarUser';
+import CustomOrder from './components/section/customOrder/CustomOrder';
+import Prescriptions from './components/section/customOrder/Prescriptions';
 function App() {
 	return (
 		<div className='App'>
 			<NavbarUser />
-			<Link to='/product/10'>
-				<button>Product detail</button>
+			<Link to='/custom/order'>
+				<button>Custom Order</button>
+			</Link>
+			<Prescriptions />
+			<Link to='/admin/inventory/product'>
+				<button>product</button>
+			</Link>
+			<Link to='/admin/inventory/material'>
+				<button>material</button>
 			</Link>
 			<Switch>
 				<Route path='/' exact component={Marketplace} />
@@ -33,6 +42,12 @@ function App() {
 				<Route path='/forgotPassword' component={ForgotPassword} />
 				<Route path='/resetPassword' component={ResetPassword} />
 				<Route path='/product/:id' component={ProductDetailPage} />
+				<Route
+					path='/custom/order'
+					exact
+					component={CustomOrder}
+					adminAuth={true}
+				/>
 
 				<PrivateRoute
 					path='/checkout'

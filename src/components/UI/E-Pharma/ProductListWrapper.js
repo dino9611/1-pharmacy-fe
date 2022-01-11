@@ -18,7 +18,7 @@ function ProductListWrapper(props) {
 								itemTitle={element.name}
 								itemTextClass='card-text'
 								itemText={element.price}
-								id={10}
+								id={element.id}
 								linkDetailClass='btn btn-primary'
 								style={{ width: '2em' }}
 							/>

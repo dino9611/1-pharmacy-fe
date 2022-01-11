@@ -44,7 +44,7 @@ function UploadImage(props) {
 	return (
 		<div className='container align-items-center justify-content-center'>
 			<label for='imageUpload'>
-				<img className='rounded-circle w-75 mx-5 ' src={props.avatar} />
+				<img className={props.className} src={props.avatar} />
 			</label>
 			<input
 				type='file'
@@ -52,21 +52,11 @@ function UploadImage(props) {
 				id='imageUpload'
 				style={{ opacity: 0, zIndex: -1 }}
 			/>
-			{/* <div class='progress'>
-				<div
-					class='progress-bar'
-					role='progressbar'
-					style={{ width: `${percentage}%` }}
-					aria-valuenow='25'
-					aria-valuemin='0'
-					aria-valuemax='100'
-				></div>
-			</div> */}
 			{err && <h6 style={{ color: 'red' }}>Error !!</h6>}
 		</div>
 	);
 }
 
 // set upload when user proceed with edit profilex
-
+// for rounded 'rounded-circle w-75 mx-5 '
 export default UploadImage;

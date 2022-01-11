@@ -10,7 +10,7 @@ function ProductDetailPage() {
 		url: `http://localhost:2001/inventory/${id}`,
 		method: 'get',
 	});
-	console.log(response);
+
 	return (
 		<div>
 			{loading && <h4>loading ...</h4>}
