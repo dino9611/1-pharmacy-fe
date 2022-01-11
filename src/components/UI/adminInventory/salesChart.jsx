@@ -5,30 +5,31 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { API_URL } from '../../../constants/api';
 
-function SalesChart () {
-    const [totalSales, setTotalSales] = useState([]);
+function SalesChart (props) {
+    const [datas, setDatas] = useState([]);
 
     useEffect(() => {
-        const fetchdata = async () => {
+        const fetchData = async () => {
             try {
-                const response = await axios.get(`${API_URL}/admin/sales/monthly-sales`);
-                setTotalSales(response.data)
+                const response = await axios.get(`${API_URL}/admin/${props.endpoint}?year=${props.year}`);
+                setDatas(response.data)
             } catch (error) {
                 toast.error(error.response.data.message || "Server Error", {
                     position: "top-right",
                     icon: "😵"
-                });;
+                });
             }
         };
-        fetchdata();
-    }, []);
+        fetchData();
+    }, [props.endpoint, props.year]);
     
     return (
         <div 
             className="mt-4 mb-4 p-3 text-center" 
             style={{ 
                 backgroundColor: "whitesmoke", 
-                border: "1px solid gainsboro"
+                border: "1px solid lightgray",
+                width: "100%"
             }}
         >
             <p 
@@ -38,17 +39,16 @@ function SalesChart () {
                     fontSize: 20 
                 }}
             >
-                Total Sales per Month
+                {props.title}
             </p>
-            <div 
-                style={{ width: "70vw" }}>
+            <div>
                 <Bar
                     data={{
-                        labels: totalSales.map(totalSale => totalSale.month),
+                        labels: datas.map(data => data[props.labelField]),
                         datasets:[
                             {
                                 label: "Rp",
-                                data: totalSales.map(totalSale => totalSale.total_payment),
+                                data: datas.map(data => data[props.dataField]),
                                 backgroundColor: [
                                     "powderblue", 
                                     "thistle", 
@@ -61,8 +61,8 @@ function SalesChart () {
                                     "khaki",
                                     "palevioletred"
                                 ]
-                            },
-                        ]
+                            }
+                        ],
                     }}
                     options={{ maintainAspectRatio: true }}
                 />
@@ -74,7 +74,7 @@ function SalesChart () {
                         fontSize: 20 
                     }}
                 >
-                    Current Gross Sales: Rp. {totalSales.reduce((prev, curr) => prev + curr.total_payment, 0)}
+                    {props.subTitle}: Rp. {datas.reduce((prev, curr) => prev + curr[props.dataField], 0).toLocaleString("in", "ID")}
                 </p>
             </div>
         </div>

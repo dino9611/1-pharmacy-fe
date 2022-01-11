@@ -4,12 +4,12 @@
 }
 
 :root {
-	--red-color: #ff4858;
-	--pink-color: #ff7b87;
-	--black-color: #474747;
-	--blue-color: #05afd1;
-	--beige-color: #f4e4cd;
-	--gray-color: #848484;
+    --red-color: #FF4858;
+    --pink-color: #FF7B87;
+    --lighter-pink-color: #FFA0A8;
+    --black-color: #474747;
+    --blue-color: #05AFD1;
+    --gray-color: #848484;
 }
 
 .authPage {
