@@ -25,7 +25,7 @@ const ResetPasswordForm = (props) => {
 
         if (newPassword === confirmNewPassword) {
             try {
-                const response = await axios.post(`${API_URL}/resetPassword`, { newPassword }, {
+                const response = await axios.post(`${API_URL}/auth/resetPassword`, { newPassword }, {
                     headers: {
                         "Authorization": `Bearer ${token}`,
                     }

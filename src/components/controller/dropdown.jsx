@@ -42,7 +42,7 @@ const Dropdown = (props) => {
                             return (
                                 <div className="dropdownItem d-flex pt-1 px-3" onClick={() => props.onClick(data, index)}>{data}</div>)}
                             )
-                        };
+                        }
                     </div>
                 </div>
                 :

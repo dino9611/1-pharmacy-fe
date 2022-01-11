@@ -17,18 +17,26 @@ const OrderRequestTable = (props) => {
     const [openModalOrderDetails, setOpenModalOrderDetails] = useState(false);
     const [orderDetails, setOrderDetails] = useState([]);
     
+    const [page, setPage] = useState(1);
+    const limit = 10;
+    const [total, setTotal] = useState(0);
+
+    const changePageHandler = (value) => {
+		setPage(value);
+	};
+
     const fetchData = useCallback(async () => {
         try {
-            const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory?filter=orderRequest&status=${status}`);
-            setOrders(response.data);
-            console.log(response.data);
+            const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory?filter=orderRequest&status=${status}&page=${page}&limit=${limit}`);
+            setOrders(response.data.data);
+            setTotal(response.data.meta.total);
         } catch (error) {
-            toast.error(error.response.data.message || "Server Error", {
+            toast.error(error.response?.data.message || error.message || "Server Error", {
                 position: "top-right",
                 icon: "😵"
             });
         }
-    }, [status]);
+    }, [page, limit, status]);
 
     useEffect(() => {
         fetchData();         
@@ -38,8 +46,7 @@ const OrderRequestTable = (props) => {
         try {
             const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory?filter=userDetails&status=${status}&transaction_number=${transaction_number}`);
             setOpenModalShippingDetails(!openModalShippingDetails);
-            setUserDetails(response.data);
-            console.log(response.data);
+            setUserDetails(response.data.data);
         } catch (error) {
             toast.error(error.response.data.message || "Server Error", {
                 position: "top-right",
@@ -307,7 +314,14 @@ const OrderRequestTable = (props) => {
                     <i class="fas fa-info-circle pe-2"></i> No Data Available
                 </div>
             }
-            <Pagination/>
+            <Pagination
+                className="mt-4"
+                onPageChange={changePageHandler}
+                totalCount={total}
+                siblingCount={2}
+                currentPage={page}
+                pageSize={limit}
+            />
         </>
     );
 }

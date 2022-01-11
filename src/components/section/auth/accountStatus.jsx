@@ -13,7 +13,7 @@ const AccountStatus = () => {
         console.log(token);
 
         try {
-            const response = await axios.post(`${API_URL}/verifyAccount`, null, {
+            const response = await axios.post(`${API_URL}/auth/verifyAccount`, null, {
                 headers: {
                     "Authorization": `Bearer ${token}`,
                 }
