@@ -9,7 +9,6 @@ const Marketplace = () => {
     return (
         <div>
             <h1>Welcome to Marketplace</h1>
-            <Prescriptions />
             <ProductPagination />
         </div>
     );

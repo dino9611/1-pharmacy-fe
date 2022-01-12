@@ -20,10 +20,14 @@ import MaterialInventory from './components/section/inventory/MaterialInventory'
 import NavbarUser from './components/UI/utility/NavbarUser';
 import CustomOrder from './components/section/customOrder/CustomOrder';
 import Prescriptions from './components/section/customOrder/Prescriptions';
+import SortPrice from './components/controller/E-pharma/SortPrice';
+import SortName from './components/controller/E-pharma/SortName';
+import SortSideBar from './components/section/E-Pharma/SortSideBar';
 function App() {
 	return (
 		<div className='App'>
-			<NavbarUser />
+			<SortSideBar />
+			{/* <NavbarUser />
 			<Link to='/custom/order'>
 				<button>Custom Order</button>
 			</Link>
@@ -90,7 +94,7 @@ function App() {
 				/>
 				<Route path='*' component={PageNotFound} />
 			</Switch>
-			<ToastContainer />
+			<ToastContainer /> */}
 		</div>
 	);
 }

@@ -10,31 +10,22 @@ function MaterialInventory() {
 	let [limit, setLimit] = useState(9);
 	let [page, setPage] = useState(1);
 	let [reload, setReload] = useState(false);
-	let [data, setData] = useState(null);
 	const unitConversion = ['gr', 'ml', 'kg', 'L'];
 
-	// let { response, error, loading } = useAxios({
-	// 	url: `http://localhost:2001/material/getList/${page}/${limit}`,
-	// 	method: 'get',
-	// });
+	let { response, error, loading } = useAxios({
+		url: `http://localhost:2001/material/getList/${page}/${limit}`,
+		method: 'get',
+	});
 
 	useEffect(async () => {
-		let response = await axios.get(
-			`http://localhost:2001/material/getList/${page}/${limit}`,
-		);
-		setData(response.data);
 		return () => {
+			console.log('reload');
 			setReload(false);
 		};
-	}, [reload, data]); // still not functioning
+	}, [reload]); // still not functioning
 
-	const changePageHandler = (value) => {
-		setPage(value);
-	}; // needed for Pagination component props passing and setpage
+	console.log(response);
 
-	const changeLimitHandler = (event) => {
-		setLimit(+event.target.value);
-	}; // needed for Pagination component props passing and setlimit
 	return (
 		<div>
 			<div className='row'>
@@ -46,7 +37,7 @@ function MaterialInventory() {
 						className='btn btn-secondary dropdown-toggle'
 						name='limit'
 						id='item-limit'
-						onChange={changeLimitHandler}
+						onChange={(event) => setLimit(+event.target.value)}
 					>
 						<option value='9'>9</option>
 						<option value='12'>12</option>
@@ -65,13 +56,12 @@ function MaterialInventory() {
 				</div>
 			</div>
 			<Pagination
-				onPageChange={changePageHandler}
-				totalCount={data && data.pageLimit}
+				onPageChange={(value) => setPage(value)}
+				totalCount={response && response.pageLimit}
 				siblingCount={2}
 				currentPage={page}
 				pageSize={limit}
 			>
-				{/* <MaterialTable data={data && data.list} loading={loading} /> */}
 				<table className='table'>
 					<thead className='text-center'>
 						<tr>
@@ -86,8 +76,8 @@ function MaterialInventory() {
 						</tr>
 					</thead>
 					<tbody>
-						{data &&
-							data.list.map((element) => {
+						{response &&
+							response.list.map((element) => {
 								return (
 									<tr
 										scope={element.scope}

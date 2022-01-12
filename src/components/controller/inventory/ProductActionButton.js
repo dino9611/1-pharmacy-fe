@@ -10,7 +10,7 @@ function ProductActionButton(props) {
 
 	useEffect(() => {
 		if (deleteItem) {
-			axios.delete(`http://localhost:2001/material/${props.id}`);
+			axios.delete(`http://localhost:2001/inventory/${props.id}`);
 			props.onChangeReload();
 		}
 		return setDeleteItem(false);
