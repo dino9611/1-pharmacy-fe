@@ -6,13 +6,17 @@ import { toast } from 'react-toastify';
 import { API_URL } from '../../../constants/api';
 
 function SalesDoughnut (props) {
-    const [chartDatas, setChartDatas] = useState([]);
+    const [datas, setDatas] = useState([]);
 
     useEffect(() => {
-        const fetchdata = async () => {
+        const fetchData = async () => {
             try {
-                const response = await axios.get(`${API_URL}/admin/sales/${props.endpoint}`);
-                setChartDatas(response.data)
+                const response = await axios.get(`${API_URL}/admin/sales/${props.endpoint}?year=${props.year}`, {
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem("token-access")}`
+                    }
+                });
+                setDatas(response.data);
             } catch (error) {
                 toast.error(error.response.data.message || "Server Error", {
                     position: "top-right",
@@ -21,14 +25,15 @@ function SalesDoughnut (props) {
             }
         };
 
-        fetchdata();
-    }, []);
+        fetchData();
+    }, [props.endpoint, props.year]);
     
     return (
         <div className="mt-4 mb-4 p-3 text-center" 
             style={{ 
                 backgroundColor: "whitesmoke", 
-                border: "1px solid gainsboro"
+                border: "1px solid lightgray",
+                width: "48%"
             }}
         >
             <p 
@@ -40,14 +45,17 @@ function SalesDoughnut (props) {
             >
                 {props.title}
             </p>
-            <div 
-                style={{ width: "32vw" }}>
+            <div>
                 <Doughnut
                     data={{
-                        labels: chartDatas.map(chartData => chartData[props.labelField]),
+                        labels: 
+                            (props.endpoint === "current-orders-status") 
+                            ? datas.map((data, index) => (index + 1) + " - " + data[props.labelField] + "  ")
+                            : datas.map((data) => data[props.labelField])
+                        ,
                         datasets:[
                             {
-                                data: chartDatas.map(chartData => chartData[props.dataField]),
+                                data: datas.map(data => data[props.dataField]),
                                 backgroundColor: [ 
                                     "powderblue", 
                                     "thistle", 
