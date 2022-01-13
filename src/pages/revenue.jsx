@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Dropdown from '../components/controller/dropdown';
+import Dropdown from '../components/controller/admin/dropdown';
 import RevenueChart from '../components/UI/adminInventory/revenueChart';
 import RevenueText1 from '../components/UI/adminInventory/revenueText1';
 import RevenueText2 from '../components/UI/adminInventory/revenueText2';

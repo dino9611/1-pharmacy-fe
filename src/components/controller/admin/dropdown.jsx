@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../UI/adminInventory/style.css';
+import '../../UI/adminInventory/style.css';
 
 const Dropdown = (props) => {
     const [isOpen, setIsopen] = useState(false);
