@@ -24,6 +24,7 @@ function UserProfilePage(props) {
 							<div className='d-flex flex-column align-item-center text-center p-3 py-5'>
 								<div>
 									<img
+										alt=""
 										className='rounded-circle'
 										width='150em'
 										src='https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg'

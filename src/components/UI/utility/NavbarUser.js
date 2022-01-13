@@ -23,12 +23,12 @@ function NavbarUser() {
 						</Link>
 					</li>
 					<li className='nav-item active'>
-						<Link className='nav-link' to='/users/login'>
+						<Link className='nav-link' to='/login'>
 							Sign in
 						</Link>
 					</li>
 					<li className='nav-item active'>
-						<Link className='nav-link' to='/users/register'>
+						<Link className='nav-link' to='/register'>
 							Sign up
 						</Link>
 					</li>

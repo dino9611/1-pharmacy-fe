@@ -11,22 +11,19 @@ import PageNotFound from './pages/pageNotFound';
 import PrivateRoute from './PrivateRoute';
 import Sales from './pages/sales';
 import Revenue from './pages/revenue';
-import AdminDashboard from './pages/adminDashboard';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import ProductDetailPage from './pages/ProductDetailPage';
-import UserProfilePage from './pages/UserProfilePage';
+// import ProductDetailPage from './pages/ProductDetailPage';
+// import UserProfilePage from './pages/UserProfilePage';
 import ProductInventoryPage from './pages/ProductInventoryPage';
 import MaterialInventory from './components/section/inventory/MaterialInventory';
-import NavbarUser from './components/UI/utility/NavbarUser';
-import CustomOrder from './components/section/customOrder/CustomOrder';
-import Prescriptions from './components/section/customOrder/Prescriptions';
-import SortPrice from './components/controller/E-pharma/SortPrice';
-import SortName from './components/controller/E-pharma/SortName';
-import SortSideBar from './components/section/E-Pharma/SortSideBar';
+// import NavbarUser from './components/UI/utility/NavbarUser';
+// import CustomOrder from './components/section/customOrder/CustomOrder';
+// import Prescriptions from './components/section/customOrder/Prescriptions';
+// import SortPrice from './components/controller/E-pharma/SortPrice';
+// import SortName from './components/controller/E-pharma/SortName';
+// import SortSideBar from './components/section/E-Pharma/SortSideBar';
 import Dashboard from './pages/dashboard';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import 'sweetalert2/src/sweetalert2.scss';
 import 'react-circular-progressbar/dist/styles.css';
 import UserDatas from './pages/userDatas';
@@ -34,7 +31,6 @@ import OrderHistory from './pages/orderHistory';
 import VerifyAccount from './pages/verifyAccount';
 import OrderRequest from './pages/orderRequest';
 import jwt from 'jsonwebtoken';
-
 
 function App() {
 	const dispatch = useDispatch();
@@ -67,9 +63,9 @@ function App() {
 	};
 
 	return (
-
-		<div className='App'>
-<NavbarUser />
+		<div className='App' style={{ overflow: 'hidden', height: "100vh" }}>
+			<Switch>
+				{/* <NavbarUser /> */}
 				<Route path="/" exact component={Marketplace} />
 				<Route path="/login" component={Login} />
 				<Route path="/register" component={Register} />
@@ -84,7 +80,7 @@ function App() {
 				<PrivateRoute path="/admin/userDatas" exact component={UserDatas} adminAuth={true}/>
 				<PrivateRoute path="/admin/userDatas/orderHistory/:id" exact component={OrderHistory} adminAuth={true}/>
 				<PrivateRoute path="/admin/orderRequest" exact component={OrderRequest} adminAuth={true}/>
-          	<Route
+          		<Route
 					path='/admin/inventory/product'
 					component={ProductInventoryPage}
 					adminAuth={false}
@@ -96,7 +92,7 @@ function App() {
 				/>
 				<Route path="*" component={PageNotFound} />
 			</Switch>
-			<ToastContainer /> */}
+			<ToastContainer />
 		</div>
 	);
 }
