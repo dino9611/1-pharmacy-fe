@@ -7,54 +7,60 @@ import axios from 'axios';
 import { API_URL } from '../../../constants/api';
 import DetailsModal from '../../UI/adminInventory/detailsModal';
 import Swal from 'sweetalert2';
-import Pagination from '../../controller/Pagination';
+// import Pagination from '../../controller/Pagination';
 
 const OrderRequestTable = (props) => {
     const [orders, setOrders] = useState([]);
-    const [userDetails, setUserDetails] = useState([]);
+    const [shippingDetails, setShippingDetails] = useState([]);
+    const [orderDetails, setOrderDetails] = useState([]);
+    const [customPrescription, setCustomPrescription] = useState([]);
     const [status, setStatus] = useState(1);
     const [openModalShippingDetails, setOpenModalShippingDetails] = useState(false);
     const [openModalOrderDetails, setOpenModalOrderDetails] = useState(false);
-    const [orderDetails, setOrderDetails] = useState([]);
-    
-    const [page, setPage] = useState(1);
-    const limit = 10;
-    const [total, setTotal] = useState(0);
+    const [openModalCustomPrescription, setOpenModalCustomPrescription] = useState(false);
+    // const [page, setPage] = useState(1);
+    // const limit = 10;
+    // const [total, setTotal] = useState(0);
 
-    const changePageHandler = (value) => {
-		setPage(value);
-	};
+    // const changePageHandler = (value) => {
+	// 	setPage(value);
+	// };
 
-    const fetchData = useCallback(async () => {
+    const [shippingMethod, setShippingMethod] = useState();
+    const [shippingCost, setShippingCost] = useState();
+
+    const fetchOrdersData = useCallback(async () => {
         try {
-            const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory?filter=orderRequest&status=${status}&page=${page}&limit=${limit}`, {
+            const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory?filter=all&status=${status}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem("token-access")}`
                 }
             });
             setOrders(response.data.data);
-            setTotal(response.data.meta.total);
+            // setTotal(response.data.meta.total);
         } catch (error) {
             toast.error(error.response?.data.message || error.message || "Server Error", {
                 position: "top-right",
                 icon: "😵"
             });
         }
-    }, [page, limit, status]);
+    }, [status]);
 
-    useEffect(() => {
-        fetchData();         
-    }, [fetchData]);
     
-    const fetchUserDetailsData = async (transaction_number) => {
+    useEffect(() => {
+        fetchOrdersData();         
+    }, [fetchOrdersData]);
+    
+    const fetchShippingDetailsData = async (id) => {
         try {
-            const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory?filter=userDetails&status=${status}&transaction_number=${transaction_number}`, {
+            const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory?status=${status}&id=${id}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem("token-access")}`
                 }
             });
+            setShippingDetails(response.data.data);
+            console.log(response.data)
             setOpenModalShippingDetails(!openModalShippingDetails);
-            setUserDetails(response.data.data);
         } catch (error) {
             toast.error(error.response.data.message || "Server Error", {
                 position: "top-right",
@@ -62,17 +68,19 @@ const OrderRequestTable = (props) => {
             });
         }
     };
-
-    const fetchOrderDetailsData = async (transaction_number) => {
+    
+    
+    const fetchOrderDetailsData = async (id) => {
         try {
-            const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory/order-details?filter=orderRequest&status=${status}&transaction_number=${transaction_number}`, {
+            const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory/order-details?filter=all&status=${status}&id=${id}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem("token-access")}`
                 }
             });
-            setOpenModalOrderDetails(!openModalOrderDetails);
             setOrderDetails(response.data);
-            console.log(response.data);
+            setShippingMethod(response.data[0].shipping_method);
+            setShippingCost(response.data[0].shipping_cost);
+            setOpenModalOrderDetails(!openModalOrderDetails);
         } catch (error) {
             toast.error(error.response.data.message || "Server Error", {
                 position: "top-right",
@@ -81,9 +89,26 @@ const OrderRequestTable = (props) => {
         }
     };
 
+    const fetchCustomPrescriptionData = async (id) => {
+        try {
+            const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory?order-details?filter=customPrescription&status=${status}&id=${id}`, {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem("token-access")}`
+                }
+            });
+            setCustomPrescription(response.data.data);
+            setOpenModalCustomPrescription(!openModalCustomPrescription);
+        } catch (error) {
+            toast.error(error.response?.data.message || error.message || "Server Error", {
+                position: "top-right",
+                icon: "😵"
+            });
+        }
+    };
+    
     const RenderShippingDetailsModal = () => {
         return (
-            userDetails.map((order) => {
+            shippingDetails.map((shippingDetail) => {
                 return (
                     <DetailsModal
                         size="md"
@@ -92,26 +117,26 @@ const OrderRequestTable = (props) => {
                         title="Shipping Details"
                     >
                         <p>
-                            Recipent Name: {order.recipent_name}
+                            Recipent Name: {shippingDetail.recipent_name}
                         </p>
                         <p>
-                            Recipent Phone Number: {order.recipent_phone_number}
+                            Recipent Phone Number: {shippingDetail.recipent_phone_number}
                         </p>
                         <p>
-                            Shipping Address: {order.shipping_address}
+                            Shipping Address: {shippingDetail.shipping_address}
                         </p>
                         <p>
-                            Shipping Method: {order.shipping_method}
+                            Shipping Method: {shippingDetail.shipping_method}
                         </p>
                         <p>
-                            Shipping Cost: Rp. {order.shipping_cost.toLocaleString("in", "ID")}
+                            Shipping Cost: Rp. {shippingDetail.shipping_cost.toLocaleString("in", "ID")}
                         </p>
                     </DetailsModal>
                 );
             })
         );
     };
-
+    
     const RenderOrderDetailsModal = () => {
         const OrderDetailsFooter = () => {
             return (
@@ -120,14 +145,14 @@ const OrderRequestTable = (props) => {
                         <img src={orderDetails.map(orderDetail => orderDetail.payment_image_proof)} alt="" height="120" width="auto"/>
                     </div>
                     <div className="d-flex flex-column align-items-end">
-                        <p>Shipping Method: {userDetails.map(userDetail => userDetail.shipping_method)}</p>
-                        <p>Shipping Cost: Rp. {userDetails.map(userDetail => userDetail.shipping_cost.toLocaleString("in", "ID"))}</p>
-                        <p>Total Payment: Rp. {orderDetails.reduce((prev, curr) => prev + curr.total_price, 0).toLocaleString("in", "ID")} </p>
+                        <p>Shipping Method: {shippingMethod}</p>
+                        <p>Shipping Cost: Rp. {shippingCost}</p>
+                        <p>Total Payment: Rp. {orderDetails.reduce((prev, curr) => prev + curr.total_price, 0).toLocaleString("in", "ID")}</p>
                     </div>
                 </div>
             );
         };
-
+    
         return (
             <DetailsModal
                 size="xl"
@@ -170,6 +195,19 @@ const OrderRequestTable = (props) => {
         );
     };
 
+    const RenderCustomPrescriptionModal = () => {
+        return (
+            <DetailsModal
+                size="xl"
+                isOpen={openModalCustomPrescription} 
+                toggle={() => setOpenModalCustomPrescription(!openModalCustomPrescription)}
+                title="Custom Prescription Order"
+            >
+                
+            </DetailsModal>
+        );
+    };
+
     const StatusButtons = () => {
         const underline = <div style={{ height: 2, width: "35%", backgroundColor: "var(--black-color)", marginTop: 7 }}></div>
         
@@ -204,11 +242,11 @@ const OrderRequestTable = (props) => {
         )
     };
 
-    const changeOrderStatus = async (transaction_number, newStatus) => {
+    const changeOrderStatus = async (id, newStatus) => {
         try {
-            const response = await axios.post(`${API_URL}/admin/transactions/orderRequest?transaction_number=${transaction_number}&newStatus=${newStatus}`);
+            const response = await axios.post(`${API_URL}/admin/transactions/orderRequest?id=${id}&newStatus=${newStatus}`);
             console.log(response.data);
-            fetchData();
+            fetchOrdersData();
         } catch (error) {
             Swal.fire(
                 `Error`,
@@ -218,7 +256,7 @@ const OrderRequestTable = (props) => {
         }
     };
 
-    const confirmAlert = (transaction_number, newStatus) => {
+    const confirmAlert = (transaction_number, id, newStatus) => {
         return (
             Swal.fire({
                 icon: 'warning',
@@ -228,7 +266,7 @@ const OrderRequestTable = (props) => {
                 confirmButtonText: 'Accept',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    changeOrderStatus(transaction_number, newStatus);
+                    changeOrderStatus(id, newStatus);
                     Swal.fire(
                         `Order is accepted!`,
                         `Order No. ${transaction_number} is now moved to<br/>Status 2: Accepted & Ongoing`,
@@ -239,7 +277,7 @@ const OrderRequestTable = (props) => {
         );
     };
 
-    const rejectAlert = (transaction_number, newStatus) => {
+    const rejectAlert = (transaction_number, id, newStatus) => {
         return (
             Swal.fire({
                 icon: 'warning',
@@ -249,7 +287,7 @@ const OrderRequestTable = (props) => {
                 confirmButtonText: 'Reject',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    changeOrderStatus(transaction_number, newStatus);
+                    changeOrderStatus(id, newStatus);
                     Swal.fire(
                         `Order is rejected!`,
                         `Order No. ${transaction_number} is now moved to<br/>Status 4: Failed / Cancelled`,
@@ -264,6 +302,7 @@ const OrderRequestTable = (props) => {
         <>
             <RenderShippingDetailsModal/>
             <RenderOrderDetailsModal/>
+            <RenderCustomPrescriptionModal/>
             <StatusButtons/>
             {
                 (orders.length)
@@ -274,16 +313,20 @@ const OrderRequestTable = (props) => {
                             transactionNumber={order.transaction_number}
                             createdAt={order.createdAt}
                             buttonLabel1="USER DETAILS"
-                            onClickButton1={() => fetchUserDetailsData(order.transaction_number)}
+                            onClickButton1={() => fetchShippingDetailsData(order.id)}
                             buttonLabel2="ORDER DETAILS"
-                            onClickButton2={() => fetchOrderDetailsData(order.transaction_number)}
+                            onClickButton2={() => fetchOrderDetailsData(order.id)}
                             totalPayment={order.total_payment.toLocaleString("in", "ID")}
                         >
                             <div className="d-flex justify-content-between">
                                 <div className="d-flex flex-row" style={{ fontSize: 18 }}>
                                     Custom Prescription Request:
-                                    <div className="ms-3" style={{ textAlign: "start" }}>
-                                        <img src="" alt="" height="110" width="200"/>
+                                    <div 
+                                        className="ms-3 container" 
+                                        style={{ textAlign: "start", paddingLeft: 0, width: 200, height: 110 }} 
+                                        onClick={() => fetchCustomPrescriptionData(order.id, order.custom_prescription_id, order.custom_prescription_image)}>
+                                        <img className="customPrescriptionImage" src="https://www.researchgate.net/profile/Sandra-Benavides/publication/228331607/figure/fig4/AS:667613038387209@1536182760366/Indicate-why-the-prescription-is-not-appropriate-as-written.png" alt="" width="200" height="110"/>
+                                        <p className="centered">EDIT</p>
                                     </div>
                                 </div>
                                 {
@@ -293,7 +336,7 @@ const OrderRequestTable = (props) => {
                                         <button 
                                             className="orderRequestButton mb-2" 
                                             style={{ color: "forestgreen" }}
-                                            onClick={() => confirmAlert(order.transaction_number, 2)}
+                                            onClick={() => confirmAlert(order.transaction_number, order.id, 2)}
                                         >
                                             <i class="fas fa-check-circle me-2"></i>
                                             Accept Order
@@ -301,7 +344,7 @@ const OrderRequestTable = (props) => {
                                         <button 
                                             className="orderRequestButton" 
                                             style={{ color: "firebrick" }}
-                                            onClick={() => rejectAlert(order.transaction_number, 4)}
+                                            onClick={() => rejectAlert(order.transaction_number, order.id, 4)}
                                         >
                                             <i class="fas fa-times-circle me-2"></i>
                                             Reject Order
@@ -326,14 +369,14 @@ const OrderRequestTable = (props) => {
                     <i class="fas fa-info-circle pe-2"></i> No Data Available
                 </div>
             }
-            <Pagination
+            {/* <Pagination
                 className="mt-4"
                 onPageChange={changePageHandler}
                 totalCount={total}
                 siblingCount={2}
                 currentPage={page}
                 pageSize={limit}
-            />
+            /> */}
         </>
     );
 }

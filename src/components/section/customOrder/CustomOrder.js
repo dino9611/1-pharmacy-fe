@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Pagination from '../../controller/Pagination';
 import useAxios from '../../../hooks/useAxios';
-import SearchBar from '../../controller/SearchBar';
 import CustomOrderAction from '../../controller/inventory/CustomOrderAction';
 
 function CustomOrder() {

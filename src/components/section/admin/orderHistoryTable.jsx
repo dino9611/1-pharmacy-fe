@@ -19,7 +19,7 @@ const OrderHistoryTable = (props) => {
     useEffect(() => {
         const fetchOrderHistoryData = async () => {
             try {
-                const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory?filter=orderHistory&id=${id}&status=${status}`, {
+                const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory?id=${id}&status=${status}`, {
                     headers: {
                         "Authorization": `Bearer ${localStorage.getItem("token-access")}`
                     }
@@ -37,7 +37,7 @@ const OrderHistoryTable = (props) => {
 
         const fetchOrderDetailsData = async () => {
             try {
-                const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory/order-details?filter=orderHistory&id=${id}&status=${status}`, {
+                const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory/order-details?id=${id}&status=${status}`, {
                     headers: {
                         "Authorization": `Bearer ${localStorage.getItem("token-access")}`
                     }
