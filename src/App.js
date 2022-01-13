@@ -21,6 +21,9 @@ import MaterialInventory from './components/section/inventory/MaterialInventory'
 import NavbarUser from './components/UI/utility/NavbarUser';
 import CustomOrder from './components/section/customOrder/CustomOrder';
 import Prescriptions from './components/section/customOrder/Prescriptions';
+import SortPrice from './components/controller/E-pharma/SortPrice';
+import SortName from './components/controller/E-pharma/SortName';
+import SortSideBar from './components/section/E-Pharma/SortSideBar';
 import Dashboard from './pages/dashboard';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -31,6 +34,7 @@ import OrderHistory from './pages/orderHistory';
 import VerifyAccount from './pages/verifyAccount';
 import OrderRequest from './pages/orderRequest';
 import { API_URL } from './constants/api';
+
 
 function App() {
 	// const dispatch = useDispatch();
@@ -52,11 +56,6 @@ function App() {
 	return (
 
 		<div className='App'>
-			
-			<Switch>
-		<div className="App" style={{ overflowY: "hidden", height: "100vh" }}>
-			{/* <ProductInventory /> */}
-			{/* <MaterialInventory /> */}
 <NavbarUser />
 				<Route path="/" exact component={Marketplace} />
 				<Route path="/login" component={Login} />
@@ -84,7 +83,7 @@ function App() {
 				/>
 				<Route path="*" component={PageNotFound} />
 			</Switch>
-			<ToastContainer />
+			<ToastContainer /> */}
 		</div>
 	);
 }

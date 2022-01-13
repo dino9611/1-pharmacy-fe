@@ -1,18 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Pagination from '../../controller/Pagination';
 import useAxios from '../../../hooks/useAxios';
 import AddProductModal from '../../controller/inventory/AddProductModal';
 import SearchBar from '../../controller/SearchBar';
 import ProductActionButton from '../../controller/inventory/ProductActionButton';
+import { useHistory } from 'react-router';
 
 function ProductInventory() {
 	let [limit, setLimit] = useState(9);
 	let [page, setPage] = useState(1);
+	let [reload, setReload] = useState(false);
+	const history = useHistory();
 
 	let data = useAxios({
 		url: `http://localhost:2001/inventory/${page}/${limit}`,
 		method: 'get',
 	});
+
+	useEffect(async () => {
+		return () => {
+			history.push(`/admin/inventory/product`);
+			setReload(false);
+		};
+	}, [reload]);
 
 	return (
 		<div>
@@ -71,7 +81,12 @@ function ProductInventory() {
 									<td>{element.quantityInStock}</td>
 									<td>
 										<ProductActionButton
-											onChangeReload={() => console.log('reload')}
+											onChangeReload={() => setReload(true)}
+											id={element.id}
+											name={element.name}
+											price={element.price}
+											bottle_quantity={element.bottle_quantity}
+											quantity_per_bottle={element.quantity_per_bottle}
 										/>
 									</td>
 								</tr>
