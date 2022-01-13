@@ -1,5 +1,5 @@
 import React from 'react';
-import usePagination from '../../hooks/usePagination';
+import usePagination from '../../hooks/usePagination.js';
 
 function Pagination(props) {
 	const {
@@ -29,12 +29,12 @@ function Pagination(props) {
 	let lastPage = paginationRange[paginationRange.length - 1]; // extract last element of range array
 
 	return (
-		<div className='container'>
+		<div className={`container ${props.className}`}>
 			{props.children}
 
 			<div className='col d-flex justify-content-center'>
 				<button
-					className='btn btn-dark'
+					className='btn btn-secondary'
 					disabled={currentPage === 1}
 					onClick={onPrevious}
 				>
@@ -46,7 +46,7 @@ function Pagination(props) {
 					}
 					return (
 						<button
-							className='btn btn-outline-dark'
+							className='btn btn-outline-secondary'
 							onClick={() => onPageChange(pageNumber)}
 						>
 							{pageNumber}
@@ -54,7 +54,7 @@ function Pagination(props) {
 					);
 				})}
 				<button
-					className='btn btn-dark'
+					className='btn btn-secondary'
 					disabled={currentPage === lastPage}
 					onClick={onNext}
 				>

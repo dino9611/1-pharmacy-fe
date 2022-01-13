@@ -10,7 +10,11 @@ function SalesTable (props) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${API_URL}/admin/sales/${props.endpoint}?year=${props.year}`);
+                const response = await axios.get(`${API_URL}/admin/sales/${props.endpoint}?year=${props.year}`, {
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem("token-access")}`
+                    }
+                });
                 setDatas(response.data)
             } catch (error) {
                 toast.error(error.response.data.message || "Server Error", {

@@ -3,14 +3,17 @@ const INITIAL_STATE = {
     username: "",
     email: "",
     isVerified: false,
-    isAdmin: true,
-    isLogin: true,
+    isAdmin: false,
+    isLogin: false,
+    hasReloaded: false,
 };
 
 const authReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case "LOGIN":
-            return { ...state, ...action.payload, isLogin: true };
+            return { ...state, ...action.payload, isLogin: true, hasReloaded: true };
+        case "NO_ACCESS_TOKEN":
+            return { ...state, hasReloaded: true };
         default:
             return state;
     }

@@ -12,7 +12,11 @@ const RevenueText3 = (props) => {
     useEffect(() => {
         const fetchPotentialOrders = async () => {
             try {
-                const response = await axios.get(`${API_URL}/admin/revenue/potential-orders`);
+                const response = await axios.get(`${API_URL}/admin/revenue/potential-orders`, {
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem("token-access")}`
+                    }
+                });
                 setPotentialOrders(response.data);
             } catch (error) {
                 toast.error(error.response.data.message || "Server Error", {
@@ -25,7 +29,11 @@ const RevenueText3 = (props) => {
 
         const fetchPotentialRevenue = async () => {
             try {
-                const response = await axios.get(`${API_URL}/admin/revenue/total-revenue?filter=potentialRevenue`);
+                const response = await axios.get(`${API_URL}/admin/revenue/total-revenue?filter=potentialRevenue`, {
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem("token-access")}`
+                    }
+                });
                 setPotentialRevenue(response.data)
             } catch (error) {
                 toast.error(error.response.data.message || "Server Error", {

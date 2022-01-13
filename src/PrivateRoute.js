@@ -8,6 +8,7 @@ import SideNavbar from './components/section/admin/sideNavbar';
 const PrivateRoute = (props) => {
   const { isLogin, isAdmin, ...rest } = props;
 
+  console.log(isLogin, isAdmin);
   if(!(isLogin && isAdmin === props.adminAuth)){
     return <Route component={PageNotFound} />;
   }

@@ -17,7 +17,11 @@ const DashboardTable = (props) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${API_URL}/admin/sales/top-buyers?year=${year}&month=${month}`);
+                const response = await axios.get(`${API_URL}/admin/sales/top-buyers?year=${year}&month=${month}`, {
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem("token-access")}`
+                    }
+                });
                 setDatas(response.data)
             } catch (error) {
                 toast.error(error.response.data.message || "Server Error", {
@@ -57,11 +61,11 @@ const DashboardTable = (props) => {
                 { 
                     datas.map((data, index) => {
                         return (
-                            <tr>
+                            <tr className="text-center">
                                 <th scope="row" style={{ backgroundColor: "antiquewhite" }}>{1 + index}</th>
                                 <td style={{ ...props.labelStyle }}>{data.username}</td>
-                                <td>{data.total_orders}</td>
-                                <td>{data.total_sales}</td>
+                                <td className="text-center">{data.total_orders}</td>
+                                <td>Rp. {data.total_sales.toLocaleString("in", "ID")}</td>
                             </tr>
                         );
                     })

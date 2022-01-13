@@ -18,7 +18,7 @@ const DashboardCard1 = (props) => {
             try {
                 const response = await axios.get(`${API_URL}/admin/sales/current-orders-status`, {
                     headers: {
-                        authorization: `Bearer ${localStorage.getItem("token-access")}`
+                        "Authorization": `Bearer ${localStorage.getItem("token-access")}`
                     }
                 });
                 setDatas(response.data);
@@ -49,7 +49,7 @@ const DashboardCard1 = (props) => {
 
     const totalOrders = datas.reduce((prev, curr) => prev + curr.current_orders, 0).toLocaleString("in", "ID");
     const completedTask = totalOrders - orderStatus1;
-    const completedTaskPercentage = (completedTask / totalOrders) * 100;
+    const completedTaskPercentage = ((completedTask / totalOrders) * 100).toFixed(2)
 
     return (
         <>

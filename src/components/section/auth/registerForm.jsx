@@ -34,15 +34,16 @@ const RegisterForm = (props) => {
                     lastName,
                     username,
                     email,
-                    password                
+                    password,
+                    confirmPassword                
                 };
                 
-
                 const response = await axios.post(`${API_URL}/auth/register`, dataBody);
 
                 // localStorage.setItem("token-access", response.headers["x-access-token"]);
                 localStorage.setItem("token-access", response.data.token);
                 dispatch({ type: "LOGIN", payload: response.data });
+                console.log(response.data, response.data.id)
 
                 toast.success("Registration is successful! Check your email for account verification.", {
                     position: "top-right",
@@ -119,6 +120,7 @@ const RegisterForm = (props) => {
                     value={registerData.confirmPassword} 
                     placeholder="confirm password" 
                 />
+                <p style={{ color: "var(--blue-color)"}}>*Password minimum length is 8 letters,<br/> with at least 1 capital letter & at least 1 number</p>
                 <SquareButton label="SIGNUP" className="mt-4" onClick={onClickRegisterButton}/>        
             </div>
             <div>

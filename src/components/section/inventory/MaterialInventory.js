@@ -4,7 +4,6 @@ import useAxios from '../../../hooks/useAxios';
 import SearchBar from '../../controller/SearchBar';
 import AddMaterialModal from '../../controller/inventory/AddMaterialModal';
 import ActionButton from '../../controller/inventory/ActionButton';
-import axios from 'axios';
 
 function MaterialInventory() {
 	let [limit, setLimit] = useState(9);

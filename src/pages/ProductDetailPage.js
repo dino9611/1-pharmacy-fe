@@ -1,7 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import QuantityCount from '../components/controller/E-pharma/QuantityCount';
-import ProductItem from '../components/UI/E-Pharma/ProductItem';
 import useAxios from '../hooks/useAxios';
 
 function ProductDetailPage() {
@@ -17,7 +16,7 @@ function ProductDetailPage() {
 			{response && (
 				<div className='d-flex flex-row justify-content-center align-items-center'>
 					<div className='col-4 ps-5'>
-						<img src={response.image} />
+						<img alt="" src={response.image} />
 					</div>
 					<div className='col-8'>
 						<h3>{response.name}</h3>

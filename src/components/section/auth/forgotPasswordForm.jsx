@@ -18,7 +18,7 @@ const ForgotPasswordForm = (props) => {
         e.preventDefault();
         
         try {
-            await axios.post(`${API_URL}/forgotPassword`, { email: forgotPasswordEmail });
+            await axios.post(`${API_URL}/auth/forgotPassword`, { email: forgotPasswordEmail });
 
             toast.success("Email is sent!", {
                 position: "top-right",

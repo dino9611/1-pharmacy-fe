@@ -13,7 +13,7 @@ function SalesDoughnut (props) {
             try {
                 const response = await axios.get(`${API_URL}/admin/sales/${props.endpoint}?year=${props.year}`, {
                     headers: {
-                        authorization: `Bearer ${localStorage.getItem("token-access")}`
+                        "Authorization": `Bearer ${localStorage.getItem("token-access")}`
                     }
                 });
                 setDatas(response.data);

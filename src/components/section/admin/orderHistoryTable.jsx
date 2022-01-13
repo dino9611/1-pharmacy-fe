@@ -17,11 +17,15 @@ const OrderHistoryTable = (props) => {
     const [orderDetails, setOrderDetails] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchOrderHistoryData = async () => {
             try {
-                const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory?filter=orderHistory&id=${id}&status=${status}`);
-                setOrders(response.data);
-                console.log(response.data);
+                const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory?filter=orderHistory&id=${id}&status=${status}`, {
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem("token-access")}`
+                    }
+                });
+                setOrders(response.data.data);
+                console.log(response.data.data);
             } catch (error) {
                     toast.error(error.response.data.message || "Server Error", {
                     position: "top-right",
@@ -29,11 +33,15 @@ const OrderHistoryTable = (props) => {
                 });
             }
         };
-        fetchData();
+        fetchOrderHistoryData();
 
         const fetchOrderDetailsData = async () => {
             try {
-                const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory/order-details?filter=orderHistory&id=${id}&status=${status}`);
+                const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory/order-details?filter=orderHistory&id=${id}&status=${status}`, {
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem("token-access")}`
+                    }
+                });
                 setOrderDetails(response.data);
             } catch (error) {
                 toast.error(error.response.data.message || "Server Error", {
@@ -86,7 +94,7 @@ const OrderHistoryTable = (props) => {
                     <div className="d-flex flex-column align-items-end">
                         <p>Shipping Method: {orders.map(order => order.shipping_method)}</p>
                         <p>Shipping Cost: Rp. {orders.map(order => order.shipping_cost.toLocaleString("in", "ID"))}</p>
-                        <p>Total Payment: Rp. {orders.map(order => order.total_payment)}</p>
+                        <p>Total Payment: Rp. {orderDetails.reduce((prev, curr) => prev + curr.total_price, 0).toLocaleString("in", "ID")}</p>
                     </div>
                 </div>
             );
@@ -188,7 +196,7 @@ const OrderHistoryTable = (props) => {
                         <OrderWrapper
                             transactionNumber={order.transaction_number}
                             createdAt={order.createdAt}
-                            totalPayment={order.total_payment.toLocaleString("in", "ID")}
+                            totalPayment={orderDetails.reduce((prev, curr) => prev + curr.total_price, 0).toLocaleString("in", "ID")}
                             buttonLabel1="SHIPPING DETAILS" 
                             onClickButton1={() => setOpenModalShippingDetails(!openModalShippingDetails)}
                             buttonLabel2="ORDER DETAILS" 
