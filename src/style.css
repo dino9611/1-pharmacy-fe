@@ -1,6 +1,6 @@
 * {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 400;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 400;
 }
 
 :root {
@@ -13,7 +13,7 @@
 }
 
 .authPage {
-    height: 100vh;
-    width: 100vw;
-    background-color: var(--pink-color);
+	height: 100vh;
+	width: 100vw;
+	background-color: var(--pink-color);
 }

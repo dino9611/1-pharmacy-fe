@@ -1,32 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Pagination from '../../controller/Pagination';
 import useAxios from '../../../hooks/useAxios';
-import AddProductModal from '../../controller/inventory/AddProductModal';
 import SearchBar from '../../controller/SearchBar';
-import ProductActionButton from '../../controller/inventory/ProductActionButton';
-import { useHistory } from 'react-router';
+import CustomOrderAction from '../../controller/inventory/CustomOrderAction';
 
-function ProductInventory() {
+function CustomOrder() {
 	let [limit, setLimit] = useState(9);
 	let [page, setPage] = useState(1);
-	let [reload, setReload] = useState(false);
-	const history = useHistory();
 
 	let data = useAxios({
-		url: `http://localhost:2001/inventory/${page}/${limit}`,
+		url: `http://localhost:2001/custom/${page}/${limit}`,
 		method: 'get',
 	});
-
-	useEffect(async () => {
-		return () => {
-			history.push(`/admin/inventory/product`);
-			setReload(false);
-		};
-	}, [reload]);
-
 	return (
 		<div>
-			<nav className='row'>
+			<nav className='row mt-3'>
 				<div className='col-3'>
 					<label className='px-2' htmlFor='limit'>
 						Item Limit
@@ -49,26 +37,21 @@ function ProductInventory() {
 						//solve for extra feature later
 					/>
 				</div>
-				<div className='col-2'>
-					<AddProductModal />
-				</div>
 			</nav>
-			<table className='table'>
+			<table className='table align-middle mt-3'>
 				<thead className='text-center'>
-					<tr>
-						<th scope='col'>id</th>
-						<th scope='col'>image</th>
-						<th scope='col'>name</th>
-						<th scope='col'>price</th>
-						<th scope='col'>quantity in stock</th>
-						<th scope='col'>Action</th>
+					<tr className='table-primary'>
+						<th scope='col'>Id</th>
+						<th scope='col'>Image</th>
+						<th scope='col'>User Id</th>
+						<th scope='col'>Actions</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody className='table table-hover'>
 					{data.response &&
-						data.response.list.map((element) => {
+						data.response.prescriptionList.map((element) => {
 							return (
-								<tr scope={element.scope} className='w-100 h-25'>
+								<tr className='w-100 h-25 text-center '>
 									<td>{element.id}</td>
 									<td className=''>
 										<img
@@ -76,17 +59,13 @@ function ProductInventory() {
 											src={element.image}
 										/>
 									</td>
-									<td>{element.name}</td>
-									<td>{element.price}</td>
-									<td>{element.quantityInStock}</td>
+									<td>{element.UserId}</td>
 									<td>
-										<ProductActionButton
-											onChangeReload={() => setReload(true)}
-											id={element.id}
-											name={element.name}
-											price={element.price}
-											bottle_quantity={element.bottle_quantity}
-											quantity_per_bottle={element.quantity_per_bottle}
+										<CustomOrderAction
+											userId={element.UserId}
+											prescriptionId={element.id}
+											image={element.image}
+											onChangeReload={() => console.log('reload')}
 										/>
 									</td>
 								</tr>
@@ -106,4 +85,4 @@ function ProductInventory() {
 	);
 }
 
-export default ProductInventory;
+export default CustomOrder;

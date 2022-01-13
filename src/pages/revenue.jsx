@@ -20,7 +20,7 @@ const Revenue = (props) => {
                 <RevenueText3/>
             </div>
             <Dropdown 
-                className="me-2 text-end"
+                className="me-2"
                 label="Filter by Year" 
                 onClick={(value, index) => setYear(value)} 
                 datas={years}
