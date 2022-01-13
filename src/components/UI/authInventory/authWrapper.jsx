@@ -1,7 +1,10 @@
 import React from 'react';
 import Logo from '../../../assets/FullNameLightmode.svg'
+import { withRouter } from 'react-router';
 
 const AuthWrapper = (props) => {
+    const { history } = props;
+
     return (
         <div    
             className={`d-flex 
@@ -19,7 +22,7 @@ const AuthWrapper = (props) => {
                 padding: 70 
             }}
         >
-            <div>
+            <div onClick={() => {history.push("/")}}>
                 <img    
                     src={Logo} 
                     alt="" 
@@ -43,4 +46,4 @@ const AuthWrapper = (props) => {
     );
 }
  
-export default AuthWrapper;
+export default withRouter(AuthWrapper);

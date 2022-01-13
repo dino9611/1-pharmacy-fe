@@ -11,7 +11,11 @@ const RevenueText2 = (props) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${API_URL}/admin/revenue/total-orders`);
+                const response = await axios.get(`${API_URL}/admin/revenue/total-orders`, {
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem("token-access")}`
+                    }
+                });
                 setDatas(response.data);
             } catch (error) {
                 toast.error(error.response.data.message || "Server Error", {

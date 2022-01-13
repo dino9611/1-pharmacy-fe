@@ -27,7 +27,11 @@ const OrderRequestTable = (props) => {
 
     const fetchData = useCallback(async () => {
         try {
-            const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory?filter=orderRequest&status=${status}&page=${page}&limit=${limit}`);
+            const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory?filter=orderRequest&status=${status}&page=${page}&limit=${limit}`, {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem("token-access")}`
+                }
+            });
             setOrders(response.data.data);
             setTotal(response.data.meta.total);
         } catch (error) {
@@ -44,7 +48,11 @@ const OrderRequestTable = (props) => {
     
     const fetchUserDetailsData = async (transaction_number) => {
         try {
-            const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory?filter=userDetails&status=${status}&transaction_number=${transaction_number}`);
+            const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory?filter=userDetails&status=${status}&transaction_number=${transaction_number}`, {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem("token-access")}`
+                }
+            });
             setOpenModalShippingDetails(!openModalShippingDetails);
             setUserDetails(response.data.data);
         } catch (error) {
@@ -57,7 +65,11 @@ const OrderRequestTable = (props) => {
 
     const fetchOrderDetailsData = async (transaction_number) => {
         try {
-            const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory/order-details?filter=orderRequest&status=${status}&transaction_number=${transaction_number}`);
+            const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory/order-details?filter=orderRequest&status=${status}&transaction_number=${transaction_number}`, {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem("token-access")}`
+                }
+            });
             setOpenModalOrderDetails(!openModalOrderDetails);
             setOrderDetails(response.data);
             console.log(response.data);

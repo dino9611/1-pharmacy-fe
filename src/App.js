@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import Marketplace from './pages/marketplace';
 import Login from './pages/login';
 import Register from './pages/register';
@@ -56,26 +56,23 @@ function App() {
 		<div className="App" style={{ overflowY: "hidden", height: "100vh" }}>
 			{/* <ProductInventory /> */}
 			{/* <MaterialInventory /> */}
-			
-				<Switch>
-					<Route path="/" exact component={Marketplace} />
-					<Route path="/login" component={Login} />
-					<Route path="/register" component={Register} />
-					<Route path="/forgotPassword" component={ForgotPassword} />
-					<Route path="/resetPassword" component={ResetPassword} />
-					<Route path="/verifyAccount" component={VerifyAccount} />
-					<PrivateRoute path="/checkout" exact component={Checkout} adminAuth={false}/>
-					<PrivateRoute path="/admin" exact component={Dashboard} adminAuth={true}/>
-					<PrivateRoute path="/admin/dashboard" exact component={Dashboard} adminAuth={true}/>
-					<PrivateRoute path="/admin/sales" exact component={Sales} adminAuth={true}/>
-					<PrivateRoute path="/admin/revenue" exact component={Revenue} adminAuth={true}/>
-					<PrivateRoute path="/admin/userDatas" exact component={UserDatas} adminAuth={true}/>
-					<PrivateRoute path="/admin/userDatas/orderHistory/:id" exact component={OrderHistory} adminAuth={true}/>
-					<PrivateRoute path="/admin/orderRequest" exact component={OrderRequest} adminAuth={true}/>
-					<Route path="*" component={PageNotFound} />
-				</Switch>
-
-			
+			<Switch>
+				<Route path="/" exact component={Marketplace} />
+				<Route path="/login" component={Login} />
+				<Route path="/register" component={Register} />
+				<Route path="/forgotPassword" component={ForgotPassword} />
+				<Route path="/resetPassword" component={ResetPassword} />
+				<Route path="/verifyAccount" component={VerifyAccount} />
+				<PrivateRoute path="/checkout" exact component={Checkout} adminAuth={false}/>
+				<PrivateRoute path="/admin" exact component={Dashboard} adminAuth={true}/>
+				<PrivateRoute path="/admin/dashboard" exact component={Dashboard} adminAuth={true}/>
+				<PrivateRoute path="/admin/sales" exact component={Sales} adminAuth={true}/>
+				<PrivateRoute path="/admin/revenue" exact component={Revenue} adminAuth={true}/>
+				<PrivateRoute path="/admin/userDatas" exact component={UserDatas} adminAuth={true}/>
+				<PrivateRoute path="/admin/userDatas/orderHistory/:id" exact component={OrderHistory} adminAuth={true}/>
+				<PrivateRoute path="/admin/orderRequest" exact component={OrderRequest} adminAuth={true}/>
+				<Route path="*" component={PageNotFound} />
+			</Switch>
 			<ToastContainer/>
 		</div>
 	);

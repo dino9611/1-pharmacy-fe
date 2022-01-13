@@ -12,7 +12,11 @@ function RevenueChart (props) {
     useEffect(() => {
         const fetchRevenue = async () => {
             try {
-                const response = await axios.get(`${API_URL}/admin/${props.endpoint}?year=${props.year}`);
+                const response = await axios.get(`${API_URL}/admin/${props.endpoint}?year=${props.year}`, {
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem("token-access")}`
+                    }
+                });
                 setRevenueDatas(response.data)
             } catch (error) {
                 toast.error(error.response.data.message || "Server Error", {
@@ -25,7 +29,11 @@ function RevenueChart (props) {
 
         const fetchPotentialRevenue = async () => {
             try {
-                const response = await axios.get(`${API_URL}/admin/${props.endpoint}?year=${props.year}&filter=potentialRevenue`);
+                const response = await axios.get(`${API_URL}/admin/${props.endpoint}?year=${props.year}&filter=potentialRevenue`, {
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem("token-access")}`
+                    }
+                });
                 setPotentialRevenueDatas(response.data)
             } catch (error) {
                 toast.error(error.response.data.message || "Server Error", {

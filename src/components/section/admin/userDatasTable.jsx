@@ -75,7 +75,11 @@ const UserDatasTable = (props) => {
   useEffect(() => {
     const fetchdata = async () => {
       try {
-        const response = await axios.get(`${API_URL}/admin/transactions/userDatas?page=${page}&limit=${rowsPerPage}`);
+        const response = await axios.get(`${API_URL}/admin/transactions/userDatas?page=${page}&limit=${rowsPerPage}`, {
+          headers: {
+            "Authorization": `Bearer ${localStorage.getItem("token-access")}`
+          }
+        });
         setUserDatas(response.data.data);
         setTotal(response.data.meta.total[0].total_data);
       } catch (error) {
@@ -93,7 +97,11 @@ const UserDatasTable = (props) => {
 
   const fetchUserDetailsData = async (id) => {
     try {
-      const response = await axios.get(`${API_URL}/admin/transactions/userDatas/user-details?id=${id}`);
+      const response = await axios.get(`${API_URL}/admin/transactions/userDatas/user-details?id=${id}`, {
+        headers: {
+          "Authorization": `Bearer ${localStorage.getItem("token-access")}`
+        }
+      }); 
       setOpenModalUserDetails(!openModalUserDetails);
       setUserDetailsDatas(response.data.data[0]);
     } catch (error) {

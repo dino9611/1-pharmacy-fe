@@ -7,7 +7,7 @@ const PlainTable = (props) => {
             style={props.style}
         >
             <thead style={{ backgroundColor: "lightgray" }}>
-                <tr>
+                <tr className="text-center">
                     <th scope="col">No.</th>
                     <th scope="col">{props.labelCategory}</th>
                     <th scope="col">{props.dataCategory}</th>
