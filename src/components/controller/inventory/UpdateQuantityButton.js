@@ -7,15 +7,12 @@ function UpdateQuantityButton(props) {
 	const [error, setError] = useState(false);
 
 	useEffect(async () => {
-		if (quantity > 100) {
+		if (quantity > props.limit) {
 			setError(true);
 		} else {
-			let data = await axios.put(
-				`http://localhost:2001/inventory/${props.id}`,
-				{
-					quantityInStock: quantity,
-				},
-			);
+			let data = await axios.put(`${props.url}${props.id}`, {
+				quantityInStock: quantity,
+			});
 			setError(false);
 		}
 		return () => {
@@ -25,23 +22,33 @@ function UpdateQuantityButton(props) {
 	}, [update, quantity]);
 
 	return (
-		<div>
-			<button
-				onClick={() => setQuantity(quantity - 1)}
-				disabled={quantity === 0 ? true : false}
-			>
-				-
-			</button>
-			<input
-				type='number'
-				min={0}
-				max={1000}
-				onChange={(event) => setQuantity(+event.target.value)}
-				onBlur={() => setUpdate(true)}
-				value={quantity}
-			/>
-			{error && <span>too many</span>}
-			<button onClick={() => setQuantity(quantity + 1)}>+</button>
+		<div className='d-flex text-align-center'>
+			<div className='btn-group'>
+				<button
+					onClick={() => setQuantity(quantity - 1)}
+					disabled={quantity === 0 ? true : false}
+					className='btn btn-secondary'
+				>
+					-
+				</button>
+				<input
+					type='number'
+					min={0}
+					max={1000}
+					onChange={(event) => setQuantity(+event.target.value)}
+					onBlur={() => setUpdate(true)}
+					value={quantity}
+					className='form-control'
+				/>
+
+				<button
+					onClick={() => setQuantity(quantity + 1)}
+					className='btn btn-primary'
+				>
+					+
+				</button>
+			</div>
+			{error && <span className='row'>too many</span>}
 		</div>
 	);
 }

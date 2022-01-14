@@ -1,4 +1,4 @@
-.redirectButton {
+.squareButton {
     width: 170px;
     padding: 10px;
     border: none;
@@ -8,7 +8,7 @@
     color: white;
 }
 
-.redirectButton:hover {
+.squareButton:hover {
     cursor: pointer;
     opacity: 0.7;
     transition: 200ms;

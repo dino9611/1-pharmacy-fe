@@ -4,10 +4,11 @@ import './style.css';
 
 const NavbarButton = (props) => {
     const { history } = props;
-
+    const selectedClass = window.location.pathname.includes(props.endpoint) ? "selectedNavbarButton" : "navbarButton";
+   
     return (
         <button 
-            className={`navbarButton d-flex flex-row p-2 ${props.className}`}
+            className={`${selectedClass} d-flex flex-row p-2 ${props.className}`}
             onClick={() => {history.push(props.endpoint)}}
             style={{ marginBottom: 10 }}
         >
@@ -17,6 +18,7 @@ const NavbarButton = (props) => {
             </div>
         </button>
     );
+
 }
  
 export default (withRouter(NavbarButton));

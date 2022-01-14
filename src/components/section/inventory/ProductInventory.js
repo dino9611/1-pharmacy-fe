@@ -22,7 +22,7 @@ function ProductInventory() {
 		};
 	}, [reload]);
 
-	console.log(data);
+	console.log(data.response);
 
 	return (
 		<div>
@@ -56,9 +56,10 @@ function ProductInventory() {
 			<table className='table'>
 				<thead className='text-center'>
 					<tr>
-						<th scope='col'>id</th>
-						<th scope='col'>image</th>
-						<th scope='col'>name</th>
+						<th scope='w-10'>id</th>
+						<th scope='w-20'>image</th>
+						<th scope='w-10'>name</th>
+						<th scope='w-40'>description</th>
 						<th scope='col'>price</th>
 						<th scope='col'>quantity in stock</th>
 						<th scope='col'>Action</th>
@@ -77,12 +78,15 @@ function ProductInventory() {
 										/>
 									</td>
 									<td>{element.name}</td>
+									<td>{element.description}</td>
 									<td>{element.price}</td>
 									<td>
 										{/* {element.quantityInStock} */}
 										<UpdateQuantityButton
 											quantity={element.quantityInStock}
+											url={'http://localhost:2001/inventory/'}
 											id={element.id}
+											limit={200}
 										/>
 									</td>
 									<td>
@@ -91,8 +95,8 @@ function ProductInventory() {
 											id={element.id}
 											name={element.name}
 											price={element.price}
-											bottle_quantity={element.bottle_quantity}
-											quantity_per_bottle={element.quantity_per_bottle}
+											bottle_quantity={element.quantityInStock}
+											Raw_materials={element.Raw_materials}
 										/>
 									</td>
 								</tr>

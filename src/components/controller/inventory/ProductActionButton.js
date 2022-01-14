@@ -2,12 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Modal } from 'bootstrap';
 import EditMaterial from '../../section/inventory/EditMaterial';
 import axios from 'axios';
+import EditProduct from '../../section/inventory/EditProduct';
 
 function ProductActionButton(props) {
 	const [deleteItem, setDeleteItem] = useState(false);
 	const [close, setClose] = useState(true);
 	const modalRef = useRef();
-
 	useEffect(() => {
 		if (deleteItem) {
 			axios.delete(`http://localhost:2001/inventory/${props.id}`);
@@ -45,7 +45,7 @@ function ProductActionButton(props) {
 				edit
 			</button>
 			<div className='modal fade' ref={modalRef} tabIndex='-1'>
-				<div className='modal-dialog'>
+				<div className='modal-dialog modal-xl'>
 					<div className='modal-content'>
 						<div className='modal-header'>
 							<h5 className='modal-title' id='staticBackdropLabel'>
@@ -59,13 +59,14 @@ function ProductActionButton(props) {
 							></button>
 						</div>
 						<div className='modal-body'>
-							<EditMaterial
+							<EditProduct
 								id={props.id}
 								name={props.name}
 								price={props.price}
 								bottle_quantity={props.bottle_quantity}
 								quantity_per_bottle={props.quantity_per_bottle}
 								onEditHandler={closeModal}
+								materialList={props.Raw_materials}
 							/>
 						</div>
 					</div>
