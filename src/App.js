@@ -20,14 +20,12 @@ import MaterialInventory from './components/section/inventory/MaterialInventory'
 import NavbarUser from './components/UI/utility/NavbarUser';
 import CustomOrder from './components/section/customOrder/CustomOrder';
 import Prescriptions from './components/section/customOrder/Prescriptions';
-import SortPrice from './components/controller/E-pharma/SortPrice';
-import SortName from './components/controller/E-pharma/SortName';
-import SortSideBar from './components/section/E-Pharma/SortSideBar';
+import MaterialRecord from './pages/MaterialRecord';
+import UpdateQuantityButton from './components/controller/inventory/UpdateQuantityButton';
 function App() {
 	return (
 		<div className='App'>
-			<SortSideBar />
-			{/* <NavbarUser />
+			<NavbarUser />
 			<Link to='/custom/order'>
 				<button>Custom Order</button>
 			</Link>
@@ -37,6 +35,9 @@ function App() {
 			</Link>
 			<Link to='/admin/inventory/material'>
 				<button>material</button>
+			</Link>
+			<Link to='/admin/record/material'>
+				<button>material record</button>
 			</Link>
 			<Switch>
 				<Route path='/' exact component={Marketplace} />
@@ -92,9 +93,14 @@ function App() {
 					component={MaterialInventory}
 					adminAuth={false}
 				/>
+				<Route
+					path='/admin/record/material'
+					component={MaterialRecord}
+					adminAuth={false}
+				/>
 				<Route path='*' component={PageNotFound} />
 			</Switch>
-			<ToastContainer /> */}
+			<ToastContainer />
 		</div>
 	);
 }

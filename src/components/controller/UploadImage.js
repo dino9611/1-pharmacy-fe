@@ -5,6 +5,7 @@ import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 function UploadImage(props) {
 	const [image, setImage] = useState(null);
 	const [percentage, setPercentage] = useState(0);
+	const [avatar, setAvatar] = useState();
 	const [err, setErr] = useState(null);
 
 	const changeHandler = (event) => {
@@ -31,6 +32,7 @@ function UploadImage(props) {
 			},
 			() => {
 				getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+					setAvatar(url);
 					props.uploadUrl(url);
 				}); // url to download the image will be stored to database
 			},
@@ -44,7 +46,7 @@ function UploadImage(props) {
 	return (
 		<div className='container align-items-center justify-content-center'>
 			<label for='imageUpload'>
-				<img className={props.className} src={props.avatar} />
+				<img className={props.className} src={avatar || props.avatar} />
 			</label>
 			<input
 				type='file'

@@ -6,7 +6,6 @@ import axios from 'axios';
 function CustomOrderAction(props) {
 	const [materials, setMaterials] = useState([]);
 	const [serving, setServing] = useState(0);
-	const [reject, setReject] = useState(false);
 	const [close, setClose] = useState(true);
 	const modalRef = useRef();
 
@@ -120,12 +119,6 @@ function CustomOrderAction(props) {
 					</div>
 				</div>
 			</div>
-			<button
-				className='btn btn-outline-danger'
-				onClick={() => setReject(true)}
-			>
-				Reject
-			</button>
 		</div>
 	);
 }

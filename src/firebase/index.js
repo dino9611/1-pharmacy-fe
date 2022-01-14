@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getStorage } from 'firebase/storage';
+import UploadImage from '../components/controller/UploadImage';
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyBR9XU6sbgvvPxHiPAlhYWd-D0eaAtoM0Y',

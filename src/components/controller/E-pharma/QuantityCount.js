@@ -20,6 +20,7 @@ function QuantityCount(props) {
 					className='form-control'
 					type='number'
 					value={count}
+					min={1}
 					onFocus={() => setCount('')}
 					onChange={(event) => setCount(+event.target.value)}
 					onBlur={(event) => console.log(+event.target.value)}

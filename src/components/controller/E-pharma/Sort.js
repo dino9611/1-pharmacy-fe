@@ -4,14 +4,14 @@ function SortName(props) {
 	const [asc, setAsc] = useState(true);
 
 	useEffect(() => {
-		props.sortNameChange(asc); // will change when triggered
+		props.sortChange(asc); // will change when triggered
 		return;
 	}, [asc]);
 
 	return (
 		<div>
-			<button onClick={() => setAsc(true)}>ASC</button>
-			<button onClick={() => setAsc(false)}>DSC</button>
+			<label className=''>{props.label}</label>
+			<button onClick={() => setAsc(!asc)}>{asc ? 'Up' : 'down'}</button>
 		</div>
 	);
 }
