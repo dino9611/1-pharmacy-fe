@@ -37,7 +37,9 @@ const OrderWrapper = (props) => {
                     /> 
                 </div>
             </div>
-            {props.children}
+            <div className="d-flex justify-content-between">
+                {props.children}
+            </div>
         </div>
     );
 }
