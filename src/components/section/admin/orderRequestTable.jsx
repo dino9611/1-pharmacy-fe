@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import OrderWrapper from '../../UI/adminInventory/orderWrapper';
 import '../../UI/adminInventory/style.css';
-import { toast } from 'react-toastify'
+import { toast } from 'react-toastify';
 import axios from 'axios';
 import { API_URL } from '../../../constants/api';
 import Swal from 'sweetalert2';
@@ -9,18 +9,18 @@ import ShippingDetailsModal from '../../UI/adminInventory/shippingDetailsModal';
 import CustomPrescriptionModal from '../../UI/adminInventory/customPrescriptionModal';
 import OrderDetailsModal from '../../UI/adminInventory/orderDetailsModal';
 import StatusButtons from '../../UI/adminInventory/statusButtons';
-// import Pagination from '../../controller/Pagination';
+import Pagination from '../../controller/Pagination';
 
 const OrderRequestTable = (props) => {
     const [orders, setOrders] = useState([]);
     const [status, setStatus] = useState(1);
 
-    // const [page, setPage] = useState(1);
-    // const limit = 10;
-    // const [total, setTotal] = useState(0);
-    // const changePageHandler = (value) => {
-	// 	setPage(value);
-	// };
+    const [page, setPage] = useState(1);
+    const limit = 10;
+    const [total, setTotal] = useState(0);
+    const changePageHandler = (value) => {
+		setPage(value);
+	};
 
     const fetchOrdersData = useCallback(async () => {
         try {
@@ -236,14 +236,14 @@ const OrderRequestTable = (props) => {
                     <i class="fas fa-info-circle pe-2"></i> No Data Available
                 </div>
             }
-            {/* <Pagination
+            <Pagination
                 className="mt-4"
                 onPageChange={changePageHandler}
                 totalCount={total}
                 siblingCount={2}
                 currentPage={page}
                 pageSize={limit}
-            /> */}
+            />
         </>
     );
 }
