@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import useAxios from '../../../hooks/useAxios';
 import AddMedicineIngredients from './AddMedicineIngredients';
 import UploadImage from '../../controller/UploadImage';
+import { API_URL } from '../../../constants/api';
 
 function AddInventory(props) {
 	const [body, setBody] = useState();
@@ -13,7 +14,7 @@ function AddInventory(props) {
 
 	const { response, loading, error } = useAxios({
 		method: 'post',
-		url: 'http://localhost:2001/inventory',
+		url: `${API_URL}/inventory`,
 		body,
 	});
 

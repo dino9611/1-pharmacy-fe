@@ -17,7 +17,7 @@ function MaterialTable(props) {
 						<th scope='col'>quantity per bottle</th>
 						<th scope='col'>quantity in stock</th>
 						<th scope='col'>Unit</th>
-						<th scope='col'>Action</th>
+					<th scope='col'>Action</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -29,7 +29,10 @@ function MaterialTable(props) {
 								<td>{element.price}</td>
 								<td className='text-center'>{element.bottle_quantity}</td>
 								<td className='text-center'>{element.quantity_per_bottle}</td>
-								<td className='text-center'>{element.stock_quantity}</td>
+								<td className='text-center'>
+								
+									{element.stock_quantity}
+								</td>
 								<td className='text-center'>
 									{unitConversion[element.UnitId - 1]}
 								</td>

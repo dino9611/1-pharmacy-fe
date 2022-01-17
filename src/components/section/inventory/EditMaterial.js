@@ -1,5 +1,6 @@
 import { Form, Formik } from 'formik';
 import React, { useState, useEffect } from 'react';
+import { API_URL } from '../../../constants/api';
 import useAxios from '../../../hooks/useAxios';
 import CustomSelect from '../../UI/utility/CustomSelect';
 import CustomTextInput from '../../UI/utility/CustomTextInput';
@@ -9,7 +10,7 @@ function EditMaterial(props) {
 
 	const { response, loading, error } = useAxios({
 		method: 'put',
-		url: `http://localhost:2001/material/${props.id}`,
+		url: `${API_URL}/material/${props.id}`,
 		body,
 	});
 

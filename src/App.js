@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 import Marketplace from './pages/marketplace';
 import Login from './pages/login';
@@ -35,62 +35,102 @@ import jwt from 'jsonwebtoken';
 function App() {
 	const dispatch = useDispatch();
 
-	const { hasReloaded } = useSelector((state) => {
-        return {
-			hasReloaded: state.auth.hasReloaded
-        };
-    });
+	// const { hasReloaded } = useSelector((state) => {
+	// 	return {
+	// 		hasReloaded: state.auth.hasReloaded,
+	// 	};
+	// });
 
-    const keepLogin = useCallback(async () => {
-        const token = localStorage.getItem("token-access");
-		
-		if (token){
-			const decoded = jwt.decode(token);
-			dispatch({ type: "LOGIN", payload: {isAdmin: decoded.isAdmin} });
-		} else {
-			dispatch({ type: "NO_ACCESS_TOKEN" });
-		};
-		
-		console.log(token);
-    }, [dispatch]);
+	// const keepLogin = useCallback(async () => {
+	// 	const token = localStorage.getItem('token-access');
 
-    useEffect(() => {
-        keepLogin();
-    }, [keepLogin]);
+	// 	if (token) {
+	// 		const decoded = jwt.decode(token);
+	// 		dispatch({ type: 'LOGIN', payload: { isAdmin: decoded.isAdmin } });
+	// 	} else {
+	// 		dispatch({ type: 'NO_ACCESS_TOKEN' });
+	// 	}
 
-	if (!hasReloaded){
-		return null;
-	};
+	// 	console.log(token);
+	// }, [dispatch]);
+
+	// useEffect(() => {
+	// 	keepLogin();
+	// }, [keepLogin]);
+
+	// if (!hasReloaded) {
+	// 	return null;
+	// }
 
 	return (
-		<div className='App' style={{ overflow: 'hidden', height: "100vh" }}>
+		<div className='App' style={{ overflow: 'hidden', height: '100vh' }}>
 			<Switch>
 				{/* <NavbarUser /> */}
-				<Route path="/" exact component={Marketplace} />
-				<Route path="/login" component={Login} />
-				<Route path="/register" component={Register} />
-				<Route path="/forgotPassword" component={ForgotPassword} />
-				<Route path="/resetPassword" component={ResetPassword} />
-				<Route path="/verifyAccount" component={VerifyAccount} />
-				<PrivateRoute path="/checkout" exact component={Checkout} adminAuth={false}/>
-				<PrivateRoute path="/admin" exact component={Dashboard} adminAuth={true}/>
-				<PrivateRoute path="/admin/dashboard" exact component={Dashboard} adminAuth={true}/>
-				<PrivateRoute path="/admin/sales" exact component={Sales} adminAuth={true}/>
-				<PrivateRoute path="/admin/revenue" exact component={Revenue} adminAuth={true}/>
-				<PrivateRoute path="/admin/userDatas" exact component={UserDatas} adminAuth={true}/>
-				<PrivateRoute path="/admin/userDatas/orderHistory/:id" exact component={OrderHistory} adminAuth={true}/>
-				<PrivateRoute path="/admin/orderRequest" exact component={OrderRequest} adminAuth={true}/>
-          		<Route
+				<Route path='/' exact component={Marketplace} />
+				<Route path='/login' component={Login} />
+				<Route path='/register' component={Register} />
+				<Route path='/forgotPassword' component={ForgotPassword} />
+				<Route path='/resetPassword' component={ResetPassword} />
+				<Route path='/verifyAccount' component={VerifyAccount} />
+				<PrivateRoute
+					path='/checkout'
+					exact
+					component={Checkout}
+					adminAuth={false}
+				/>
+				<PrivateRoute
+					path='/admin'
+					exact
+					component={Dashboard}
+					adminAuth={true}
+				/>
+				<PrivateRoute
+					path='/admin/dashboard'
+					exact
+					component={Dashboard}
+					adminAuth={true}
+				/>
+				<PrivateRoute
+					path='/admin/sales'
+					exact
+					component={Sales}
+					adminAuth={true}
+				/>
+				<PrivateRoute
+					path='/admin/revenue'
+					exact
+					component={Revenue}
+					adminAuth={true}
+				/>
+				<PrivateRoute
+					path='/admin/userDatas'
+					exact
+					component={UserDatas}
+					adminAuth={true}
+				/>
+				<PrivateRoute
+					path='/admin/userDatas/orderHistory/:id'
+					exact
+					component={OrderHistory}
+					adminAuth={true}
+				/>
+				<PrivateRoute
+					path='/admin/orderRequest'
+					exact
+					component={OrderRequest}
+					adminAuth={true}
+				/>
+				<PrivateRoute
 					path='/admin/inventory/product'
 					component={ProductInventoryPage}
-					adminAuth={false}
+					adminAuth={true}
 				/>
-				<Route
+				<PrivateRoute
 					path='/admin/inventory/material'
 					component={MaterialInventory}
-					adminAuth={false}
+					adminAuth={true}
 				/>
-				<Route path="*" component={PageNotFound} />
+				<Route path='*' component={PageNotFound} />
 			</Switch>
 			<ToastContainer />
 		</div>

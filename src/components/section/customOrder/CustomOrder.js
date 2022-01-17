@@ -3,13 +3,14 @@ import Pagination from '../../controller/Pagination';
 import useAxios from '../../../hooks/useAxios';
 import SearchBar from '../../controller/SearchBar';
 import CustomOrderAction from '../../controller/inventory/CustomOrderAction';
+import { API_URL } from '../../../constants/api';
 
 function CustomOrder() {
 	let [limit, setLimit] = useState(9);
 	let [page, setPage] = useState(1);
 
 	let data = useAxios({
-		url: `http://localhost:2001/custom/${page}/${limit}`,
+		url: `${API_URL}/custom/${page}/${limit}`,
 		method: 'get',
 	});
 	return (
