@@ -1,60 +1,74 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import OrderWrapper from '../../UI/adminInventory/orderWrapper';
-import StatusButton from '../../UI/adminInventory/statusButton';
 import '../../UI/adminInventory/style.css';
-import { toast } from 'react-toastify'
+import { toast } from 'react-toastify';
 import axios from 'axios';
 import { API_URL } from '../../../constants/api';
-import DetailsModal from '../../UI/adminInventory/detailsModal';
 import Swal from 'sweetalert2';
+import ShippingDetailsModal from '../../UI/adminInventory/shippingDetailsModal';
+import CustomPrescriptionModal from '../../UI/adminInventory/customPrescriptionModal';
+import OrderDetailsModal from '../../UI/adminInventory/orderDetailsModal';
+import StatusButtons from '../../UI/adminInventory/statusButtons';
 import Pagination from '../../controller/Pagination';
 
 const OrderRequestTable = (props) => {
     const [orders, setOrders] = useState([]);
-    const [userDetails, setUserDetails] = useState([]);
     const [status, setStatus] = useState(1);
-    const [openModalShippingDetails, setOpenModalShippingDetails] = useState(false);
-    const [openModalOrderDetails, setOpenModalOrderDetails] = useState(false);
-    const [orderDetails, setOrderDetails] = useState([]);
-    
+
     const [page, setPage] = useState(1);
     const limit = 10;
     const [total, setTotal] = useState(0);
-
     const changePageHandler = (value) => {
 		setPage(value);
 	};
 
-    const fetchData = useCallback(async () => {
+    const fetchOrdersData = useCallback(async () => {
         try {
-            const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory?filter=orderRequest&status=${status}&page=${page}&limit=${limit}`, {
+            const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory?filter=byOrder&status=${status}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem("token-access")}`
                 }
             });
             setOrders(response.data.data);
-            setTotal(response.data.meta.total);
+            // setTotal(response.data.meta.total);
         } catch (error) {
             toast.error(error.response?.data.message || error.message || "Server Error", {
                 position: "top-right",
                 icon: "😵"
             });
         }
-    }, [page, limit, status]);
+    }, [status]);
 
     useEffect(() => {
-        fetchData();         
-    }, [fetchData]);
+        fetchOrdersData();         
+    }, [fetchOrdersData]);
+
+    const [customPrescriptions, setCustomPrescriptions] = useState([]);
+    const fetchCustomPrescriptionData = async (id) => {
+        try {
+            const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory/order-details?filter=byOrder&page=customPrescription&status=${status}&id=${id}`, {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem("token-access")}`
+                }
+            });
+            setCustomPrescriptions(response.data);
+        } catch (error) {
+            toast.error(error.response?.data.message || error.message || "Server Error", {
+                position: "top-right",
+                icon: "😵"
+            });
+        }
+    }
     
-    const fetchUserDetailsData = async (transaction_number) => {
+    const [shippingDetails, setShippingDetails] = useState([]);
+    const fetchShippingDetailsData = async (id) => {
         try {
-            const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory?filter=userDetails&status=${status}&transaction_number=${transaction_number}`, {
+            const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory?status=${status}&id=${id}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem("token-access")}`
                 }
             });
-            setOpenModalShippingDetails(!openModalShippingDetails);
-            setUserDetails(response.data.data);
+            setShippingDetails(response.data.data);
         } catch (error) {
             toast.error(error.response.data.message || "Server Error", {
                 position: "top-right",
@@ -62,17 +76,20 @@ const OrderRequestTable = (props) => {
             });
         }
     };
-
-    const fetchOrderDetailsData = async (transaction_number) => {
+    
+    const [orderDetails, setOrderDetails] = useState([]);
+    const [shippingMethod, setShippingMethod] = useState();
+    const [shippingCost, setShippingCost] = useState();
+    const fetchOrderDetailsData = async (id) => {
         try {
-            const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory/order-details?filter=orderRequest&status=${status}&transaction_number=${transaction_number}`, {
+            const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory/order-details?filter=byOrder&status=${status}&id=${id}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem("token-access")}`
                 }
             });
-            setOpenModalOrderDetails(!openModalOrderDetails);
             setOrderDetails(response.data);
-            console.log(response.data);
+            setShippingMethod(response.data[0].shipping_method);
+            setShippingCost(response.data[0].shipping_cost);
         } catch (error) {
             toast.error(error.response.data.message || "Server Error", {
                 position: "top-right",
@@ -81,134 +98,10 @@ const OrderRequestTable = (props) => {
         }
     };
 
-    const RenderShippingDetailsModal = () => {
-        return (
-            userDetails.map((order) => {
-                return (
-                    <DetailsModal
-                        size="md"
-                        isOpen={openModalShippingDetails} 
-                        toggle={() => setOpenModalShippingDetails(!openModalShippingDetails)}
-                        title="Shipping Details"
-                    >
-                        <p>
-                            Recipent Name: {order.recipent_name}
-                        </p>
-                        <p>
-                            Recipent Phone Number: {order.recipent_phone_number}
-                        </p>
-                        <p>
-                            Shipping Address: {order.shipping_address}
-                        </p>
-                        <p>
-                            Shipping Method: {order.shipping_method}
-                        </p>
-                        <p>
-                            Shipping Cost: Rp. {order.shipping_cost.toLocaleString("in", "ID")}
-                        </p>
-                    </DetailsModal>
-                );
-            })
-        );
-    };
-
-    const RenderOrderDetailsModal = () => {
-        const OrderDetailsFooter = () => {
-            return (
-                <div className="d-flex flex-row justify-content-between" style={{ width: "100%" }}>
-                    <div>
-                        <img src={orderDetails.map(orderDetail => orderDetail.payment_image_proof)} alt="" height="120" width="auto"/>
-                    </div>
-                    <div className="d-flex flex-column align-items-end">
-                        <p>Shipping Method: {userDetails.map(userDetail => userDetail.shipping_method)}</p>
-                        <p>Shipping Cost: Rp. {userDetails.map(userDetail => userDetail.shipping_cost.toLocaleString("in", "ID"))}</p>
-                        <p>Total Payment: Rp. {orderDetails.reduce((prev, curr) => prev + curr.total_price, 0).toLocaleString("in", "ID")} </p>
-                    </div>
-                </div>
-            );
-        };
-
-        return (
-            <DetailsModal
-                size="xl"
-                isOpen={openModalOrderDetails} 
-                toggle={() => setOpenModalOrderDetails(!openModalOrderDetails)}
-                title="Order Details"
-                footer={<OrderDetailsFooter/>} 
-            >
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                        <th scope="col">No.</th>
-                        <th scope="col">Photo</th>
-                        <th scope="col">Order</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Total Price</th>
-                        </tr>
-                    </thead>
-                    {
-                        orderDetails.map((orderDetail, index) => {
-                            return (
-                                <tbody>
-                                    <tr>
-                                    <th scope="row">{index + 1}.</th>
-                                    <td>
-                                        <img src={orderDetail.medicine_image} alt="" height="30" width="50"/>
-                                    </td>
-                                    <td>{orderDetail.medicine_name}</td>
-                                    <td>{orderDetail.quantity}</td>
-                                    <td>Rp. {orderDetail.price.toLocaleString("in", "ID")}</td>
-                                    <td>Rp. {orderDetail.total_price.toLocaleString("in", "ID")}</td>
-                                    </tr>
-                                </tbody>
-                            );
-                        })
-                    }
-                </table>
-            </DetailsModal>
-        );
-    };
-
-    const StatusButtons = () => {
-        const underline = <div style={{ height: 2, width: "35%", backgroundColor: "var(--black-color)", marginTop: 7 }}></div>
-        
-        return (
-            <div className="d-flex flex-row mb-3">
-                <StatusButton
-                    className={`${ status === 1 ? "selectedStatusButton" : "statusButton"}`} 
-                    backgroundColor= "darkgray"
-                    border= "2px solid gray"
-                    onClick={() => setStatus(1)}
-                    label="Awaiting for Review"
-                    ternary={ status === 1 ? underline : null }
-                />
-                <div className="mx-3" style={{ width: 1, backgroundColor: "silver" }}></div>
-                <StatusButton
-                    className={`${ status === 2 ? "selectedStatusButton" : "statusButton"}`} 
-                    backgroundColor= "limegreen"
-                    border= "2px solid forestgreen" 
-                    onClick={() => setStatus(2)}
-                    label="Past Accepted Orders"
-                    ternary={ status === 2 ? underline : null }
-                />
-                <StatusButton
-                    className={`${ status === 3 ? "selectedStatusButton" : "statusButton"}`} 
-                    backgroundColor= "var(--red-color)"
-                    border= "2px solid firebrick" 
-                    onClick={() => setStatus(4)}
-                    label="Past Rejected Orders"
-                    ternary={ status === 4 ? underline : null }
-                />
-            </div>
-        )
-    };
-
-    const changeOrderStatus = async (transaction_number, newStatus) => {
+    const changeOrderStatus = async (id, newStatus) => {
         try {
-            const response = await axios.post(`${API_URL}/admin/transactions/orderRequest?transaction_number=${transaction_number}&newStatus=${newStatus}`);
-            console.log(response.data);
-            fetchData();
+            await axios.post(`${API_URL}/admin/transactions/orderRequest?id=${id}&newStatus=${newStatus}`);
+            fetchOrdersData();
         } catch (error) {
             Swal.fire(
                 `Error`,
@@ -218,7 +111,7 @@ const OrderRequestTable = (props) => {
         }
     };
 
-    const confirmAlert = (transaction_number, newStatus) => {
+    const confirmAlert = (transaction_number, id, newStatus) => {
         return (
             Swal.fire({
                 icon: 'warning',
@@ -228,7 +121,7 @@ const OrderRequestTable = (props) => {
                 confirmButtonText: 'Accept',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    changeOrderStatus(transaction_number, newStatus);
+                    changeOrderStatus(id, newStatus);
                     Swal.fire(
                         `Order is accepted!`,
                         `Order No. ${transaction_number} is now moved to<br/>Status 2: Accepted & Ongoing`,
@@ -239,7 +132,7 @@ const OrderRequestTable = (props) => {
         );
     };
 
-    const rejectAlert = (transaction_number, newStatus) => {
+    const rejectAlert = (transaction_number, id, newStatus) => {
         return (
             Swal.fire({
                 icon: 'warning',
@@ -249,7 +142,7 @@ const OrderRequestTable = (props) => {
                 confirmButtonText: 'Reject',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    changeOrderStatus(transaction_number, newStatus);
+                    changeOrderStatus(id, newStatus);
                     Swal.fire(
                         `Order is rejected!`,
                         `Order No. ${transaction_number} is now moved to<br/>Status 4: Failed / Cancelled`,
@@ -262,9 +155,24 @@ const OrderRequestTable = (props) => {
 
     return (
         <>
-            <RenderShippingDetailsModal/>
-            <RenderOrderDetailsModal/>
-            <StatusButtons/>
+            <ShippingDetailsModal 
+                shippingDetails={shippingDetails} 
+                closeModal={() => setShippingDetails([])}
+            />
+            <OrderDetailsModal 
+                orderDetails={orderDetails} 
+                shippingMethod={shippingMethod} 
+                shippingCost={shippingCost} 
+                closeModal={() => setOrderDetails([])}
+            />
+            <CustomPrescriptionModal 
+                customPrescriptions={customPrescriptions} 
+                closeModal={() => setCustomPrescriptions([])}
+            />
+            <StatusButtons
+                status={status}
+                onClick={(value) => setStatus(value)}
+            />
             {
                 (orders.length)
                 ?
@@ -274,43 +182,45 @@ const OrderRequestTable = (props) => {
                             transactionNumber={order.transaction_number}
                             createdAt={order.createdAt}
                             buttonLabel1="USER DETAILS"
-                            onClickButton1={() => fetchUserDetailsData(order.transaction_number)}
+                            onClickButton1={() => fetchShippingDetailsData(order.id)}
                             buttonLabel2="ORDER DETAILS"
-                            onClickButton2={() => fetchOrderDetailsData(order.transaction_number)}
-                            totalPayment={order.total_payment.toLocaleString("in", "ID")}
+                            onClickButton2={() => fetchOrderDetailsData(order.id)}
+                            totalPayment={parseInt(order.total_payment).toLocaleString("in", "ID")}
                         >
-                            <div className="d-flex justify-content-between">
-                                <div className="d-flex flex-row" style={{ fontSize: 18 }}>
-                                    Custom Prescription Request:
-                                    <div className="ms-3" style={{ textAlign: "start" }}>
-                                        <img src="" alt="" height="110" width="200"/>
-                                    </div>
+                            <div className="d-flex flex-row" style={{ fontSize: 18 }}>
+                                Custom Prescription Request:
+                                <div 
+                                    className="ms-3 container" 
+                                    style={{ textAlign: "start", paddingLeft: 0, width: 200, height: 110 }} 
+                                    onClick={() => fetchCustomPrescriptionData(order.id)}>
+                                    <img className="customPrescriptionImage" src="https://www.researchgate.net/profile/Sandra-Benavides/publication/228331607/figure/fig4/AS:667613038387209@1536182760366/Indicate-why-the-prescription-is-not-appropriate-as-written.png" alt="" width="200" height="110"/>
+                                    <p className="centered">EDIT</p>
                                 </div>
-                                {
-                                    status === 1
-                                    ?
-                                    <div className="d-flex flex-column mt-3">
-                                        <button 
-                                            className="orderRequestButton mb-2" 
-                                            style={{ color: "forestgreen" }}
-                                            onClick={() => confirmAlert(order.transaction_number, 2)}
-                                        >
-                                            <i class="fas fa-check-circle me-2"></i>
-                                            Accept Order
-                                        </button>
-                                        <button 
-                                            className="orderRequestButton" 
-                                            style={{ color: "firebrick" }}
-                                            onClick={() => rejectAlert(order.transaction_number, 4)}
-                                        >
-                                            <i class="fas fa-times-circle me-2"></i>
-                                            Reject Order
-                                        </button>
-                                    </div>
-                                    :
-                                    null
-                                }
                             </div>
+                            {
+                                status === 1
+                                ?
+                                <div className="d-flex flex-column mt-3">
+                                    <button 
+                                        className="orderRequestButton mb-2" 
+                                        style={{ color: "forestgreen" }}
+                                        onClick={() => confirmAlert(order.transaction_number, order.id, 2)}
+                                    >
+                                        <i class="fas fa-check-circle me-2"></i>
+                                        Accept Order
+                                    </button>
+                                    <button 
+                                        className="orderRequestButton" 
+                                        style={{ color: "firebrick" }}
+                                        onClick={() => rejectAlert(order.transaction_number, order.id, 4)}
+                                    >
+                                        <i class="fas fa-times-circle me-2"></i>
+                                        Reject Order
+                                    </button>
+                                </div>
+                                :
+                                null
+                            }
                         </OrderWrapper>
                     )
                 })

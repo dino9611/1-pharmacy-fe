@@ -76,7 +76,7 @@ function CustomOrderAction(props) {
 						<div className='row'>
 							<div className='modal-body d-flex flex-row'>
 								<div className='col'>
-									<img src={props.image} />
+									<img alt="" src={props.image} />
 								</div>
 								<div className='col ms-4'>
 									<CustomOrder

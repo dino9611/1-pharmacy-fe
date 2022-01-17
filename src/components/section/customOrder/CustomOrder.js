@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Pagination from '../../controller/Pagination';
 import useAxios from '../../../hooks/useAxios';
-import SearchBar from '../../controller/SearchBar';
 import CustomOrderAction from '../../controller/inventory/CustomOrderAction';
 
 function CustomOrder() {
@@ -12,6 +11,8 @@ function CustomOrder() {
 		url: `http://localhost:2001/custom/${page}/${limit}`,
 		method: 'get',
 	});
+
+	console.log(data.response)
 	return (
 		<div>
 			<nav className='row mt-3'>
@@ -29,15 +30,9 @@ function CustomOrder() {
 						<option value='12'>12</option>
 					</select>
 				</div>
-				<div className='col-7'>
-					<SearchBar
-						url='http://localhost:2001/inventory/medicines'
-						onSearchResult={(value) => console.log(value)}
-						onSearchClick={(value) => console.log(value)}
-						//solve for extra feature later
-					/>
-				</div>
 			</nav>
+
+			
 			<table className='table align-middle mt-3'>
 				<thead className='text-center'>
 					<tr className='table-primary'>
@@ -55,6 +50,7 @@ function CustomOrder() {
 									<td>{element.id}</td>
 									<td className=''>
 										<img
+											alt=""
 											class='img-responsive img-thumbnail'
 											src={element.image}
 										/>
