@@ -79,7 +79,7 @@ const OrderHistoryTable = (props) => {
                 orderDetails={orderDetails} 
                 closeModal={() => setOrderDetails([])}
                 shippingMethod={orders.map(order => order.shipping_method)}
-                shippingCost={orders.map(order => order.shipping_cost.toLocaleString("in", "ID"))}
+                shippingCost={orders.map(order => order.shipping_cost)}
             />
             <StatusButtons
                 status={status}

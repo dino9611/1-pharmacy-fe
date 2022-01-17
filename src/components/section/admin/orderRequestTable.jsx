@@ -18,26 +18,27 @@ const OrderRequestTable = (props) => {
     const [page, setPage] = useState(1);
     const limit = 10;
     const [total, setTotal] = useState(0);
+
     const changePageHandler = (value) => {
 		setPage(value);
 	};
 
     const fetchOrdersData = useCallback(async () => {
         try {
-            const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory?filter=byOrder&status=${status}`, {
+            const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory?filter=byOrder&status=${status}&limit=${limit}&page=${page}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem("token-access")}`
                 }
             });
             setOrders(response.data.data);
-            // setTotal(response.data.meta.total);
+            setTotal(response.data.meta.total[0].total_data);
         } catch (error) {
             toast.error(error.response?.data.message || error.message || "Server Error", {
                 position: "top-right",
                 icon: "😵"
             });
         }
-    }, [status]);
+    }, [page, status]);
 
     useEffect(() => {
         fetchOrdersData();         
@@ -80,6 +81,7 @@ const OrderRequestTable = (props) => {
     const [orderDetails, setOrderDetails] = useState([]);
     const [shippingMethod, setShippingMethod] = useState();
     const [shippingCost, setShippingCost] = useState();
+    console.log(shippingCost,shippingMethod)
     const fetchOrderDetailsData = async (id) => {
         try {
             const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory/order-details?filter=byOrder&status=${status}&id=${id}`, {
@@ -191,10 +193,11 @@ const OrderRequestTable = (props) => {
                                 Custom Prescription Request:
                                 <div 
                                     className="ms-3 container" 
-                                    style={{ textAlign: "start", paddingLeft: 0, width: 200, height: 110 }} 
+                                    style={{ textAlign: "start", paddingLeft: 0, width: 200, height: 110, marginTop: 10, position:"relative" }} 
                                     onClick={() => fetchCustomPrescriptionData(order.id)}>
                                     <img className="customPrescriptionImage" src="https://www.researchgate.net/profile/Sandra-Benavides/publication/228331607/figure/fig4/AS:667613038387209@1536182760366/Indicate-why-the-prescription-is-not-appropriate-as-written.png" alt="" width="200" height="110"/>
                                     <p className="centered">EDIT</p>
+                                    <i class="fas fa-check-circle" style={{ fontSize: 30, color: "steelblue", position:"absolute", top: -10, right: -10 }}></i>
                                 </div>
                             </div>
                             {

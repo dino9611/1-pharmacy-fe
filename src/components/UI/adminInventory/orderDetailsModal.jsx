@@ -10,7 +10,7 @@ const OrderDetailsModal = (props) => {
                 </div>
                 <div className="d-flex flex-column align-items-end">
                     <p>Shipping Method: {props.shippingMethod}</p>
-                    <p>Shipping Cost: Rp. {props.shippingCost.toLocaleString("in", "ID")}</p>
+                    <p>Shipping Cost: Rp. {parseInt(props.shippingCost).toLocaleString("in", "ID")}</p>
                     <p>Total Payment: Rp. {props.orderDetails.reduce((prev, curr) => prev + curr.total_price, 0).toLocaleString("in", "ID")}</p>
                 </div>
             </div>

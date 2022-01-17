@@ -18,7 +18,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import ProductInventoryPage from './pages/ProductInventoryPage';
 import MaterialInventory from './components/section/inventory/MaterialInventory';
 // import NavbarUser from './components/UI/utility/NavbarUser';
-import CustomOrder from './components/section/customOrder/CustomOrder';
 // import Prescriptions from './components/section/customOrder/Prescriptions';
 // import SortPrice from './components/controller/E-pharma/SortPrice';
 // import SortName from './components/controller/E-pharma/SortName';
@@ -80,8 +79,7 @@ function App() {
 				<PrivateRoute path="/admin/userDatas" exact component={UserDatas} adminAuth={true}/>
 				<PrivateRoute path="/admin/userDatas/orderHistory/:id" exact component={OrderHistory} adminAuth={true}/>
 				<PrivateRoute path="/admin/orderRequest" exact component={OrderRequest} adminAuth={true}/>
-				<PrivateRoute path="/admin/customOrder" exact component={CustomOrder} adminAuth={true}/>
-          		<Route
+\          		<Route
 					path='/admin/inventory/product'
 					component={ProductInventoryPage}
 					adminAuth={false}
