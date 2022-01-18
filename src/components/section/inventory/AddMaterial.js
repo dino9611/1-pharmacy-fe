@@ -5,13 +5,14 @@ import useAxios from '../../../hooks/useAxios';
 import CustomForm from '../../UI/utility/CustomForm';
 import CustomSelect from '../../UI/utility/CustomSelect';
 import CustomTextInput from '../../UI/utility/CustomTextInput';
+import { API_URL } from '../../../constants/api';
 
 function AddMaterial(props) {
 	const [body, setBody] = useState();
 
 	const { response, loading, error } = useAxios({
 		method: 'post',
-		url: 'http://localhost:2001/material',
+		url: `${API_URL}/material`,
 		body,
 	});
 
