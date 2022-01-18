@@ -72,9 +72,42 @@
 }
 
 .dropdownItem{
+    background-color: white;
     color: black;
 }
 
 .dropdownItem:hover{
     background-color: rgb(240, 240, 240);
+}
+
+.customPrescriptionImage{
+    opacity: 0.8;
+}
+
+.container {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: relative;
+    text-align: center;
+}
+
+.container p{
+    color: black;
+    font-weight: 500;
+    font-size: 23px;
+}
+
+.container:hover{
+    opacity: 0.7;
+    transition: 100ms;
+}
+
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.chevronButton:hover {
+    opacity: 0.5;
 }

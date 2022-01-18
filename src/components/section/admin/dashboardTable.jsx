@@ -3,7 +3,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { API_URL } from '../../../constants/api';
 import PlainTable from '../../UI/adminInventory/plainTable';
-import Dropdown from '../../controller/dropdown';
+import Dropdown from '../../controller/admin/dropdown';
 import DashboardCard from '../../UI/adminInventory/dashboardCard';
 
 const DashboardTable = (props) => {

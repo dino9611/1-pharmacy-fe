@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.css';
 
-const StatusButton = (props) => {
+const StatusButtonWrapper = (props) => {
     return (
         <div className="d-flex flex-column align-items-center">
             <button 
@@ -19,4 +19,4 @@ const StatusButton = (props) => {
     );
 }
  
-export default StatusButton;
+export default StatusButtonWrapper;

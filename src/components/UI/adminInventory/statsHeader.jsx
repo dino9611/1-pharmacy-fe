@@ -1,6 +1,6 @@
 import React from 'react';
 import './style.css';
-import Dropdown from '../../controller/dropdown';
+import Dropdown from '../../controller/admin/dropdown';
 
 const StatsHeader = (props) => {
     return (

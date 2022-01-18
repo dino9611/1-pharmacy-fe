@@ -13,16 +13,9 @@ import Sales from './pages/sales';
 import Revenue from './pages/revenue';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import ProductDetailPage from './pages/ProductDetailPage';
-// import UserProfilePage from './pages/UserProfilePage';
 import ProductInventoryPage from './pages/ProductInventoryPage';
 import MaterialInventory from './components/section/inventory/MaterialInventory';
-// import NavbarUser from './components/UI/utility/NavbarUser';
-// import CustomOrder from './components/section/customOrder/CustomOrder';
-// import Prescriptions from './components/section/customOrder/Prescriptions';
-// import SortPrice from './components/controller/E-pharma/SortPrice';
-// import SortName from './components/controller/E-pharma/SortName';
-// import SortSideBar from './components/section/E-Pharma/SortSideBar';
+import CustomOrder from './components/section/customOrder/CustomOrder';
 import Dashboard from './pages/dashboard';
 import 'sweetalert2/src/sweetalert2.scss';
 import 'react-circular-progressbar/dist/styles.css';
@@ -35,37 +28,36 @@ import jwt from 'jsonwebtoken';
 function App() {
 	const dispatch = useDispatch();
 
-	// const { hasReloaded } = useSelector((state) => {
-	// 	return {
-	// 		hasReloaded: state.auth.hasReloaded,
-	// 	};
-	// });
+	const { hasReloaded } = useSelector((state) => {
+		return {
+			hasReloaded: state.auth.hasReloaded,
+		};
+	});
 
-	// const keepLogin = useCallback(async () => {
-	// 	const token = localStorage.getItem('token-access');
+	const keepLogin = useCallback(async () => {
+		const token = localStorage.getItem('token-access');
 
-	// 	if (token) {
-	// 		const decoded = jwt.decode(token);
-	// 		dispatch({ type: 'LOGIN', payload: { isAdmin: decoded.isAdmin } });
-	// 	} else {
-	// 		dispatch({ type: 'NO_ACCESS_TOKEN' });
-	// 	}
+		if (token) {
+			const decoded = jwt.decode(token);
+			dispatch({ type: 'LOGIN', payload: { isAdmin: decoded.isAdmin } });
+		} else {
+			dispatch({ type: 'NO_ACCESS_TOKEN' });
+		}
 
-	// 	console.log(token);
-	// }, [dispatch]);
+		console.log(token);
+	}, [dispatch]);
 
-	// useEffect(() => {
-	// 	keepLogin();
-	// }, [keepLogin]);
+	useEffect(() => {
+		keepLogin();
+	}, [keepLogin]);
 
-	// if (!hasReloaded) {
-	// 	return null;
-	// }
+	if (!hasReloaded) {
+		return null;
+	}
 
 	return (
 		<div className='App' style={{ overflow: 'hidden', height: '100vh' }}>
 			<Switch>
-				{/* <NavbarUser /> */}
 				<Route path='/' exact component={Marketplace} />
 				<Route path='/login' component={Login} />
 				<Route path='/register' component={Register} />
@@ -120,7 +112,9 @@ function App() {
 					component={OrderRequest}
 					adminAuth={true}
 				/>
-				<PrivateRoute
+
+				<PrivateRoute path="/admin/customOrder" exact component={CustomOrder} adminAuth={true}/>
+        <Route
 					path='/admin/inventory/product'
 					component={ProductInventoryPage}
 					adminAuth={true}
