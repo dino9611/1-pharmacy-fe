@@ -5,6 +5,7 @@ import AddProductModal from '../../controller/inventory/AddProductModal';
 import SearchBar from '../../controller/SearchBar';
 import ProductActionButton from '../../controller/inventory/ProductActionButton';
 import { useHistory } from 'react-router';
+import { API_URL } from '../../../constants/api';
 
 function ProductInventory() {
 	let [limit, setLimit] = useState(9);
@@ -13,7 +14,7 @@ function ProductInventory() {
 	const history = useHistory();
 
 	let data = useAxios({
-		url: `http://localhost:2001/inventory/${page}/${limit}`,
+		url: `${API_URL}/inventory/${page}/${limit}`,
 		method: 'get',
 	});
 
@@ -43,7 +44,7 @@ function ProductInventory() {
 				</div>
 				<div className='col-7'>
 					<SearchBar
-						url='http://localhost:2001/inventory/medicines'
+						url={`${API_URL}/inventory/medicines`}
 						onSearchResult={(value) => console.log(value)}
 						onSearchClick={(value) => console.log(value)}
 						//solve for extra feature later

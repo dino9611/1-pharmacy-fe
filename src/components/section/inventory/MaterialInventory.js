@@ -4,6 +4,7 @@ import useAxios from '../../../hooks/useAxios';
 import SearchBar from '../../controller/SearchBar';
 import AddMaterialModal from '../../controller/inventory/AddMaterialModal';
 import ActionButton from '../../controller/inventory/ActionButton';
+import { API_URL } from '../../../constants/api';
 
 function MaterialInventory() {
 	let [limit, setLimit] = useState(9);
@@ -12,7 +13,7 @@ function MaterialInventory() {
 	const unitConversion = ['gr', 'ml', 'kg', 'L'];
 
 	let { response, error, loading } = useAxios({
-		url: `http://localhost:2001/material/getList/${page}/${limit}`,
+		url: `${API_URL}/material/getList/${page}/${limit}`,
 		method: 'get',
 	});
 

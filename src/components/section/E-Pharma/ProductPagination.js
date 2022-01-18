@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import Pagination from '../../controller/Pagination';
 import useAxios from '../../../hooks/useAxios';
 import ProductListWrapper from '../../UI/E-Pharma/ProductListWrapper';
+import { API_URL } from '../../../constants/api';
 
 function ProductPagination() {
 	let [limit, setLimit] = useState(9);
 	let [page, setPage] = useState(1);
 
 	let { response, error, loading } = useAxios({
-		url: `http://localhost:2001/inventory/store/${page}/${limit}/items?name=DESC&min=1000&max=100000`,
+		url: `${API_URL}/inventory/store/${page}/${limit}/items?name=DESC&price=DESC&min=1000&max=100000`,
 		method: 'get',
 	});
 
