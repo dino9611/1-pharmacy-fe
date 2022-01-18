@@ -4,7 +4,7 @@ import '../../UI/adminInventory/style.css';
 const Dropdown = (props) => {
     const [isOpen, setIsopen] = useState(false);
     const datas = props.datas;
-    console.log(datas)
+
     return (
         <div
             className={`d-flex justify-content-center align-items-center ${props.className}`}

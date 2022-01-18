@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
 function useAxios({ url, method, body = null, headers = null }) {
@@ -7,7 +7,7 @@ function useAxios({ url, method, body = null, headers = null }) {
 	const [loading, setLoading] = useState(true);
 
 	// fetching loading = true, error = '', response = null => initial state
-	const process = () => {
+	const process = useCallback(() => {
 		axios[method](url, body, headers)
 			.then((res) => {
 				setLoading(false);
@@ -19,7 +19,7 @@ function useAxios({ url, method, body = null, headers = null }) {
 				setLoading(false);
 				//if error, response = null, loading = false, error = err
 			});
-	};
+	}, [body, headers, method, url]);
 
 	useEffect(() => {
 		if (method === 'get' || method === 'delete') {
@@ -30,7 +30,7 @@ function useAxios({ url, method, body = null, headers = null }) {
 			}
 			process();
 		}
-	}, [method, url, body]);
+	}, [body, method, process]);
 
 	return { response, error, loading };
 }

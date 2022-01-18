@@ -15,7 +15,6 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ProductInventoryPage from './pages/ProductInventoryPage';
 import MaterialInventory from './components/section/inventory/MaterialInventory';
-import CustomOrder from './components/section/customOrder/CustomOrder';
 import Dashboard from './pages/dashboard';
 import 'sweetalert2/src/sweetalert2.scss';
 import 'react-circular-progressbar/dist/styles.css';
@@ -41,11 +40,9 @@ function App() {
 			const decoded = jwt.decode(token);
 			dispatch({ type: 'LOGIN', payload: { isAdmin: decoded.isAdmin } });
 		} else {
-			dispatch({ type: 'NO_ACCESS_TOKEN' });
-		}
-
-		console.log(token);
-	}, [dispatch]);
+			dispatch({ type: "NO_ACCESS_TOKEN" });
+		};
+    }, [dispatch]);
 
 	useEffect(() => {
 		keepLogin();
@@ -112,9 +109,7 @@ function App() {
 					component={OrderRequest}
 					adminAuth={true}
 				/>
-
-				<PrivateRoute path="/admin/customOrder" exact component={CustomOrder} adminAuth={true}/>
-        <Route
+        		<Route
 					path='/admin/inventory/product'
 					component={ProductInventoryPage}
 					adminAuth={true}

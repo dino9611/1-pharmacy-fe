@@ -29,7 +29,7 @@ function Pagination(props) {
 	let lastPage = paginationRange[paginationRange.length - 1]; // extract last element of range array
 
 	return (
-		<div className={`container ${props.className}`}>
+		<div className={`container ${props.className}`} style={{ backgroundColor: "inherit" }}>
 			{props.children}
 
 			<div className='col d-flex justify-content-center'>

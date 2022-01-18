@@ -21,16 +21,13 @@ const ResetPasswordForm = (props) => {
         const { newPassword, confirmNewPassword } = resetPassword;
         const { token } = qs.parse(window.location.search);
         
-        console.log(token);
-
         if (newPassword === confirmNewPassword) {
             try {
-                const response = await axios.post(`${API_URL}/auth/resetPassword`, { newPassword }, {
+                await axios.post(`${API_URL}/auth/resetPassword`, { newPassword }, {
                     headers: {
                         "Authorization": `Bearer ${token}`,
                     }
                 });
-                console.log(response.data);
 
                 toast.success("Password is reset!", {
                     position: "top-right",

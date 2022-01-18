@@ -60,7 +60,6 @@ const OrderHistoryTable = (props) => {
                 }
             });
             setOrderDetails(response.data);
-            console.log(response.data)
         } catch (error) {
             toast.error(error.response.data.message || "Server Error", {
                 position: "top-right",
@@ -79,7 +78,7 @@ const OrderHistoryTable = (props) => {
                 orderDetails={orderDetails} 
                 closeModal={() => setOrderDetails([])}
                 shippingMethod={orders.map(order => order.shipping_method)}
-                shippingCost={orders.map(order => order.shipping_cost.toLocaleString("in", "ID"))}
+                shippingCost={orders.map(order => order.shipping_cost)}
             />
             <StatusButtons
                 status={status}

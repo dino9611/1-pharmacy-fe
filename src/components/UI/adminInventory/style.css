@@ -92,7 +92,6 @@
 
 .container p{
     color: black;
-    font-weight: 500;
     font-size: 23px;
 }
 
@@ -108,6 +107,44 @@
     transform: translate(-50%, -50%);
 }
 
+.chevronButton {
+    background-color: transparent;
+    border: 0px solid white;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
 .chevronButton:hover {
     opacity: 0.5;
+}
+
+.submitButton {
+    font-size: 16px;
+    background-color: forestgreen;
+    color: white;
+    border: 1px solid var(--black-color);
+    border-radius: 20px;
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.submitButton:hover {
+    background-color: rgba(34, 139, 34, 0.7);
+    transition: 300ms;
+}
+
+.disabledSubmitButton{
+    font-size: 16px;
+    background-color: gainsboro;
+    color: white;
+    border: 1px solid var(--black-color);
+    border-radius: 20px;
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
 }

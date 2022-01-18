@@ -4,29 +4,30 @@ import useDebounce from '../../hooks/useDebounce';
 import '../UI/adminInventory/style.css';
 
 function SearchBar(props) {
-	let [input, setInput] = useState('');
-	let [searchBarisOpen, setSearchBarisOpen] = useState(false);
-	let { debounceValue } = useDebounce({ value: input, delay: 400 });
+	const [input, setInput] = useState('');
+	const [searchBarisOpen, setSearchBarisOpen] = useState(false);
+	const { debounceValue } = useDebounce({ value: input, delay: 400 });
 
-	let { response, error, loading } = useAxios({
+	const { response } = useAxios({
 		url: props.url + `?name=${debounceValue ? debounceValue : ' '}`,
 		method: 'get',
 	});
 
 	const onChangeHandler = (event) => {
 		setInput(event.target.value);
+		setSearchBarisOpen(true);
 	};
 
 	const onClickHandler = (event) => {
 		let id = +event.target.id;
 		const result = response.filter((element) => element.id === id);
+		setSearchBarisOpen(false);
 		setInput(result[0].name);
 		props.onSearchClick(result);
-		setSearchBarisOpen(false);
 	};
 
 	return (
-		<div style={{ position: "relative"}} onClick={() => setSearchBarisOpen(true)}>
+		<div style={{ position: "relative"}}>
 			<input
 				className='form-control me-2'
 				type='text'
@@ -35,7 +36,7 @@ function SearchBar(props) {
 				value={input}
 			/>
 			<div style={{ position: "absolute", height: "50vh", overflow: "scroll" }}>
-				{response && input && searchBarisOpen? (
+				{response && input && searchBarisOpen ? (
 					response.map((element) => {
 						return (
 							<div className='px-3 py-1 dropdownItem' key={element.id} id={element.id} onClick={onClickHandler}
