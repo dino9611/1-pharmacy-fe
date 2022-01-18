@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import DetailsModal from '../../UI/adminInventory/detailsModal';
-import SquareButton from '../../UI/authInventory/squareButton';
+import DetailsModal from './detailsModal';
+import SquareButton from '../authInventory/squareButton';
 import SearchBar from '../../controller/SearchBar';
 import { API_URL } from '../../../constants/api';
 import { toast } from 'react-toastify';
@@ -8,7 +8,7 @@ import './style.css';
 
 const units = ['gr', 'ml', 'kg', 'L'];
 
-const CustomPrescriptionModal = (props) => {
+const CustomPrescriptionsModal = (props) => {
     const [prescriptionsIndex, setPrescriptionsIndex] = useState(0);
     const [material, setMaterial] = useState(null);
 	const [quantity, setQuantity] = useState(null);
@@ -20,59 +20,38 @@ const CustomPrescriptionModal = (props) => {
 
     const [prescriptionsData, setPrescriptionsData] = useState([]);
     const [isDone, setIsDone] = useState(false);
+
     const onSubmitButtonClick = () => {
         try{
             const datas = [...prescriptionsData, {
-                prescriptionID: props.customPrescriptions.map(customPrescription => customPrescription.custom_prescription_id)[prescriptionsIndex],
+                orderID: props.customPrescriptions.map(customPrescription => customPrescription.id)[prescriptionsIndex],
                 prescriptionDetails: prescriptionIngredients,
                 price
             }];
-            console.log(datas);
-            // nanti ini dikirim ke backend:
-            //[
-            //    { prescriptionID: 132, prescription:prescriptioningredients, price:price },    --> alias prescription 1
-            //    { prescriptionID: 352, prescription:prescriptioningredients, price:price },    --> alias prescription 2
-            //    { prescriptionID: 421, prescription:prescriptioningredients, price:price }     --> alias prescription 3
-            // ]
-            // nanti page prescription yang udah kelar, buttonnya bakal ke disable krn isDone
-            setIsDone(true);
-            setPrice(0);
             setPrescriptionsData(datas);
+            setIsDone(false);
+            clearForm();
+            clearForNextItem();
+
+            if(props.customPrescriptions.length === datas.length){
+                setPrescriptionsIndex(0);
+                props.closeModal(datas);
+                setPrescriptionsData([]);
+            } else {
+                setPrescriptionsIndex(prescriptionsIndex + 1);
+            }
         } catch (err){
             toast.error("Server Error", {
                 position: "top-right",
                 icon: "😵"
             });
         }
-    }
-    console.log(material, quantity, unit, serving, isDone)
-    console.log(prescriptionIngredients)
-    console.log(prescriptionsData)
-
-    const onNextButton = () => {
-        setIsDone(false);
-        setPrescriptionIngredients([]);
-        setPrescriptionsIndex(prescriptionsIndex + 1)
-    }
+    };
 
     const CustomPrescriptionFooter = () => {
         return (
             <div className="d-flex flex-row justify-content-between px-2" style={{ width: "100%" }}>
-                <div className="d-flex flex-row justify-content-around">
-                    {
-                        (prescriptionsIndex <= 0) ? null :
-                        <button className="chevronButton me-3" onClick={() => setPrescriptionsIndex(prescriptionsIndex - 1)} disabled={true}>
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                    }
-                    <p className="mt-1 mb-0" style={{fontSize: 17}}>{prescriptionsIndex + 1} out of {props.customPrescriptions.length}</p>
-                    {
-                        (prescriptionsIndex === props.customPrescriptions.length - 1) ? null :
-                        <button className="chevronButton ms-3" onClick={onNextButton} disabled={isDone ? false : true}>
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                    }
-                </div>
+                <p className="mt-1 mb-0" style={{fontSize: 17}}>{prescriptionsIndex + 1} out of {props.customPrescriptions.length}</p>
                 <button className={isDone || price === 0? "disabledSubmitButton" : "submitButton"} onClick={onSubmitButtonClick} disabled={isDone || price === 0 }>
                     SUBMIT PRESCRIPTION <i class="fas fa-check-circle"></i>
                 </button>
@@ -80,10 +59,28 @@ const CustomPrescriptionModal = (props) => {
         );
     };
 
+    const clearForNextItem = () => {
+        setPrescriptionIngredients([]);
+        setPrice(0);
+    };
+
+    const clearForm = () => {
+        setMaterial(null);
+        setQuantity(null);
+        setUnit(units[0]);
+        setServing(null);
+    };
+    
     const closeModal = () => {
+        clearForm();
+        clearForNextItem();
         setPrescriptionsIndex(0);
-        props.closeModal();
-    }
+        if(props.customPrescriptions.length === prescriptionsData.length){
+            props.closeModal(prescriptionsData);
+        } else {
+            props.closeModal([]);
+        }
+    };
 
     const onAddButtonClick = () => {
         const newPrescriptionIngredients = [...prescriptionIngredients, {
@@ -92,14 +89,13 @@ const CustomPrescriptionModal = (props) => {
             unit,
             serving,
         }];
-        setPrescriptionIngredients(newPrescriptionIngredients);
         const generatePrice = newPrescriptionIngredients.reduce((prev, curr) => prev += ((curr.material.price / curr.material.quantity_per_bottle) * curr.quantity) * curr.serving, 50000).toFixed();
-        //seharusnya, quantity * serving = hasil ==> quantity_left - hasil. kalo someday quantity_left habis total, dia ambil stok dari bottle_quantity dan kurangin jd -1
-        setPrice(generatePrice);
-        setMaterial({});
-        setQuantity(null);
-        setUnit("");
+        clearForm();
+        setPrescriptionIngredients(newPrescriptionIngredients);
+        setPrice(parseInt(generatePrice));
     }
+
+
 
     return (
         <DetailsModal
@@ -109,8 +105,7 @@ const CustomPrescriptionModal = (props) => {
             title={`Custom Prescription Order #${prescriptionsIndex + 1}`}
             footer={<CustomPrescriptionFooter/>} 
         >
-            {
-                props.customPrescriptions.filter((customPrescription, index) => index === prescriptionsIndex).map(customPrescription => (
+            {props.customPrescriptions.filter((customPrescription, index) => index === prescriptionsIndex).map(customPrescription => (
                     <div className="d-flex flex-row justify-content-around">
                         <div className="d-flex align-items-center" style={{ width: "50%", height: "60vh", overflow: "scroll" }} >
                             <img src={customPrescription.custom_prescription_image} alt="" width="100%"/>
@@ -148,13 +143,10 @@ const CustomPrescriptionModal = (props) => {
                                             label="ADD" 
                                             className="mt-3" 
                                             onClick={onAddButtonClick} 
-                                            disabled={(serving <= 0 || quantity <= 0 || material === null ) ? true : false} 
-                                            disabledMessage="*please fill in all fields & enter a valid number"
+                                            disabled={(serving <= 0 || quantity <= 0 || material === null ) ? true : false}
                                         />
                                     }
                                 </form>
-
-
                             </div>
                             <div className="mt-2 mx-3 p-3" style={{ width: "auto", height: "25%", overflow: "scroll", backgroundColor: "seashell" }}>
                                 <h5>
@@ -183,4 +175,4 @@ const CustomPrescriptionModal = (props) => {
     );
 };
  
-export default CustomPrescriptionModal;
+export default CustomPrescriptionsModal;

@@ -6,7 +6,7 @@ import axios from 'axios';
 import { API_URL } from '../../../constants/api';
 import Swal from 'sweetalert2';
 import ShippingDetailsModal from '../../UI/adminInventory/shippingDetailsModal';
-import CustomPrescriptionModal from '../../UI/adminInventory/customPrescriptionModal';
+import CustomPrescriptionsModal from '../../UI/adminInventory/customPrescriptionsModal';
 import OrderDetailsModal from '../../UI/adminInventory/orderDetailsModal';
 import StatusButtons from '../../UI/adminInventory/statusButtons';
 import Pagination from '../../controller/Pagination';
@@ -18,6 +18,18 @@ const OrderRequestTable = (props) => {
     const [page, setPage] = useState(1);
     const limit = 10;
     const [total, setTotal] = useState(0);
+
+    const [customPrescriptions, setCustomPrescriptions] = useState([]);
+    const [shippingDetails, setShippingDetails] = useState([]);
+
+    const [orderDetails, setOrderDetails] = useState([]);
+    const [shippingMethod, setShippingMethod] = useState("");
+    const [shippingCost, setShippingCost] = useState(null);
+
+    const [orderHasPrescriptionServed, setOrderHasPrescriptionServed] = useState({});
+    const [orderHasPrescriptionPrice, setOrderHasPrescriptionPrice] = useState({});
+    const [prescriptionsToBeSubmitted, setPrescriptionsToBeSubmitted] = useState([]);
+    const [selectedOrderIndex, setSelectedOrderIndex] = useState(null);
 
     const changePageHandler = (value) => {
 		setPage(value);
@@ -44,7 +56,6 @@ const OrderRequestTable = (props) => {
         fetchOrdersData();         
     }, [fetchOrdersData]);
 
-    const [customPrescriptions, setCustomPrescriptions] = useState([]);
     const fetchCustomPrescriptionData = async (id) => {
         try {
             const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory/order-details?filter=byOrder&page=customPrescription&status=${status}&id=${id}`, {
@@ -61,7 +72,6 @@ const OrderRequestTable = (props) => {
         }
     }
     
-    const [shippingDetails, setShippingDetails] = useState([]);
     const fetchShippingDetailsData = async (id) => {
         try {
             const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory?status=${status}&id=${id}`, {
@@ -78,11 +88,8 @@ const OrderRequestTable = (props) => {
         }
     };
     
-    const [orderDetails, setOrderDetails] = useState([]);
-    const [shippingMethod, setShippingMethod] = useState();
-    const [shippingCost, setShippingCost] = useState();
-    console.log(shippingCost,shippingMethod)
-    const fetchOrderDetailsData = async (id) => {
+    const fetchOrderDetailsData = async (id, index) => {
+        setSelectedOrderIndex(index);
         try {
             const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory/order-details?filter=byOrder&status=${status}&id=${id}`, {
                 headers: {
@@ -100,9 +107,17 @@ const OrderRequestTable = (props) => {
         }
     };
 
-    const changeOrderStatus = async (id, newStatus) => {
+    const acceptOrRejectAction = async (id, newStatus) => {
         try {
-            await axios.post(`${API_URL}/admin/transactions/orderRequest?id=${id}&newStatus=${newStatus}`);
+            let dataBody = {
+                prescriptionsToBeSubmitted
+            };
+
+            await axios.post(`${API_URL}/admin/transactions/orderRequest?id=${id}&newStatus=${newStatus}`, dataBody, {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem("token-access")}`
+                }
+            });
             fetchOrdersData();
         } catch (error) {
             Swal.fire(
@@ -123,7 +138,7 @@ const OrderRequestTable = (props) => {
                 confirmButtonText: 'Accept',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    changeOrderStatus(id, newStatus);
+                    acceptOrRejectAction(id, newStatus);
                     Swal.fire(
                         `Order is accepted!`,
                         `Order No. ${transaction_number} is now moved to<br/>Status 2: Accepted & Ongoing`,
@@ -144,7 +159,7 @@ const OrderRequestTable = (props) => {
                 confirmButtonText: 'Reject',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    changeOrderStatus(id, newStatus);
+                    acceptOrRejectAction(id, newStatus);
                     Swal.fire(
                         `Order is rejected!`,
                         `Order No. ${transaction_number} is now moved to<br/>Status 4: Failed / Cancelled`,
@@ -153,6 +168,38 @@ const OrderRequestTable = (props) => {
                 };
             })
         );
+    };
+
+    const closeCustomPrescriptionsModal = (prescriptionDatas) => {
+        setCustomPrescriptions([]);
+        const newPrescriptionsToBeSubmitted = [...prescriptionsToBeSubmitted,
+            ...prescriptionDatas
+        ];
+        setPrescriptionsToBeSubmitted(newPrescriptionsToBeSubmitted);
+
+        const newOrderHasPrescriptionServed = {
+            ...orderHasPrescriptionServed
+        };
+
+        newPrescriptionsToBeSubmitted.forEach((prescriptionToBeSubmitted) => {
+            newOrderHasPrescriptionServed[prescriptionToBeSubmitted.orderID] = true;
+        });
+        setOrderHasPrescriptionServed(newOrderHasPrescriptionServed);
+
+        const newOrderHasPrescriptionPrice = {
+            ...orderHasPrescriptionPrice
+        };
+        
+        newPrescriptionsToBeSubmitted.forEach((prescriptionToBeSubmitted) => {
+            if(newOrderHasPrescriptionPrice[prescriptionToBeSubmitted.orderID]){
+                newOrderHasPrescriptionPrice[prescriptionToBeSubmitted.orderID] += prescriptionToBeSubmitted.price;
+            } else {
+                newOrderHasPrescriptionPrice[prescriptionToBeSubmitted.orderID] = prescriptionToBeSubmitted.price;
+            }
+        });
+        setOrderHasPrescriptionPrice(newOrderHasPrescriptionPrice);
+
+        setSelectedOrderIndex(null);
     };
 
     return (
@@ -166,10 +213,12 @@ const OrderRequestTable = (props) => {
                 shippingMethod={shippingMethod} 
                 shippingCost={shippingCost} 
                 closeModal={() => setOrderDetails([])}
+                totalPayment={selectedOrderIndex != null ? orders[selectedOrderIndex].total_payment : ""}
+                prescriptions={selectedOrderIndex != null ? prescriptionsToBeSubmitted.filter(prescriptionToBeSubmitted => prescriptionToBeSubmitted.orderID === orders[selectedOrderIndex].id) : []}
             />
-            <CustomPrescriptionModal 
+            <CustomPrescriptionsModal 
                 customPrescriptions={customPrescriptions} 
-                closeModal={() => setCustomPrescriptions([])}
+                closeModal={(prescriptionDatas) => closeCustomPrescriptionsModal(prescriptionDatas)}
             />
             <StatusButtons
                 status={status}
@@ -178,7 +227,7 @@ const OrderRequestTable = (props) => {
             {
                 (orders.length)
                 ?
-                orders.map((order) => {
+                orders.map((order, index) => {
                     return (
                         <OrderWrapper
                             transactionNumber={order.transaction_number}
@@ -186,23 +235,39 @@ const OrderRequestTable = (props) => {
                             buttonLabel1="USER DETAILS"
                             onClickButton1={() => fetchShippingDetailsData(order.id)}
                             buttonLabel2="ORDER DETAILS"
-                            onClickButton2={() => fetchOrderDetailsData(order.id)}
-                            totalPayment={parseInt(order.total_payment).toLocaleString("in", "ID")}
+                            onClickButton2={() => fetchOrderDetailsData(order.id, index)}
+                            totalPayment={
+                                (orderHasPrescriptionPrice[order.id]) ?
+                                (parseInt(orderHasPrescriptionPrice[order.id]) + parseInt(order.total_payment) + parseInt(order.shipping_cost)).toLocaleString("in", "ID")
+                                : 
+                                <span style={{ color: "var(--red-color)" }}>...</span>
+                            }
                         >
                             <div className="d-flex flex-row" style={{ fontSize: 18 }}>
                                 Custom Prescription Request:
-                                <div 
-                                    className="ms-3 container" 
-                                    style={{ textAlign: "start", paddingLeft: 0, width: 200, height: 110, marginTop: 10, position:"relative" }} 
-                                    onClick={() => fetchCustomPrescriptionData(order.id)}>
-                                    <img className="customPrescriptionImage" src="https://www.researchgate.net/profile/Sandra-Benavides/publication/228331607/figure/fig4/AS:667613038387209@1536182760366/Indicate-why-the-prescription-is-not-appropriate-as-written.png" alt="" width="200" height="110"/>
-                                    <p className="centered">EDIT</p>
-                                    <i class="fas fa-check-circle" style={{ fontSize: 30, color: "steelblue", position:"absolute", top: -10, right: -10 }}></i>
-                                </div>
+                                {orderHasPrescriptionServed[order.id] || status === 2 || status === 3 || status === 4
+                                    ?
+                                    <div 
+                                        className="ms-3" 
+                                        style={{ fontSize: 23, textAlign: "start", paddingLeft: 0, width: 200, height: 110, marginTop: 10, position:"relative" }}>
+                                        <img className="customPrescriptionImage" src="https://www.researchgate.net/profile/Sandra-Benavides/publication/228331607/figure/fig4/AS:667613038387209@1536182760366/Indicate-why-the-prescription-is-not-appropriate-as-written.png" alt="" width="200" height="110"/>
+                                        <i class="fas fa-check-circle" style={{ fontSize: 30, color: "var(--pink-color)", position:"absolute", top: -10, right: -10 }}></i>
+                                        <p className="centered">DONE</p>
+                                    </div>
+                                    :
+                                    <div 
+                                        className="ms-3 container" 
+                                        style={{ textAlign: "start", paddingLeft: 0, width: 200, height: 110, marginTop: 10, position:"relative" }} 
+                                        onClick={() => fetchCustomPrescriptionData(order.id)}
+                                    >
+                                        <img className="customPrescriptionImage" src="https://www.researchgate.net/profile/Sandra-Benavides/publication/228331607/figure/fig4/AS:667613038387209@1536182760366/Indicate-why-the-prescription-is-not-appropriate-as-written.png" alt="" width="200" height="110"/>
+                                        <p className="centered">EDIT</p>
+                                    </div>
+                                }
                             </div>
                             {
                                 status === 1
-                                ?
+                                &&
                                 <div className="d-flex flex-column mt-3">
                                     <button 
                                         className="orderRequestButton mb-2" 
@@ -221,8 +286,6 @@ const OrderRequestTable = (props) => {
                                         Reject Order
                                     </button>
                                 </div>
-                                :
-                                null
                             }
                         </OrderWrapper>
                     )

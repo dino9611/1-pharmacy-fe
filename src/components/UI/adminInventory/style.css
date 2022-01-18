@@ -92,7 +92,6 @@
 
 .container p{
     color: black;
-    font-weight: 500;
     font-size: 23px;
 }
 
@@ -121,8 +120,8 @@
 
 .submitButton {
     font-size: 16px;
-    background-color: whitesmoke;
-    color: forestgreen;
+    background-color: forestgreen;
+    color: white;
     border: 1px solid var(--black-color);
     border-radius: 20px;
     padding: 5px;
@@ -133,8 +132,7 @@
 }
 
 .submitButton:hover {
-    background-color: forestgreen;
-    color: white;
+    background-color: rgba(34, 139, 34, 0.7);
     transition: 300ms;
 }
 

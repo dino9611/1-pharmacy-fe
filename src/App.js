@@ -49,8 +49,6 @@ function App() {
 		} else {
 			dispatch({ type: "NO_ACCESS_TOKEN" });
 		};
-		
-		console.log(token);
     }, [dispatch]);
 
     useEffect(() => {
