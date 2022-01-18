@@ -79,7 +79,7 @@ const UserDatasTable = (props) => {
         setUserDatas(response.data.data);
         setTotal(response.data.meta.total[0].total_data);
       } catch (error) {
-        toast.error(error.response.data.data.message || "Server Error", {
+        toast.error(error.response.data.data?.message || "Server Error", {
           position: "top-right",
           icon: "😵"
         });

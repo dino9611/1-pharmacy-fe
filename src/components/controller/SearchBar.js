@@ -8,7 +8,7 @@ function SearchBar(props) {
 	let { debounceValue } = useDebounce({ value: input, delay: 400 });
 
 	let { response, error, loading } = useAxios({
-		url: props.url + `/?name=${debounceValue ? debounceValue : 'a'}`,
+		url: props.url + `/?name=${debounceValue ? debounceValue : ''}`,
 		method: 'get',
 	});
 
@@ -28,6 +28,7 @@ function SearchBar(props) {
 			<input
 				className='form-control me-2'
 				type='text'
+				value={props.name}
 				placeholder='search'
 				onChange={onChangeHandler}
 				value={input}

@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function useAxios({ url, method, body = null, headers = null }) {
+function useAxios({ url, method, body = null, headers = null, params = null }) {
 	const [response, setResponse] = useState(null);
 	const [error, setError] = useState('');
 	const [loading, setLoading] = useState(true);
 
 	// fetching loading = true, error = '', response = null => initial state
 	const process = () => {
-		axios[method](url, body, headers)
+		axios[method](url, { body, headers, params })
 			.then((res) => {
 				setLoading(false);
 				setResponse(res.data);

@@ -36,7 +36,7 @@ function ProductInventory() {
 						url='http://localhost:2001/inventory/medicines'
 						onSearchResult={(value) => console.log(value)}
 						onSearchClick={(value) => console.log(value)}
-						//solve for extra feature later
+					//solve for extra feature later
 					/>
 				</div>
 				<div className='col-2'>
