@@ -23,7 +23,6 @@ import OrderHistory from './pages/orderHistory';
 import VerifyAccount from './pages/verifyAccount';
 import OrderRequest from './pages/orderRequest';
 import jwt from 'jsonwebtoken';
-
 function App() {
 	const dispatch = useDispatch();
 
@@ -40,9 +39,19 @@ function App() {
 			const decoded = jwt.decode(token);
 			dispatch({ type: 'LOGIN', payload: { isAdmin: decoded.isAdmin } });
 		} else {
-			dispatch({ type: "NO_ACCESS_TOKEN" });
-		};
-    }, [dispatch]);
+			dispatch({ type: 'NO_ACCESS_TOKEN' });
+		}
+
+		console.log(token);
+	}, [dispatch]);
+
+	useEffect(() => {
+		keepLogin();
+	}, [keepLogin]);
+
+	if (!hasReloaded) {
+		return null;
+	}
 
 	useEffect(() => {
 		keepLogin();
@@ -53,7 +62,7 @@ function App() {
 	}
 
 	return (
-		<div className='App' style={{ overflow: 'hidden', height: '100vh' }}>
+		<div className='App' style={{ overflow: 'auto', height: '100vh' }}>
 			<Switch>
 				<Route path='/' exact component={Marketplace} />
 				<Route path='/login' component={Login} />

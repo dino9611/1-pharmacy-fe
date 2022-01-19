@@ -9,8 +9,6 @@ function ActionButton(props) {
 	const [close, setClose] = useState(true);
 	const modalRef = useRef();
 
-	console.log(props);
-
 	useEffect(() => {
 		if (deleteItem) {
 			axios.delete(`${API_URL}/material/${props.id}`);

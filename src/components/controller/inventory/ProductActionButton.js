@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Modal } from 'bootstrap';
-import EditMaterial from '../../section/inventory/EditMaterial';
+import EditProduct from '../../section/inventory/EditProduct';
 import axios from 'axios';
 import { API_URL } from '../../../constants/api';
 
@@ -36,6 +36,7 @@ function ProductActionButton(props) {
 			props.onChangeReload();
 		}
 	};
+
 	return (
 		<div className='btn-group'>
 			<button
@@ -60,12 +61,12 @@ function ProductActionButton(props) {
 							></button>
 						</div>
 						<div className='modal-body'>
-							<EditMaterial
+							<EditProduct
 								id={props.id}
 								name={props.name}
 								price={props.price}
-								bottle_quantity={props.bottle_quantity}
-								quantity_per_bottle={props.quantity_per_bottle}
+								description={props.description}
+								image={props.image}
 								onEditHandler={closeModal}
 							/>
 						</div>

@@ -1,114 +1,101 @@
-import React, { useState } from 'react';
-import CustomForm from '../../UI/utility/CustomForm';
-import CustomTextInput from '../../UI/utility/CustomTextInput';
-import useAxios from '../../../hooks/useAxios';
-import AddMedicineIngredients from './AddMedicineIngredients';
-import UploadImage from '../../controller/UploadImage';
+import { Form, Formik } from 'formik';
+import React, { useState, useEffect } from 'react';
 import { API_URL } from '../../../constants/api';
+import useAxios from '../../../hooks/useAxios';
+import UploadImage from '../../controller/UploadImage';
+import CustomSelect from '../../UI/utility/CustomSelect';
+import CustomTextInput from '../../UI/utility/CustomTextInput';
 
-function EditProduct(props) {
+function EditMaterial(props) {
 	const [body, setBody] = useState();
-	const [materials, setMaterials] = useState(props.materialList);
-	const [image, setImage] = useState('');
+	const [image, setImage] = useState(props.image);
+
 	const { response, loading, error } = useAxios({
-		method: 'post',
-		url: `${API_URL}/inventory`,
+		method: 'put',
+		url: `${API_URL}/inventory/${props.id}`,
 		body,
 	});
 
-	const onFormSubmitHandler = async (value) => {
-		value.materials = materials;
-		value.image = image;
-		setBody(value);
-		setMaterials([]);
-		props.onAddProduct();
-	};
-	const onAddMaterialHandler = (value) => {
-		const output = [...materials, value];
-		setMaterials(output);
+	const onFormSubmitHandler = (value) => {
+		const data = { ...value, image };
+		console.log(data);
+		// setBody(data);
 	};
 
+	const initialValue = {
+		name: props.name,
+		price: props.price,
+		description: props.description,
+	};
+	console.log(props.description);
 	return (
-		<div className='d-flex'>
-			<div className='col-3 ms-4'>
-				<UploadImage
-					uploadUrl={(value) => setImage(value)}
-					avatar={props.image}
-					folder='product'
-					className='img-thumbnail'
-				/>
-			</div>
-			<div className='col-4 ms-4'>
-				<CustomForm
-					initial={{
-						name: props.name,
-						price: props.price,
-						description: props.description,
-						serving: props.serving,
-						quantityInStock: props.quantityInStock,
-						isDeleted: false,
-					}}
-					submitHandler={onFormSubmitHandler} //required to pass in data from form input
-					buttonName='submit'
-					className=''
-				>
-					<CustomTextInput
-						className='form-control'
-						label='name'
-						name='name'
-						type='text'
-						placeholder='name'
-					/>
-					<CustomTextInput
-						className='form-control'
-						label='price'
-						type='number'
-						name='price'
-						placeholder='price'
-					/>
-					<CustomTextInput
-						className='form-control'
-						label='Description'
-						name='description'
-						type='text'
-						placeholder='description'
-					/>
-					<CustomTextInput
-						className='form-control'
-						label='serving'
-						type='number'
-						name='serving'
-						placeholder='serving'
-					/>
-					<CustomTextInput
-						className='form-control'
-						label='Quantity in Stock'
-						type='number'
-						name='quantityInStock'
-						placeholder='Quantity in Stock'
-					/>
-
-					<button className='btn btn-primary' type='submit'>
-						submit
-					</button>
-				</CustomForm>
-			</div>
-			<div className='col-4 ms-4'>
-				<AddMedicineIngredients onAddMaterial={onAddMaterialHandler} />
-				{materials.map((element) => {
-					return (
-						<button
-							id={element.id}
-							value={element.name}
-							onClick={() => console.log(element)}
+		<div>
+			<UploadImage
+				folder='medicines'
+				avatar={props.image}
+				uploadUrl={(value) => setImage(value)}
+			/>
+			<Formik
+				enableReinitialize
+				initialValues={initialValue}
+				onSubmit={onFormSubmitHandler} //required to pass in data from form input
+			>
+				<Form>
+					<div className='row'>
+						<div className='form-outline mb-4'>
+							<CustomTextInput
+								className='form-control'
+								classLabel='form-label'
+								label='name'
+								name='name'
+								type='text'
+								placeholder='name'
+							/>
+						</div>
+					</div>
+					<div className='row mb-4'>
+						<div className='col mb-3'>
+							<CustomTextInput
+								className='form-control'
+								classLabel='form-label'
+								label='price'
+								type='number'
+								name='price'
+								placeholder='price'
+							/>
+						</div>
+					</div>
+					<div className='row justify-content-center mb-4'>
+						<div className='col mb-3'>
+							<CustomTextInput
+								className='form-control'
+								classLabel='form-label'
+								label='description'
+								type='number'
+								name='description'
+								placeholder='description'
+							/>
+						</div>
+					</div>
+					<div className='row justify-content-center mb-4'>
+						<CustomSelect
+							className='form-select'
+							classLabel='form-label'
+							label='Unit'
+							name='UnitId'
 						>
-							{element.name}
-						</button>
-					);
-				})}
-			</div>
-		</div>
-	);
-}
-
-export default EditProduct;
+							<option value={1}>mg</option>
+							<option value={2}>gr</option>
+							<option value={3}>ml</option>
+							<option value={4}>cl</option>
+						</CustomSelect>
+					</div>
+					<button
+						type='submit'
+						className='btn btn-primary'
+						onClick={props.onEditHandler}
+					>
+						Submit
+					</button>
+				</Form>
+			</Formik>

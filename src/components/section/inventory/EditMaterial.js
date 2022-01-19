@@ -57,17 +57,6 @@ function EditMaterial(props) {
 								placeholder='price'
 							/>
 						</div>
-						<div className='col mb-3'>
-							<CustomTextInput
-								className='form-control'
-								classLabel='form-label'
-								label='Bottle Quantity'
-								name='bottle_quantity'
-								type='number'
-								placeholder='bottle quantity'
-							/>
-							Bottle
-						</div>
 					</div>
 					<div className='row justify-content-center mb-4'>
 						<div className='col mb-3'>
@@ -78,16 +67,6 @@ function EditMaterial(props) {
 								type='number'
 								name='quantity_per_bottle'
 								placeholder='Quantity per Bottle'
-							/>
-						</div>
-						<div className='col mb-3'>
-							<CustomTextInput
-								className='form-control'
-								classLabel='form-label'
-								label='Stock Quantity'
-								type='number'
-								name='stock_quantity'
-								placeholder='Stock Quantity'
 							/>
 						</div>
 					</div>
