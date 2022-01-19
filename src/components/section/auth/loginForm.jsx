@@ -41,7 +41,6 @@ const LoginForm = (props) => {
 
             const response = await axios.post(`${API_URL}/auth/login`, dataBody);
 
-            // localStorage.setItem("token-access", response.headers["x-access-token"]);
             localStorage.setItem("token-access", response.data.token);
             dispatch({ type: "LOGIN", payload: response.data });
             

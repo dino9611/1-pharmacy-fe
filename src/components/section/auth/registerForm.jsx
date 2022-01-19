@@ -43,7 +43,6 @@ const RegisterForm = (props) => {
                 // localStorage.setItem("token-access", response.headers["x-access-token"]);
                 localStorage.setItem("token-access", response.data.token);
                 dispatch({ type: "LOGIN", payload: response.data });
-                console.log(response.data, response.data.id)
 
                 toast.success("Registration is successful! Check your email for account verification.", {
                     position: "top-right",

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Pagination from '../../controller/Pagination';
-import useAxios from '../../../hooks/useAxios';
 import AddProductModal from '../../controller/inventory/AddProductModal';
 import SearchBar from '../../controller/SearchBar';
 import ProductActionButton from '../../controller/inventory/ProductActionButton';
@@ -13,11 +12,6 @@ function ProductInventory() {
 	let [page, setPage] = useState(1);
 	let [reload, setReload] = useState(false);
 	let [response, setResponse] = useState();
-
-	// let data = useAxios({
-	// 	url: `${API_URL}/inventory/${page}/${limit}`,
-	// 	method: 'get',
-	// });
 
 	useEffect(async () => {
 		let response = await axios.get(`${API_URL}/inventory/${page}/${limit}`);

@@ -1,6 +1,6 @@
 import React from "react";
 import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
-import RadialSeparators from '../../controller/radialSeparators';
+import RadialSeparators from '../../controller/admin/radialSeparators';
 
 const CircleProgressBar = (props) => {
 

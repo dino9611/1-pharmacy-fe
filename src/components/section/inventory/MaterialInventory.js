@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useDebugValue } from 'react';
 import Pagination from '../../controller/Pagination';
-import useAxios from '../../../hooks/useAxios';
 import SearchBar from '../../controller/SearchBar';
 import AddMaterialModal from '../../controller/inventory/AddMaterialModal';
 import ActionButton from '../../controller/inventory/ActionButton';

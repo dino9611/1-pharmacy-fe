@@ -1,6 +1,5 @@
-import React from 'react';
-import { withRouter } from 'react-router';
-import DashboardWrapper from '../components/section/admin/dashboardWrapper';
+import React from "react";
+import DashboardWrapper from "../components/section/admin/dashboardWrapper";
 
 const Dashboard = (props) => {
     return (
@@ -11,4 +10,4 @@ const Dashboard = (props) => {
     );
 }
  
-export default withRouter(Dashboard);
+export default Dashboard;

@@ -23,8 +23,6 @@ import OrderHistory from './pages/orderHistory';
 import VerifyAccount from './pages/verifyAccount';
 import OrderRequest from './pages/orderRequest';
 import jwt from 'jsonwebtoken';
-import NavbarUser from './components/UI/utility/NavbarUser';
-import Navbar from './components/section/utility/Navbar';
 function App() {
 	const dispatch = useDispatch();
 
@@ -55,10 +53,16 @@ function App() {
 		return null;
 	}
 
+	useEffect(() => {
+		keepLogin();
+	}, [keepLogin]);
+
+	if (!hasReloaded) {
+		return null;
+	}
+
 	return (
 		<div className='App' style={{ overflow: 'auto', height: '100vh' }}>
-			<NavbarUser />
-			<Navbar />
 			<Switch>
 				<Route path='/' exact component={Marketplace} />
 				<Route path='/login' component={Login} />
@@ -114,15 +118,15 @@ function App() {
 					component={OrderRequest}
 					adminAuth={true}
 				/>
-				<Route
+        		<Route
 					path='/admin/inventory/product'
 					component={ProductInventoryPage}
-					adminAuth={false}
+					adminAuth={true}
 				/>
-				<Route
+				<PrivateRoute
 					path='/admin/inventory/material'
 					component={MaterialInventory}
-					adminAuth={false}
+					adminAuth={true}
 				/>
 				<Route path='*' component={PageNotFound} />
 			</Switch>

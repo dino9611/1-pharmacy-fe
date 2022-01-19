@@ -1,12 +1,13 @@
 import axios from 'axios';
 import React from 'react';
 import { useState } from 'react/cjs/react.development';
+import { API_URL } from '../../../constants/api';
 import UploadImage from '../../controller/UploadImage';
 
 function Prescriptions() {
 	const uploadHandler = (value) => {
 		axios
-			.post('http://localhost:2001/custom/', {
+			.post(API_URL + '/custom/', {
 				image: value,
 				UserId: 1,
 				status: 1,

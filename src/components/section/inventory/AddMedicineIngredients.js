@@ -6,6 +6,7 @@ import CustomSelect from '../../UI/utility/CustomSelect';
 import CustomTextInput from '../../UI/utility/CustomTextInput';
 import * as Yup from 'yup';
 import useDebounce from '../../../hooks/useDebounce';
+import { API_URL } from '../../../constants/api';
 
 function AddMedicineIngredients(props) {
 	const [input, setInput] = useState('');
@@ -20,7 +21,7 @@ function AddMedicineIngredients(props) {
 
 	let { response, error, loading } = useAxios({
 		url:
-			'http://localhost:2001/material/search' +
+			`${API_URL}/material/search` +
 			`/?name=${debounceValue ? debounceValue : 'a'}`,
 		method: 'get',
 	});

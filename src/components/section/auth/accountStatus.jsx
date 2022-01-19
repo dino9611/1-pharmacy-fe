@@ -10,7 +10,6 @@ const AccountStatus = () => {
 
     const fetchData = async (e) => {
         const { token } = qs.parse(window.location.search);
-        console.log(token);
 
         try {
             const response = await axios.post(`${API_URL}/auth/verifyAccount`, null, {
@@ -18,7 +17,6 @@ const AccountStatus = () => {
                     "Authorization": `Bearer ${token}`,
                 }
             });
-            console.log(response.data);
 
             setStatus(2);
             toast.success("Account is verified!", {
@@ -26,7 +24,6 @@ const AccountStatus = () => {
                 icon: "🚀"
             });
         } catch (error) {
-            console.log(error);
             setStatus(3);
             toast.error(error.response.data.message || "Server Error", {
                 position: "top-right",

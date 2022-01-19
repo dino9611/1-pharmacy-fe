@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Modal } from 'bootstrap';
 import EditMaterial from '../../section/inventory/EditMaterial';
 import axios from 'axios';
+import { API_URL } from '../../../constants/api';
 
 function ActionButton(props) {
 	const [deleteItem, setDeleteItem] = useState(false);
@@ -10,7 +11,7 @@ function ActionButton(props) {
 
 	useEffect(() => {
 		if (deleteItem) {
-			axios.delete(`http://localhost:2001/material/${props.id}`);
+			axios.delete(`${API_URL}/material/${props.id}`);
 			props.onChangeReload();
 		}
 		return setDeleteItem(false);

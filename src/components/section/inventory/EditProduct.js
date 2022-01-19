@@ -99,8 +99,3 @@ function EditMaterial(props) {
 					</button>
 				</Form>
 			</Formik>
-		</div>
-	);
-}
-
-export default EditMaterial;

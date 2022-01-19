@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Modal } from 'bootstrap';
 import CustomOrder from '../../section/inventory/CreateCustomOrder';
 import axios from 'axios';
+import { API_URL } from '../../../constants/api';
 
 function CustomOrderAction(props) {
 	const [materials, setMaterials] = useState([]);
@@ -18,7 +19,7 @@ function CustomOrderAction(props) {
 			materials,
 		};
 		setServing(0);
-		axios.post('http://localhost:2001/custom/create/order', body);
+		axios.post(API_URL + '/custom/create/order', body);
 		setClose(false);
 		const modalElement = modalRef.current;
 		const bsModal = Modal.getInstance(modalElement);
@@ -76,7 +77,7 @@ function CustomOrderAction(props) {
 						<div className='row'>
 							<div className='modal-body d-flex flex-row'>
 								<div className='col'>
-									<img src={props.image} />
+									<img alt="" src={props.image} />
 								</div>
 								<div className='col ms-4'>
 									<CustomOrder

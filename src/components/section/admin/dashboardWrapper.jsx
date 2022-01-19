@@ -23,7 +23,6 @@ const DashboardCard1 = (props) => {
                 });
                 setDatas(response.data);
                 setOrderStatus1(response.data[0].current_orders);
-                console.log(response.data);
             } catch (error) {
                 toast.error(error.response.data.message || "Server Error", {
                     position: "top-right",
