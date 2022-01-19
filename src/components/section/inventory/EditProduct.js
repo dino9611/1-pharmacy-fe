@@ -1,32 +1,40 @@
 import { Form, Formik } from 'formik';
 import React, { useState, useEffect } from 'react';
+import { API_URL } from '../../../constants/api';
 import useAxios from '../../../hooks/useAxios';
+import UploadImage from '../../controller/UploadImage';
 import CustomSelect from '../../UI/utility/CustomSelect';
 import CustomTextInput from '../../UI/utility/CustomTextInput';
 
 function EditMaterial(props) {
 	const [body, setBody] = useState();
+	const [image, setImage] = useState(props.image);
 
 	const { response, loading, error } = useAxios({
 		method: 'put',
-		url: `http://localhost:2001/material/${props.id}`,
+		url: `${API_URL}/inventory/${props.id}`,
 		body,
 	});
 
 	const onFormSubmitHandler = (value) => {
-		setBody(value);
+		const data = { ...value, image };
+		console.log(data);
+		// setBody(data);
 	};
 
 	const initialValue = {
 		name: props.name,
 		price: props.price,
-		bottle_quantity: props.bottle_quantity,
-		quantity_per_bottle: props.quantity_per_bottle,
-		stock_quantity: props.stock_quantity,
+		description: props.description,
 	};
-
+	console.log(props.description);
 	return (
 		<div>
+			<UploadImage
+				folder='medicines'
+				avatar={props.image}
+				uploadUrl={(value) => setImage(value)}
+			/>
 			<Formik
 				enableReinitialize
 				initialValues={initialValue}
@@ -62,10 +70,10 @@ function EditMaterial(props) {
 							<CustomTextInput
 								className='form-control'
 								classLabel='form-label'
-								label='Quantity per Bottle'
+								label='description'
 								type='number'
-								name='quantity_per_bottle'
-								placeholder='Quantity per Bottle'
+								name='description'
+								placeholder='description'
 							/>
 						</div>
 					</div>
