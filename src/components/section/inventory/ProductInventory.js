@@ -40,7 +40,7 @@ function ProductInventory() {
 					</div>
 					<div className='col-7'>
 						<SearchBar
-							url='http://localhost:2001/inventory/medicines'
+							url={API_URL + '/inventory/medicines'}
 							onSearchResult={(value) => console.log(value)}
 							onSearchClick={(value) => console.log(value)}
 							//solve for extra feature later
@@ -56,6 +56,7 @@ function ProductInventory() {
 							<th scope='col'>id</th>
 							<th scope='col'>image</th>
 							<th scope='col'>name</th>
+							<th scope='col'>description</th>
 							<th scope='col'>price</th>
 							<th scope='col'>quantity in stock</th>
 							<th scope='col'>Action</th>
@@ -74,6 +75,7 @@ function ProductInventory() {
 											/>
 										</td>
 										<td>{element.name}</td>
+										<td>{element.description}</td>
 										<td>{element.price}</td>
 										<td>
 											<QuantityEdit

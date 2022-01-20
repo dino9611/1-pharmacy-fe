@@ -1,8 +1,12 @@
 import React from 'react';
-import { useState } from 'react/cjs/react.development';
+import { useEffect, useState } from 'react/cjs/react.development';
 
 function QuantityCount(props) {
 	const [count, setCount] = useState(1);
+
+	useEffect(() => {
+		props.onChange(count);
+	}, [count]);
 
 	return (
 		<div className='row'>
@@ -15,14 +19,12 @@ function QuantityCount(props) {
 					-
 				</button>
 			</div>
-			<div className='col'>
+			<div className='col-5'>
 				<input
 					className='form-control'
 					type='number'
-					value={count}
-					onFocus={() => setCount('')}
+					value={props.quantity}
 					onChange={(event) => setCount(+event.target.value)}
-					onBlur={(event) => console.log(+event.target.value)}
 				/>
 			</div>
 			<div className='col'>
