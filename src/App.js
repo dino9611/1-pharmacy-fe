@@ -23,6 +23,9 @@ import OrderHistory from './pages/orderHistory';
 import VerifyAccount from './pages/verifyAccount';
 import OrderRequest from './pages/orderRequest';
 import jwt from 'jsonwebtoken';
+import NavbarUser from './components/UI/utility/NavbarUser';
+import Navbar from './components/section/utility/Navbar';
+import ProductDetailPage from './pages/ProductDetailPage';
 function App() {
 	const dispatch = useDispatch();
 
@@ -64,12 +67,13 @@ function App() {
 	return (
 		<div className='App' style={{ overflow: 'auto', height: '100vh' }}>
 			<Switch>
-				<Route path='/' exact component={Marketplace} />
+				<Route path='/store' exact component={Marketplace} />
 				<Route path='/login' component={Login} />
 				<Route path='/register' component={Register} />
 				<Route path='/forgotPassword' component={ForgotPassword} />
 				<Route path='/resetPassword' component={ResetPassword} />
 				<Route path='/verifyAccount' component={VerifyAccount} />
+				<Route path='/product/:id' component={ProductDetailPage} />
 				<PrivateRoute
 					path='/checkout'
 					exact
@@ -118,7 +122,7 @@ function App() {
 					component={OrderRequest}
 					adminAuth={true}
 				/>
-        		<Route
+				<Route
 					path='/admin/inventory/product'
 					component={ProductInventoryPage}
 					adminAuth={true}

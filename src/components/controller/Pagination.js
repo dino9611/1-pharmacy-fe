@@ -16,8 +16,7 @@ function Pagination(props) {
 		pageSize,
 	});
 	//conditional rendering logic
-	if (currentPage === 0 || !paginationRange || paginationRange.length < 2)
-		return null;
+	if (currentPage === 0 || paginationRange.length < 2) return null;
 
 	const onNext = () => {
 		onPageChange(currentPage + 1);
