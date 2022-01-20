@@ -1,0 +1,19 @@
+* {
+	font-family: 'Poppins', sans-serif;
+	font-weight: 400;
+}
+
+:root {
+    --red-color: #FF4858;
+    --pink-color: #FF7B87;
+    --lighter-pink-color: #FFA0A8;
+    --black-color: #474747;
+    --blue-color: #05AFD1;
+    --gray-color: #848484;
+}
+
+.authPage {
+	height: 100vh;
+	width: 100vw;
+	background-color: var(--pink-color);
+}

@@ -1,0 +1,25 @@
+.squareButton {
+    width: 170px;
+    padding: 10px;
+    border: none;
+    background-color: var(--pink-color);
+    font-weight: 400;
+    font-size: 14px;
+    color: white;
+}
+
+.squareButton:hover {
+    cursor: pointer;
+    opacity: 0.7;
+    transition: 200ms;
+}
+
+.squareButtonDisabled{
+    width: 170px;
+    padding: 10px;
+    border: none;
+    background-color: gainsboro;
+    font-weight: 400;
+    font-size: 14px;
+    color: white;
+}
