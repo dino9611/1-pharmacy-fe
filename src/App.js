@@ -56,14 +56,6 @@ function App() {
 		return null;
 	}
 
-	useEffect(() => {
-		keepLogin();
-	}, [keepLogin]);
-
-	if (!hasReloaded) {
-		return null;
-	}
-
 	return (
 		<div className='App' style={{ overflow: 'auto', height: '100vh' }}>
 			<Switch>
