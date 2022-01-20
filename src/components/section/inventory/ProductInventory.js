@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Pagination from '../../controller/Pagination';
-import useAxios from '../../../hooks/useAxios';
 import AddProductModal from '../../controller/inventory/AddProductModal';
 import SearchBar from '../../controller/SearchBar';
 import ProductActionButton from '../../controller/inventory/ProductActionButton';
@@ -13,11 +12,6 @@ function ProductInventory() {
 	let [page, setPage] = useState(1);
 	let [reload, setReload] = useState(false);
 	let [response, setResponse] = useState();
-
-	// let data = useAxios({
-	// 	url: `${API_URL}/inventory/${page}/${limit}`,
-	// 	method: 'get',
-	// });
 
 	useEffect(async () => {
 		let response = await axios.get(`${API_URL}/inventory/${page}/${limit}`);
@@ -46,7 +40,7 @@ function ProductInventory() {
 					</div>
 					<div className='col-7'>
 						<SearchBar
-							url='http://localhost:2001/inventory/medicines'
+							url={API_URL + '/inventory/medicines'}
 							onSearchResult={(value) => console.log(value)}
 							onSearchClick={(value) => console.log(value)}
 							//solve for extra feature later
@@ -62,6 +56,7 @@ function ProductInventory() {
 							<th scope='col'>id</th>
 							<th scope='col'>image</th>
 							<th scope='col'>name</th>
+							<th scope='col'>description</th>
 							<th scope='col'>price</th>
 							<th scope='col'>quantity in stock</th>
 							<th scope='col'>Action</th>
@@ -80,6 +75,7 @@ function ProductInventory() {
 											/>
 										</td>
 										<td>{element.name}</td>
+										<td>{element.description}</td>
 										<td>{element.price}</td>
 										<td>
 											<QuantityEdit
