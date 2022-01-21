@@ -23,9 +23,8 @@ import OrderHistory from './pages/orderHistory';
 import VerifyAccount from './pages/verifyAccount';
 import OrderRequest from './pages/orderRequest';
 import jwt from 'jsonwebtoken';
-import NavbarUser from './components/UI/utility/NavbarUser';
-import Navbar from './components/section/utility/Navbar';
 import ProductDetailPage from './pages/ProductDetailPage';
+
 function App() {
 	const dispatch = useDispatch();
 

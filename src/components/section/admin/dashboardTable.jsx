@@ -13,7 +13,6 @@ const DashboardTable = (props) => {
     const [month, setMonth] = useState(0) // useState(new Date().getMonth());
     const [datas, setDatas] = useState([]);
 
-
     useEffect(() => {
         const fetchData = async () => {
             try {

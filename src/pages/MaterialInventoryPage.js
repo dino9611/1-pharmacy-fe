@@ -3,6 +3,7 @@ import AddMaterial from '../components/section/inventory/AddMaterial';
 import MaterialInventory from '../components/section/inventory/MaterialInventory';
 import SearchBar from '../components/controller/SearchBar';
 import { useState } from 'react/cjs/react.development';
+
 function MaterialInventoryPage() {
 	const [addMaterial, isAddMaterial] = useState(false);
 
