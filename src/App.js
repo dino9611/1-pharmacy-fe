@@ -59,7 +59,7 @@ function App() {
 	return (
 		<div className='App' style={{ overflow: 'auto', height: '100vh' }}>
 			<Switch>
-				<Route path='/store' exact component={Marketplace} />
+				<Route path='/' exact component={Marketplace} />
 				<Route path='/login' component={Login} />
 				<Route path='/register' component={Register} />
 				<Route path='/forgotPassword' component={ForgotPassword} />
@@ -114,7 +114,7 @@ function App() {
 					component={OrderRequest}
 					adminAuth={true}
 				/>
-				<Route
+				<PrivateRoute
 					path='/admin/inventory/product'
 					component={ProductInventoryPage}
 					adminAuth={true}

@@ -10,7 +10,7 @@ function NavbarUser() {
 			<div className='collapse navbar-collapse'>
 				<ul className='navbar-nav'>
 					<li className='nav-item active'>
-						<Link className='nav-link' to='/store'>
+						<Link className='nav-link' to='/'>
 							Store
 						</Link>
 					</li>
