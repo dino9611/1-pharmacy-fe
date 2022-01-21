@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useDebugValue, useState } from 'react';
+import { API_URL } from '../../../constants/api';
 import UploadImage from '../../controller/UploadImage';
 import CustomForm from '../../UI/utility/CustomForm';
 import CustomSelect from '../../UI/utility/CustomSelect';
@@ -7,8 +8,7 @@ import CustomTextInput from '../../UI/utility/CustomTextInput';
 
 function UserProfileForm(props) {
 	const [image, setImage] = useState(`${props.avatar}`);
-
-	const initialValue = {
+	const [value, setValue] = useState({
 		firstName: props.firstName,
 		lastName: props.lastName,
 		gender: props.gender,
@@ -16,24 +16,30 @@ function UserProfileForm(props) {
 		address: props.address,
 		email: props.email,
 		username: props.username,
-	};
-	const formSubmitHandler = (value) => {
+	});
+	const formSubmitHandler = async (input) => {
+		setValue(input);
 		console.log(value);
-		axios.put(`http://localhost:2001/profile/info/${props.id}`, value);
+		const data = await axios.put(`${API_URL}/profile/info/${props.id}`, {
+			...value,
+			avatar: image,
+		});
+		console.log(data);
 		props.onEditSubmitHandler();
 	};
 
-	return (
-		<div>
-			{props && (
+	if (props) {
+		return (
+			<div>
 				<div>
 					<div className='d-flex flex-row align-items-center justify-content-center'>
 						<UploadImage
+							className='img-thumbnail rounded-circle'
 							uploadUrl={(value) => setImage(value)}
-							avatar={`https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg`}
+							avatar={image}
 						/>
 					</div>
-					<CustomForm initial={initialValue} submitHandler={formSubmitHandler}>
+					<CustomForm initial={value} submitHandler={formSubmitHandler}>
 						<CustomTextInput
 							className='form-control'
 							classLabel='form-label'
@@ -62,6 +68,7 @@ function UserProfileForm(props) {
 							label='gender'
 							name='gender'
 						>
+							<option selected={!props.gender && 'selected'}></option>
 							<option
 								value={'male'}
 								selected={props.gender === 'male' && 'selected'}
@@ -101,9 +108,11 @@ function UserProfileForm(props) {
 						</button>
 					</CustomForm>
 				</div>
-			)}
-		</div>
-	);
+			</div>
+		);
+	} else {
+		return <h1>Loading ...</h1>;
+	}
 }
 
 export default UserProfileForm;

@@ -26,6 +26,7 @@ import jwt from 'jsonwebtoken';
 import NavbarUser from './components/UI/utility/NavbarUser';
 import Navbar from './components/section/utility/Navbar';
 import ProductDetailPage from './pages/ProductDetailPage';
+import UserProfilePage from './pages/UserProfilePage';
 function App() {
 	const dispatch = useDispatch();
 
@@ -40,7 +41,11 @@ function App() {
 
 		if (token) {
 			const decoded = jwt.decode(token);
-			dispatch({ type: 'LOGIN', payload: { isAdmin: decoded.isAdmin } });
+			console.log(decoded);
+			dispatch({
+				type: 'LOGIN',
+				payload: { isAdmin: decoded.isAdmin, id: decoded.id },
+			});
 		} else {
 			dispatch({ type: 'NO_ACCESS_TOKEN' });
 		}
@@ -58,14 +63,17 @@ function App() {
 
 	return (
 		<div className='App' style={{ overflow: 'auto', height: '100vh' }}>
+			<NavbarUser />
+			<Navbar />
 			<Switch>
-				<Route path='/store' exact component={Marketplace} />
+				<Route path='/' exact component={Marketplace} />
 				<Route path='/login' component={Login} />
 				<Route path='/register' component={Register} />
 				<Route path='/forgotPassword' component={ForgotPassword} />
 				<Route path='/resetPassword' component={ResetPassword} />
 				<Route path='/verifyAccount' component={VerifyAccount} />
 				<Route path='/product/:id' component={ProductDetailPage} />
+				<Route path='/profile' component={UserProfilePage} />
 				<PrivateRoute
 					path='/checkout'
 					exact
@@ -117,12 +125,12 @@ function App() {
 				<Route
 					path='/admin/inventory/product'
 					component={ProductInventoryPage}
-					adminAuth={true}
+					adminAuth={false}
 				/>
-				<PrivateRoute
+				<Route
 					path='/admin/inventory/material'
 					component={MaterialInventory}
-					adminAuth={true}
+					adminAuth={false}
 				/>
 				<Route path='*' component={PageNotFound} />
 			</Switch>

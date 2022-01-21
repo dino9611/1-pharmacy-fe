@@ -15,7 +15,7 @@ function NavbarUser() {
 						</Link>
 					</li>
 					<li className='nav-item active'>
-						<Link className='nav-link' to='/users/:id'>
+						<Link className='nav-link' to='/profile'>
 							Profile
 						</Link>
 					</li>

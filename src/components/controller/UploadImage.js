@@ -4,6 +4,7 @@ import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 
 function UploadImage(props) {
 	const [avatar, setAvatar] = useState(props.avatar);
+	const [newImage, setNewImage] = useState();
 	const [image, setImage] = useState(null);
 	const [err, setErr] = useState(null);
 
@@ -15,9 +16,9 @@ function UploadImage(props) {
 
 	const uploadHandler = () => {
 		if (!image) return;
-		const name = new Date();
-		console.log(name);
-		const storageRef = ref(storage, `/${props.folder}/${image.name}`); // change profile to props folder to put in the image
+		const name = new Date().toISOString();
+
+		const storageRef = ref(storage, `/${props.folder}/${name}`); // change profile to props folder to put in the image
 		const uploadTask = uploadBytesResumable(storageRef, image);
 
 		uploadTask.on(
@@ -32,7 +33,7 @@ function UploadImage(props) {
 			},
 			() => {
 				getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-					setAvatar(url);
+					setNewImage(url);
 					props.uploadUrl(url);
 				}); // url to download the image will be stored to database
 			},
@@ -40,13 +41,13 @@ function UploadImage(props) {
 	};
 
 	useEffect(() => {
-		return uploadHandler();
+		uploadHandler();
 	}, [image]);
 
 	return (
-		<div className='container align-items-center justify-content-center'>
+		<div className='container align-items-center justify-content-center bg-light'>
 			<label for='imageUpload'>
-				<img className={props.className} src={avatar} />
+				<img className={props.className} src={image ? newImage : avatar} />
 			</label>
 			<input
 				type='file'
