@@ -18,8 +18,6 @@ function ProductPagination() {
 		method: 'get',
 	});
 
-	console.log(response);
-
 	if (response) {
 		if (response.itemCount > 10) {
 			return (

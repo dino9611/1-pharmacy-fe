@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function NavbarUser() {
+function NavbarUser(props) {
 	return (
 		<nav className='navbar navbar-expand-lg navbar-light bg-light'>
 			<Link className='navbar-brand mb-0 h1' to='/'>
@@ -10,25 +10,36 @@ function NavbarUser() {
 			<div className='collapse navbar-collapse'>
 				<ul className='navbar-nav'>
 					<li className='nav-item active'>
-						<Link className='nav-link' to='/store'>
+						<Link className='nav-link' to='/'>
 							Store
 						</Link>
 					</li>
-					<li className='nav-item active'>
-						<Link className='nav-link' to='/profile'>
-							Profile
-						</Link>
-					</li>
-					<li className='nav-item active'>
-						<Link className='nav-link' to='/login'>
-							Sign in
-						</Link>
-					</li>
-					<li className='nav-item active'>
-						<Link className='nav-link' to='/register'>
-							Sign up
-						</Link>
-					</li>
+
+					<div>
+						<li className='nav-item active'>
+							<Link className='nav-link' to='/profile'>
+								Profile
+							</Link>
+						</li>
+						<li className='nav-item active' onClick={props.logOut}>
+							<Link className='nav-link' to='/logout'>
+								Log out
+							</Link>
+						</li>
+					</div>
+
+					<div>
+						<li className='nav-item active'>
+							<Link className='nav-link' to='/login'>
+								Sign in
+							</Link>
+						</li>
+						<li className='nav-item active'>
+							<Link className='nav-link' to='/register'>
+								Sign up
+							</Link>
+						</li>
+					</div>
 				</ul>
 			</div>
 		</nav>

@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import QuantityCount from '../components/controller/E-pharma/QuantityCount';
+import { API_URL } from '../constants/api';
 import useAxios from '../hooks/useAxios';
 
 function ProductDetailPage() {
 	let [quantity, setQuantity] = useState(1);
 	let { id } = useParams();
 	let { response, error, loading } = useAxios({
-		url: `http://localhost:2001/inventory/${id}`,
+		url: `${API_URL}/inventory/${id}`,
 		method: 'get',
 	});
 	console.log(quantity);
@@ -44,6 +45,7 @@ function ProductDetailPage() {
 					</div>
 				</div>
 			)}
+			{error && <h1>ERROR </h1>}
 		</div>
 	);
 }

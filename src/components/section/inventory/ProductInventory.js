@@ -6,6 +6,7 @@ import ProductActionButton from '../../controller/inventory/ProductActionButton'
 import axios from 'axios';
 import { API_URL } from '../../../constants/api';
 import QuantityEdit from '../../controller/inventory/QuantityEdit';
+import '../../../style.css';
 
 function ProductInventory() {
 	let [limit, setLimit] = useState(9);
@@ -22,7 +23,7 @@ function ProductInventory() {
 
 	if (response) {
 		return (
-			<div>
+			<div style={{ width: '95%', margin: 'auto' }}>
 				<nav className='row'>
 					<div className='col-3'>
 						<label className='px-2' htmlFor='limit'>
@@ -50,8 +51,8 @@ function ProductInventory() {
 						<AddProductModal />
 					</div>
 				</nav>
-				<table className='table'>
-					<thead className='text-center'>
+				<table className='table m-3'>
+					<thead className='text-center table-dark'>
 						<tr>
 							<th scope='col'>id</th>
 							<th scope='col'>image</th>
@@ -68,7 +69,7 @@ function ProductInventory() {
 								return (
 									<tr scope={element.scope} className='w-100 h-25'>
 										<td>{element.id}</td>
-										<td className=''>
+										<td style={{ width: '100px' }}>
 											<img
 												class='img-responsive img-thumbnail'
 												src={element.image}
@@ -77,7 +78,7 @@ function ProductInventory() {
 										<td>{element.name}</td>
 										<td>{element.description}</td>
 										<td>{element.price}</td>
-										<td>
+										<td style={{ width: '150px' }}>
 											<QuantityEdit
 												url={`${API_URL}/inventory/medicines/stock/${element.id}`}
 												quantity={element.quantityInStock}

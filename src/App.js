@@ -36,12 +36,17 @@ function App() {
 		};
 	});
 
+	const { id } = useSelector((state) => {
+		return {
+			id: state.auth.id,
+		};
+	});
+
 	const keepLogin = useCallback(async () => {
 		const token = localStorage.getItem('token-access');
 
 		if (token) {
 			const decoded = jwt.decode(token);
-			console.log(decoded);
 			dispatch({
 				type: 'LOGIN',
 				payload: { isAdmin: decoded.isAdmin, id: decoded.id },
@@ -63,7 +68,7 @@ function App() {
 
 	return (
 		<div className='App' style={{ overflow: 'auto', height: '100vh' }}>
-			<NavbarUser />
+			<NavbarUser id={id} logOut={() => console.log('logout')} />
 			<Navbar />
 			<Switch>
 				<Route path='/' exact component={Marketplace} />
@@ -96,7 +101,7 @@ function App() {
 					path='/admin/sales'
 					exact
 					component={Sales}
-					adminAuth={true}
+					adminAuth={false}
 				/>
 				<PrivateRoute
 					path='/admin/revenue'
@@ -108,26 +113,26 @@ function App() {
 					path='/admin/userDatas'
 					exact
 					component={UserDatas}
-					adminAuth={true}
+					adminAuth={false}
 				/>
 				<PrivateRoute
 					path='/admin/userDatas/orderHistory/:id'
 					exact
 					component={OrderHistory}
-					adminAuth={true}
+					adminAuth={false}
 				/>
 				<PrivateRoute
 					path='/admin/orderRequest'
 					exact
 					component={OrderRequest}
-					adminAuth={true}
+					adminAuth={false}
 				/>
-				<Route
+				<PrivateRoute
 					path='/admin/inventory/product'
 					component={ProductInventoryPage}
 					adminAuth={false}
 				/>
-				<Route
+				<PrivateRoute
 					path='/admin/inventory/material'
 					component={MaterialInventory}
 					adminAuth={false}

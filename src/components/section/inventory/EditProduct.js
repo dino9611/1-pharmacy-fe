@@ -27,7 +27,7 @@ function EditMaterial(props) {
 		price: props.price,
 		description: props.description,
 	};
-	console.log(props.description);
+
 	return (
 		<div>
 			<UploadImage
