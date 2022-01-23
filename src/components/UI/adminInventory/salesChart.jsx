@@ -26,7 +26,6 @@ function SalesChart (props) {
         };
         fetchData();
     }, [props, props.endpoint, props.year]);
-    console.log(props.loading)
     
     return (
         <div 
