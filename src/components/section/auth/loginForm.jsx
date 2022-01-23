@@ -80,7 +80,8 @@ const LoginForm = (props) => {
                     name="usernameOrEmail" 
                     value={loginData.usernameOrEmail} 
                     placeholder="username or email" 
-                />      
+                /> 
+                <br />     
                 <Input 
                     type="password"
                     onChange={onFormInputChange}
@@ -98,8 +99,10 @@ const LoginForm = (props) => {
                     }}
                 >
                 </span>
+                <br />
                 <p><Link to="/forgotPassword" style={{ color: "var(--blue-color)" }}>Forgot your password?</Link></p>
-                <SquareButton label="LOGIN" className="mt-4" onClick={onClickLoginButton}/>
+                <br />
+                <SquareButton label="LOGIN" className="mt-2" onClick={onClickLoginButton}/>
             </div>
             <div>
                 <p className="mb-0">Don't have an account? Register now!</p>

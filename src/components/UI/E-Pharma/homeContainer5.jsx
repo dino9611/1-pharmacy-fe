@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../../components/UI/adminInventory/style.css';
+import './style.css';
 import SquareButton from '../authInventory/squareButton';
 
 const HomeContainer5 = (props) => {

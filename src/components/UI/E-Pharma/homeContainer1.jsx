@@ -1,5 +1,6 @@
 import React from 'react';
 import '../../../components/UI/adminInventory/style.css';
+import './style.css';
 
 const HomeContainer1 = (props) => {
 	return (

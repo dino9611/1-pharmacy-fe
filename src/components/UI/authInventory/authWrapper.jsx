@@ -1,29 +1,15 @@
 import React from 'react';
 import Logo from '../../../assets/FullNameLightmode.svg'
 import { withRouter } from 'react-router';
+import './style.css';
 
 const AuthWrapper = (props) => {
     const { history } = props;
 
     return (
-        <div    
-            className={`d-flex 
-            justify-content-center 
-            align-items-center 
-            text-center 
-            flex-column
-            ${props.className}`}
-            style={{ 
-                backgroundColor: "whitesmoke", 
-                height: "100vh", 
-                width: "60vw", 
-                borderTopLeftRadius: 30, 
-                borderBottomLeftRadius: 30, 
-                padding: 70 
-            }}
-        >
+        <div className={`authWrapper ${props.className}`}>
             <div onClick={() => {history.push("/")}}>
-                <img    
+                <img  
                     src={Logo} 
                     alt="" 
                     style={{
@@ -32,13 +18,7 @@ const AuthWrapper = (props) => {
                     }}
                 ></img>
             </div>
-            <p 
-                style={{
-                color: "var(--black-color)", 
-                fontWeight: 700, 
-                fontSize: 45,
-                }}
-            >
+            <p className="authTitle lh-1 mt-3 mb-4">
                 {props.title}
             </p>
             {props.children}

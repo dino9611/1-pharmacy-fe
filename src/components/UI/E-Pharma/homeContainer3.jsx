@@ -1,6 +1,6 @@
 import React from 'react';
 import ProductCarousel from '../../section/E-Pharma/productCarousel';
-import '../../../components/UI/adminInventory/style.css';
+import './style.css';
 
 const HomeContainer3 = (props) => {
 	return (

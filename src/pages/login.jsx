@@ -6,13 +6,14 @@ import Illustration from '../assets/MedicineIllustration.svg'
 
 const Login = () => {
     return (
-        <div className="authPage d-flex justify-content-between align-items-center">
-            <div className="d-flex justify-content-center align-items-center" style={{ width: "40vw"}}>
+        <div className="authPage">
+            <div className="illustrationWrapper">
                 <img 
+                    className="px-4"
                     src={Illustration} 
                     alt="" 
                     style={{
-                        width:"35vw",
+                        width:"100%",
                         height: "auto"
                     }}
                 ></img>

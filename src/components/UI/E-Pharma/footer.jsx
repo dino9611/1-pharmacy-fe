@@ -1,6 +1,6 @@
 import React from 'react';
 import SquareButton from '../authInventory/squareButton';
-import '../../../components/UI/adminInventory/style.css';
+import './style.css';
 
 const Footer = (props) => {
 	return (

@@ -2,7 +2,7 @@ import React from 'react';
 import medicine from '../../../assets/medicine.png';
 import prescription from '../../../assets/prescription.png';
 import healthAndLifestyle from '../../../assets/healthAndLifestyle.png';
-import '../../../components/UI/adminInventory/style.css';
+import './style.css';
 
 const HomeContainer2 = (props) => {
 	return (

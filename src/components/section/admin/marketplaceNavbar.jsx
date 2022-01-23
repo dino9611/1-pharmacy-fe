@@ -62,9 +62,8 @@ const MarketplaceNavbar = (props) => {
             style={{ 
                 height: "15vh", 
                 width: "100vw", 
-                overflow: "hidden", 
                 position: "fixed", 
-                zIndex: 10,
+                zIndex: 100,
                 top: visible ? '0' : '-50px',
                 backgroundImage: visible ? "linear-gradient(to bottom, rgb(15, 15, 15), rgba(15, 15, 15, 0))" : "linear-gradient(to bottom, rgb(15, 15, 15), rgba(15, 15, 15, 15))",
                 transition: 'top 800ms, background-image 0.75s'
@@ -74,11 +73,11 @@ const MarketplaceNavbar = (props) => {
                 <div className="d-flex flex-row" style={{ transform: !visible && "translateY(55px)" }}>
                     {
                         window.location.pathname === "/" ?
-                        <button className="textButton" style={{ fontSize: 14 }}>ENGLISH</button>
+                        <button className="textButton" style={{ fontSize: 16 }}>ENGLISH</button>
                         :
                         <>
-                            <button className="textButton" style={{ fontSize: 14 }} onClick={() => {history.push("/")}}>◂ HOME</button>
-                            <button className="textButton" style={{ fontSize: 14 }}>ENG</button>
+                            <button className="textButton" style={{ fontSize: 16 }} onClick={() => {history.push("/")}}>◂ HOME</button>
+                            <button className="textButton" style={{ fontSize: 16 }}>ENG</button>
                         </>
                     }
                 </div>
@@ -118,10 +117,10 @@ const MarketplaceNavbar = (props) => {
                                 </>
                                 :
                                 <>
-                                    <button className="textButton" style={{ transform: !visible && "translateY(55px)", fontSize: 14 }} onClick={onClickLogoutButton}>
+                                    <button className="textButton" style={{ transform: !visible && "translateY(55px)", fontSize: 16 }} onClick={onClickLogoutButton}>
                                         LOGOUT
                                     </button>
-                                    <button className="textButton" style={{ transform: !visible && "translateY(55px)", fontSize: 14 }} onClick={() => {history.push("/admin")}}>
+                                    <button className="textButton" style={{ transform: !visible && "translateY(55px)", fontSize: 16 }} onClick={() => {history.push("/admin")}}>
                                         ADMIN DASHBOARD ▸
                                     </button>
                                 </>
@@ -129,10 +128,10 @@ const MarketplaceNavbar = (props) => {
                         </>
                         :
                         <>
-                            <button className="textButton"  style={{ transform: !visible && "translateY(55px)", fontSize: 14  }} onClick={() => {history.push("/login")}}>
+                            <button className="textButton"  style={{ transform: !visible && "translateY(55px)", fontSize: 16  }} onClick={() => {history.push("/login")}}>
                                 LOGIN
                             </button>
-                            <button className="textButton"  style={{ transform: !visible && "translateY(55px)", fontSize: 14  }} onClick={() => {history.push("/signup")}}>
+                            <button className="textButton"  style={{ transform: !visible && "translateY(55px)", fontSize: 16  }} onClick={() => {history.push("/signup")}}>
                                 SIGNUP
                             </button>
                         </>
@@ -146,7 +145,6 @@ const MarketplaceNavbar = (props) => {
                 <button className="menuOptions me-4">ABOUT US</button>
                 <button className="menuOptions">CONTACT US</button>
             </div>
-            
         </div>
     );
 };

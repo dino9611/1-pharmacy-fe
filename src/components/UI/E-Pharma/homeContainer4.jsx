@@ -3,7 +3,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { API_URL } from '../../../constants/api';import SquareButton from '../authInventory/squareButton';
 import { withRouter } from 'react-router-dom';
-import '../../../components/UI/adminInventory/style.css';
+import './style.css';
 import HomeProductCard from './homeProductCard';
 
 const HomeContainer4 = (props) => {
