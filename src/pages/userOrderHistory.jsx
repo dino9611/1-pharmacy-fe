@@ -9,7 +9,7 @@ const UserOrderHistory = () => {
         <>
             <MarketplaceNavbar showVisible/>
             <div>
-                <div style={{ height: "100vh", backgroundColor: "whitesmoke", paddingTop: "15vh" }}>
+                <div className="px-5" style={{ height: "100vh", backgroundColor: "whitesmoke", paddingTop: "15vh" }}>
                     <h3>My Order History</h3>
                 </div>
                 <Footer/>

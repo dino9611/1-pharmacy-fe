@@ -93,19 +93,24 @@ const MarketplaceNavbar = (props) => {
                             {
                                 !Auth.isAdmin ?
                                 <>
-                                    <button className="marketplaceIconsLight"  style={{ transform: !visible && "translateY(55px)" }}><i className="fas fa-shopping-cart me-2"></i></button>
+                                    <button 
+                                        className="marketplaceIconsLight"  
+                                        style={{ transform: !visible && "translateY(55px)" }}
+                                    >
+                                        <i className="fas fa-shopping-cart me-2"></i>
+                                    </button>
                                     <div ref={ref} style={{ transform: !visible && "translateY(55px)" }}>
                                         <button
                                             className="marketplaceIconsLight"
                                             onClick={() => setShowProfileDropdown(!showProfileDropdown)}
                                         >
-                                            <i className="fas fa-user" style={{ transform: "translateY(5px)" }} />
+                                            <i className="fas fa-user"/>
                                         </button>
                                         <div style={{ position: "fixed", backgroundColor: "whitesmoke", minWidth: 150, height: "auto", right: 20, top: 50 }}>
                                             {
                                                 showProfileDropdown && 
                                                 <><div className="profileDropdown px-3 py-2">My Profile</div>
-                                                <div className="profileDropdown px-3 py-2">My History</div>
+                                                <div className="profileDropdown px-3 py-2" onClick={() => {history.push("/profile/orderHistory")}}>My History</div>
                                                 <div className="profileDropdown px-3 py-2" onClick={onClickLogoutButton}>Logout</div></>
                                             }
                                         </div>
@@ -135,7 +140,7 @@ const MarketplaceNavbar = (props) => {
                 </div>
             </div>
             <div className={`d-flex justify-content-center flex-row ${ visible ? "" : ""}`}>
-                <button className="menuOptions me-4" onClick={() => {history.push("/")}}>BUY MEDICINE</button>
+                <button className="menuOptions me-4" onClick={() => {history.push("/")}}>MEDICINE & PHARMACY</button>
                 <button className="menuOptions me-4">CUSTOM PRESCRIPTION</button>
                 <button className="menuOptions me-4">HEALTH & LIFESTYLE</button>
                 <button className="menuOptions me-4">ABOUT US</button>

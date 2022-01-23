@@ -19,7 +19,7 @@ const HomeContainer2 = (props) => {
                         className="mb-4"
                     />
                     <h4>
-                        Buy Pharmacy Medicine
+                        Medicine & Pharmacy
                     </h4>
                 </button>
                 <button className="mainMenus ms-3 me-3 px-4" onClick="">

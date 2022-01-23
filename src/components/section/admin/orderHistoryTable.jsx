@@ -14,9 +14,11 @@ const OrderHistoryTable = (props) => {
     const [orders, setOrders] = useState([]);
     const [status, setStatus] = useState(1);
 
+    const selectedEndpoint = props.isAdmin ? `/admin/transactions/userDatas/` : `/profile/`
+
     const fetchOrderHistoryData = useCallback(async () => {
         try {
-            const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory?filter=byUser&id=${id}&status=${status}`, {
+            const response = await axios.get(`${API_URL}${selectedEndpoint}orderHistory?filter=byUser&id=${id}&status=${status}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem("token-access")}`
                 }
@@ -28,7 +30,7 @@ const OrderHistoryTable = (props) => {
                 icon: "😵"
             });
         }
-    }, [id, status]);
+    }, [id, selectedEndpoint, status]);
 
     useEffect(() => {
         fetchOrderHistoryData();
@@ -37,7 +39,7 @@ const OrderHistoryTable = (props) => {
     const [shippingDetails, setShippingDetails] = useState([]);
     const fetchShippingDetailsData = async () => {
         try {
-            const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory?filter=byUser&id=${id}&status=${status}`, {
+            const response = await axios.get(`${API_URL}${selectedEndpoint}orderHistory?filter=byUser&id=${id}&status=${status}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem("token-access")}`
                 }
@@ -54,7 +56,7 @@ const OrderHistoryTable = (props) => {
     const [orderDetails, setOrderDetails] = useState([]);
     const fetchOrderDetailsData = async () => {
         try {
-            const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory/order-details?filter=byUser&id=${id}&status=${status}`, {
+            const response = await axios.get(`${API_URL}${selectedEndpoint}orderHistory/order-details?filter=byUser&id=${id}&status=${status}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem("token-access")}`
                 }

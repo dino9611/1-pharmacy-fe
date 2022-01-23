@@ -68,7 +68,7 @@ function App() {
 				<Route path='/resetPassword' component={ResetPassword} />
 				<Route path='/verifyAccount' component={VerifyAccount} />
 				<Route path='/product/:id' component={ProductDetailPage} />
-				<Route path='/orderHistory' component={UserOrderHistory} /> 
+				<Route path='/profile/orderHistory' component={UserOrderHistory} /> 
 				{/* /orderHistory/:id */}
 				<PrivateRoute
 					path='/checkout'

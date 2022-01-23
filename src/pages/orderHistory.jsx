@@ -21,7 +21,7 @@ const OrderHistory = (props) => {
                 </div>
                 <h3 className="mb-4">User Transactions History</h3>
             </div>
-            <OrderHistoryTable/>
+            <OrderHistoryTable isAdmin/>
         </div>
     );
 }
