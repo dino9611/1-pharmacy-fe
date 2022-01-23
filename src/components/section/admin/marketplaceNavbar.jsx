@@ -105,7 +105,7 @@ const MarketplaceNavbar = (props) => {
                                         >
                                             <i className="fas fa-user"/>
                                         </button>
-                                        <div style={{ position: "fixed", backgroundColor: "whitesmoke", minWidth: 150, height: "auto", right: 20, top: 50 }}>
+                                        <div style={{ position: "fixed", backgroundColor: "whitesmoke", minWidth: 150, height: "auto", right: visible ? 20 : 5, top: visible ? 50 : 30 }}>
                                             {
                                                 showProfileDropdown && 
                                                 <><div className="profileDropdown px-3 py-2">My Profile</div>
