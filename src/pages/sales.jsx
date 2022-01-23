@@ -49,7 +49,7 @@ const AdminDashboard = (props) => {
                     title={`Total Orders Categorized by Status Year ${year}`}
                     labelField="status" 
                     dataField="current_orders"
-               />
+            />
                 <SalesTable
                     endpoint="top-medicine-orders"
                     year={year}

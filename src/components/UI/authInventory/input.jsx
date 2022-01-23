@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './style.css';
 
 const Input = (props) => {
     const [isPasswordShown, setIsPasswordShown] = useState(false);
@@ -12,17 +13,13 @@ const Input = (props) => {
     return (
         <>
             <input 
+                className="authInput mb-2"
                 type={type}
                 onChange={(e) => props.onChange(e.target.value, e.target.name)}
                 name={props.name} 
                 value={props.value} 
                 placeholder={props.placeholder}
-                className="mb-2" 
                 style={{ 
-                    width: "40vw", 
-                    padding: 10, 
-                    borderRadius: 30, 
-                    border: "1.5px solid black",
                     ...props.style
                 }}
             />
@@ -44,8 +41,3 @@ const Input = (props) => {
 }
  
 export default Input;
-// const onFieldChange = (value, name) => {
-//   setState({ ...state, [name]: value });
-// }
-// <Input onChange={(value) => onFieldChange(value, 'firstName')} />
-// <Input onChange={(value) => onFieldChange(value, 'lastName')} />

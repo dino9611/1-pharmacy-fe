@@ -57,6 +57,7 @@ const ResetPasswordForm = (props) => {
                     value={resetPassword.newPassword} 
                     placeholder="new password"
                 />
+                <br />
                 <Input 
                     type="password"
                     onChange={onFormInputChange}
@@ -64,7 +65,8 @@ const ResetPasswordForm = (props) => {
                     value={resetPassword.confirmNewPassword} 
                     placeholder="confirm new password"
                 />
-                <SquareButton label="SEND EMAIL" className="mt-4" onClick={onClickResetPasswordButton}/>        
+                <br />
+                <SquareButton label="SEND EMAIL" className="mt-2" onClick={onClickResetPasswordButton}/>        
             </div>
         </div>
     );

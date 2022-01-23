@@ -8,27 +8,32 @@ import OrderWrapper from '../../UI/adminInventory/orderWrapper';
 import StatusButtons from '../../UI/adminInventory/statusButtons';
 import OrderDetailsModal from '../../UI/adminInventory/orderDetailsModal';
 import ShippingDetailsModal from '../../UI/adminInventory/shippingDetailsModal';
+import DashboardLoading from '../../../pages/dashboardLoading';
 
 const OrderHistoryTable = (props) => {
     const { id } = useParams();
     const [orders, setOrders] = useState([]);
     const [status, setStatus] = useState(1);
+    const [loading, setLoading] = useState(true);
+
+    const selectedEndpoint = props.isAdmin ? `/admin/transactions/userDatas/` : `/`
 
     const fetchOrderHistoryData = useCallback(async () => {
         try {
-            const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory?filter=byUser&id=${id}&status=${status}`, {
+            const response = await axios.get(`${API_URL}${selectedEndpoint}orderHistory?filter=byUser&id=${id}&status=${status}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem("token-access")}`
                 }
             });
             setOrders(response.data.data);
+            setLoading(false);
         } catch (error) {
                 toast.error(error.response.data.message || "Server Error", {
                 position: "top-right",
                 icon: "😵"
             });
         }
-    }, [id, status]);
+    }, [id, selectedEndpoint, status]);
 
     useEffect(() => {
         fetchOrderHistoryData();
@@ -37,12 +42,13 @@ const OrderHistoryTable = (props) => {
     const [shippingDetails, setShippingDetails] = useState([]);
     const fetchShippingDetailsData = async () => {
         try {
-            const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory?filter=byUser&id=${id}&status=${status}`, {
+            const response = await axios.get(`${API_URL}${selectedEndpoint}orderHistory?filter=byUser&id=${id}&status=${status}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem("token-access")}`
                 }
             });
             setShippingDetails(response.data.data);
+            setLoading(false);
         } catch (error) {
                 toast.error(error.response.data.message || "Server Error", {
                 position: "top-right",
@@ -54,12 +60,13 @@ const OrderHistoryTable = (props) => {
     const [orderDetails, setOrderDetails] = useState([]);
     const fetchOrderDetailsData = async () => {
         try {
-            const response = await axios.get(`${API_URL}/admin/transactions/userDatas/orderHistory/order-details?filter=byUser&id=${id}&status=${status}`, {
+            const response = await axios.get(`${API_URL}${selectedEndpoint}orderHistory/order-details?filter=byUser&id=${id}&status=${status}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem("token-access")}`
                 }
             });
             setOrderDetails(response.data);
+            setLoading(false);
         } catch (error) {
             toast.error(error.response.data.message || "Server Error", {
                 position: "top-right",
@@ -85,8 +92,9 @@ const OrderHistoryTable = (props) => {
                 onClick={(value) => setStatus(value)}
                 showStatus3
             />
+            { loading && <DashboardLoading/> }
             {   
-                (orders.length) 
+                (orders.length) && !loading
                 ?
                 orders.map((order) => {
                     return (

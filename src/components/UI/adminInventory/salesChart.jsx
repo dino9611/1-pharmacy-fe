@@ -16,7 +16,7 @@ function SalesChart (props) {
                         "Authorization": `Bearer ${localStorage.getItem("token-access")}`
                     }
                 });
-                setDatas(response.data)
+                setDatas(response.data);
             } catch (error) {
                 toast.error(error.response.data.message || "Server Error", {
                     position: "top-right",
@@ -25,7 +25,8 @@ function SalesChart (props) {
             }
         };
         fetchData();
-    }, [props.endpoint, props.year]);
+    }, [props, props.endpoint, props.year]);
+    console.log(props.loading)
     
     return (
         <div 

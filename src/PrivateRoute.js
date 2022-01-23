@@ -15,7 +15,6 @@ const PrivateRoute = (props) => {
 
   return (
     <div 
-      className=""
       style={{ 
         backgroundColor: "#FFECEE",
       }}
@@ -28,7 +27,6 @@ const PrivateRoute = (props) => {
           style={{ width: "80vw", overflowY: "scroll" }}
         >
           <Route {...rest} />
-          {/* <div style={{ backgroundColor: 'red', width: '100%', height: '500px'}} /> */}
         </div>
       </div>
     </div>

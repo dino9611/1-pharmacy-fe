@@ -12,7 +12,7 @@ const AccountStatus = () => {
         const { token } = qs.parse(window.location.search);
 
         try {
-            const response = await axios.post(`${API_URL}/auth/verifyAccount`, null, {
+            await axios.post(`${API_URL}/auth/verifyAccount`, null, {
                 headers: {
                     "Authorization": `Bearer ${token}`,
                 }

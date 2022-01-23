@@ -16,4 +16,35 @@
 	height: 100vh;
 	width: 100vw;
 	background-color: var(--pink-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.illustrationWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40vw;
+}
+
+/* FOR TABLET */
+@media only screen and (max-width: 800px) {
+    .authPage {
+        flex-direction: column;
+        justify-content: end;
+    }
+
+    .illustrationWrapper {
+        width: 50vw;
+        margin-bottom: 3vh;
+    }
+}
+
+/* FOR MOBILE */
+@media only screen and (max-width: 480px) {
+    .illustrationWrapper {
+        width: 60vw;
+        margin-bottom: 3vh;
+    }
 }

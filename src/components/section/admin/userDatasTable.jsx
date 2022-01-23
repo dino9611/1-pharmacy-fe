@@ -13,6 +13,7 @@ import SquareButton from '../../UI/authInventory/squareButton';
 import { withRouter } from 'react-router';
 import { API_URL } from '../../../constants/api';
 import DetailsModal from '../..//UI/adminInventory/detailsModal';
+import DashboardLoading from '../../../pages/dashboardLoading';
 
 const columns = [
   {
@@ -71,6 +72,7 @@ const UserDatasTable = (props) => {
 
   const [userDatas, setUserDatas] = useState([]);
   const [total, setTotal] = useState();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchdata = async () => {
@@ -82,6 +84,7 @@ const UserDatasTable = (props) => {
         });
         setUserDatas(response.data.data);
         setTotal(response.data.meta.total[0].total_data);
+        setLoading(false);
       } catch (error) {
         toast.error(error.response.data.data.message || "Server Error", {
           position: "top-right",
@@ -104,6 +107,7 @@ const UserDatasTable = (props) => {
       }); 
       setOpenModalUserDetails(!openModalUserDetails);
       setUserDetailsDatas(response.data.data[0]);
+      setLoading(false);
     } catch (error) {
       toast.error(error.response.data.data.message || "Server Error", {
         position: "top-right",
@@ -138,82 +142,88 @@ const UserDatasTable = (props) => {
 
 
   return (
-    <Paper 
-      sx={{ 
-        width: '100%', 
-        boxShadow: "1px 5px 15px -5px gray",
-        WebkitBoxShadow: "1px 5px 15px -5px gray",
-        MozBoxShadow: "1px 5px 15px -5px gray",
-      }}
-    >
-      <RenderUserDetailsModal/>
-      <TableContainer sx={{ maxHeight: '100%' }}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              <TableCell align="center" colSpan={9} style={{ backgroundColor: "var(--lighter-pink-color)", fontSize: 20, color: "whitesmoke" }}>
-                Account Data
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ top: 57, minWidth: column.minWidth, backgroundColor: "seashell", color: "var(--pink-color)" }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {
-              userDatas.map((userData) => {
-                return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={userData.code}>
-                    {columns.map((column) => {
-                      const value = userData[column.id];
-                      return (
-                        <TableCell key={column.id} align={column.align}>
-                          {column.format && typeof value === 'number'
-                            ? column.format(value)
-                            : value
-                          }
-                          {column.format === 'buttonUserDetails' && (
-                            <SquareButton 
-                              label="View Details" 
-                              style={{ width: 120, padding: 5 }}
-                              onClick={() => fetchUserDetailsData(userData.id)}
-                            ></SquareButton>
-                          )}
-                          {column.format === 'buttonTransactionsDetails' && (
-                            <SquareButton 
-                              label="View Details" 
-                              style={{ width: 120, padding: 5 }}
-                              onClick={() => {history.push(`/admin/userDatas/orderHistory/${userData.id}`)}}
-                            ></SquareButton>
-                          )}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })
-            }
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[25, 50, 100]}
-        component="div"
-        count={total}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-    </Paper>
+    <>
+      { loading && <DashboardLoading/> }
+      {
+        !loading &&
+        <Paper 
+          sx={{ 
+            width: '100%', 
+            boxShadow: "1px 5px 15px -5px gray",
+            WebkitBoxShadow: "1px 5px 15px -5px gray",
+            MozBoxShadow: "1px 5px 15px -5px gray",
+          }}
+        >
+          <RenderUserDetailsModal/>
+          <TableContainer sx={{ maxHeight: '100%' }}>
+            <Table stickyHeader aria-label="sticky table">
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center" colSpan={9} style={{ backgroundColor: "var(--lighter-pink-color)", fontSize: 20, color: "whitesmoke" }}>
+                    Account Data
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  {columns.map((column) => (
+                    <TableCell
+                      key={column.id}
+                      align={column.align}
+                      style={{ top: 57, minWidth: column.minWidth, backgroundColor: "seashell", color: "var(--pink-color)" }}
+                    >
+                      {column.label}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {
+                  userDatas.map((userData) => {
+                    return (
+                      <TableRow hover role="checkbox" tabIndex={-1} key={userData.code}>
+                        {columns.map((column) => {
+                          const value = userData[column.id];
+                          return (
+                            <TableCell key={column.id} align={column.align}>
+                              {column.format && typeof value === 'number'
+                                ? column.format(value)
+                                : value
+                              }
+                              {column.format === 'buttonUserDetails' && (
+                                <SquareButton 
+                                  label="View Details" 
+                                  style={{ width: 120, padding: 5 }}
+                                  onClick={() => fetchUserDetailsData(userData.id)}
+                                ></SquareButton>
+                              )}
+                              {column.format === 'buttonTransactionsDetails' && (
+                                <SquareButton 
+                                  label="View Details" 
+                                  style={{ width: 120, padding: 5 }}
+                                  onClick={() => {history.push(`/admin/userDatas/orderHistory/${userData.id}`)}}
+                                ></SquareButton>
+                              )}
+                            </TableCell>
+                          );
+                        })}
+                      </TableRow>
+                    );
+                  })
+                }
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[25, 50, 100]}
+            component="div"
+            count={total}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Paper>
+      }
+    </>
   );
 }
 
