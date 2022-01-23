@@ -8,11 +8,13 @@ import OrderWrapper from '../../UI/adminInventory/orderWrapper';
 import StatusButtons from '../../UI/adminInventory/statusButtons';
 import OrderDetailsModal from '../../UI/adminInventory/orderDetailsModal';
 import ShippingDetailsModal from '../../UI/adminInventory/shippingDetailsModal';
+import DashboardLoading from '../../../pages/dashboardLoading';
 
 const OrderHistoryTable = (props) => {
     const { id } = useParams();
     const [orders, setOrders] = useState([]);
     const [status, setStatus] = useState(1);
+    const [loading, setLoading] = useState(true);
 
     const selectedEndpoint = props.isAdmin ? `/admin/transactions/userDatas/` : `/`
 
@@ -24,6 +26,7 @@ const OrderHistoryTable = (props) => {
                 }
             });
             setOrders(response.data.data);
+            setLoading(false);
         } catch (error) {
                 toast.error(error.response.data.message || "Server Error", {
                 position: "top-right",
@@ -45,6 +48,7 @@ const OrderHistoryTable = (props) => {
                 }
             });
             setShippingDetails(response.data.data);
+            setLoading(false);
         } catch (error) {
                 toast.error(error.response.data.message || "Server Error", {
                 position: "top-right",
@@ -62,6 +66,7 @@ const OrderHistoryTable = (props) => {
                 }
             });
             setOrderDetails(response.data);
+            setLoading(false);
         } catch (error) {
             toast.error(error.response.data.message || "Server Error", {
                 position: "top-right",
@@ -87,8 +92,9 @@ const OrderHistoryTable = (props) => {
                 onClick={(value) => setStatus(value)}
                 showStatus3
             />
+            { loading && <DashboardLoading/> }
             {   
-                (orders.length) 
+                (orders.length) && !loading
                 ?
                 orders.map((order) => {
                     return (

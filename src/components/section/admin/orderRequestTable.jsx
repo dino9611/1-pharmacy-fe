@@ -10,6 +10,7 @@ import CustomPrescriptionsModal from '../../UI/adminInventory/customPrescription
 import OrderDetailsModal from '../../UI/adminInventory/orderDetailsModal';
 import StatusButtons from '../../UI/adminInventory/statusButtons';
 import Pagination from '../../controller/Pagination';
+import DashboardLoading from '../../../pages/dashboardLoading';
 
 const OrderRequestTable = (props) => {
     const [orders, setOrders] = useState([]);
@@ -31,6 +32,8 @@ const OrderRequestTable = (props) => {
     const [prescriptionsToBeSubmitted, setPrescriptionsToBeSubmitted] = useState([]);
     const [selectedOrderIndex, setSelectedOrderIndex] = useState(null);
 
+    const [loading, setLoading] = useState(true);
+
     const changePageHandler = (value) => {
 		setPage(value);
 	};
@@ -44,6 +47,7 @@ const OrderRequestTable = (props) => {
             });
             setOrders(response.data.data);
             setTotal(response.data.meta.total[0].total_data);
+            setLoading(false);
         } catch (error) {
             toast.error(error.response?.data.message || error.message || "Server Error", {
                 position: "top-right",
@@ -64,6 +68,7 @@ const OrderRequestTable = (props) => {
                 }
             });
             setCustomPrescriptions(response.data);
+            setLoading(false);
         } catch (error) {
             toast.error(error.response?.data.message || error.message || "Server Error", {
                 position: "top-right",
@@ -80,6 +85,7 @@ const OrderRequestTable = (props) => {
                 }
             });
             setShippingDetails(response.data.data);
+            setLoading(false);
         } catch (error) {
             toast.error(error.response.data.message || "Server Error", {
                 position: "top-right",
@@ -99,6 +105,7 @@ const OrderRequestTable = (props) => {
             setOrderDetails(response.data);
             setShippingMethod(response.data[0].shipping_method);
             setShippingCost(response.data[0].shipping_cost);
+            setLoading(false);
         } catch (error) {
             toast.error(error.response.data.message || "Server Error", {
                 position: "top-right",
@@ -224,8 +231,9 @@ const OrderRequestTable = (props) => {
                 status={status}
                 onClick={(value) => setStatus(value)}
             />
+            { loading && <DashboardLoading/> }
             {
-                (orders.length)
+                (orders.length) && !loading
                 ?
                 orders.map((order, index) => {
                     return (
