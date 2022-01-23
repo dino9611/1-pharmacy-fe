@@ -142,8 +142,8 @@ const MarketplaceNavbar = (props) => {
                 <button className="menuOptions me-4" onClick={() => {history.push("/")}}>MEDICINE & PHARMACY</button>
                 <button className="menuOptions me-4">CUSTOM PRESCRIPTION</button>
                 <button className="menuOptions me-4">HEALTH & LIFESTYLE</button>
-                <button className="menuOptions me-4">ABOUT US</button>
-                <button className="menuOptions">CONTACT US</button>
+                <button className="menuOptions me-4" onClick={() => {history.push("/aboutUs")}}>ABOUT US</button>
+                <button className="menuOptions" onClick={() => {history.push("/contactUs")}}>CONTACT US</button>
             </div>
         </div>
     );
