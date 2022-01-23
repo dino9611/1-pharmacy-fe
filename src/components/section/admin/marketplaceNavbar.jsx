@@ -1,11 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { withRouter } from 'react-router';
 import Obatin from '../../../assets/FullNameDarkmode.svg';
 import { useOnClickOutside } from '../../../hooks/useOnClickOutside';
 import { toast } from 'react-toastify'
 import '../../UI/adminInventory/style.css';
-import { debounce } from '../../controller/E-pharma/debounce';
 
 const MarketplaceNavbar = (props) => {
     const dispatch = useDispatch();
@@ -43,20 +42,19 @@ const MarketplaceNavbar = (props) => {
         }
     };
 
-
     const [prevScrollPos, setPrevScrollPos] = useState(0);
-    const [visible, setVisible] = useState(true);
 
-    const handleScroll = debounce(() => {
+    const handleScroll = useCallback(() => {
         const currentScrollPos = window.pageYOffset;
-        setVisible((prevScrollPos > currentScrollPos && prevScrollPos - currentScrollPos > 70) || currentScrollPos < 10);
         setPrevScrollPos(currentScrollPos);
-    }, 100);
+    }, []);
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
-    }, [prevScrollPos, visible, handleScroll]);
+    }, [prevScrollPos, handleScroll]);
+
+    const visible = prevScrollPos < 70;
 
     return (
         <div 
@@ -68,7 +66,8 @@ const MarketplaceNavbar = (props) => {
                 position: "fixed", 
                 zIndex: 10,
                 top: visible ? '0' : '-50px',
-                backgroundImage: visible ? "linear-gradient(to bottom, rgb(15, 15, 15), rgba(15, 15, 15, 0))" : "linear-gradient(to bottom, rgb(15, 15, 15), rgba(15, 15, 15, 15))"
+                backgroundImage: visible ? "linear-gradient(to bottom, rgb(15, 15, 15), rgba(15, 15, 15, 0))" : "linear-gradient(to bottom, rgb(15, 15, 15), rgba(15, 15, 15, 15))",
+                transition: 'top 800ms, background-image 0.75s'
             }}
         >
             <div className="d-flex flex-row justify-content-between" style={{ position: "relative" }}>
