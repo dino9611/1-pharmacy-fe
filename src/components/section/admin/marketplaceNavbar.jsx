@@ -121,7 +121,7 @@ const MarketplaceNavbar = (props) => {
                                         LOGOUT
                                     </button>
                                     <button className="textButton" style={{ transform: !visible && "translateY(55px)", fontSize: 16 }} onClick={() => {history.push("/admin")}}>
-                                        ADMIN DASHBOARD ▸
+                                        DASHBOARD ▸
                                     </button>
                                 </>
                             }

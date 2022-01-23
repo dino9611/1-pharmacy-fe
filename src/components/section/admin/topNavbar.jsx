@@ -1,7 +1,10 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import Logo from '../../../assets/ShortNameLightmode.svg'
 
 const TopNavbar = (props) => {
+    const { history } = props;
+
     return (
         <div 
             class="d-flex 
@@ -29,7 +32,7 @@ const TopNavbar = (props) => {
             <div class="flex-fill d-flex justify-content-end">
                 <h6 style={{
                         color: "var(--black-color)",
-                        transform: "translateY(8px)",
+                        transform: "translateY(6px)",
                     }}
                 >
                     <i class="fas fa-user-circle" 
@@ -41,20 +44,12 @@ const TopNavbar = (props) => {
                     ></i> 
                     hello, admin
                 </h6>
-                <button 
-                    style={{
-                        backgroundColor: "transparent",
-                        border: "0px solid white",
-                        fontSize: 25,
-                        color: "var(--black-color)",
-                        paddingLeft: 20,
-                        paddingRight: 10
-                    }}>
-                    <i class="far fa-bell"></i>
+                <button className="marketplaceIconsDark ms-3" onClick={() => {history.push("/")}}>
+                    <i class="fas fa-home"></i>▸
                 </button>
             </div>   
         </div>
     );
 }
  
-export default TopNavbar;
+export default withRouter(TopNavbar);

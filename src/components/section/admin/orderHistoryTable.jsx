@@ -58,7 +58,7 @@ const OrderHistoryTable = (props) => {
     }
     
     const [orderDetails, setOrderDetails] = useState([]);
-    const fetchOrderDetailsData = async () => {
+    const fetchOrderDetailsData = async (index) => {
         try {
             const response = await axios.get(`${API_URL}${selectedEndpoint}orderHistory/order-details?filter=byUser&id=${id}&status=${status}`, {
                 headers: {
@@ -86,6 +86,7 @@ const OrderHistoryTable = (props) => {
                 closeModal={() => setOrderDetails([])}
                 shippingMethod={orders.map(order => order.shipping_method)}
                 shippingCost={orders.map(order => order.shipping_cost)}
+                orderHistoryTable
             />
             <StatusButtons
                 status={status}
@@ -96,7 +97,7 @@ const OrderHistoryTable = (props) => {
             {   
                 (orders.length) && !loading
                 ?
-                orders.map((order) => {
+                orders.map((order, index) => {
                     return (
                         <OrderWrapper
                             transactionNumber={order.transaction_number}

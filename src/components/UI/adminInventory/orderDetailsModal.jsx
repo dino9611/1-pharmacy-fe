@@ -16,10 +16,10 @@ const OrderDetailsModal = (props) => {
             )
         } else {
             return (
-                prev += props.totalPayment
+                prev += curr.total_price
             )
         }
-    }, 0)
+    }, 0);
 
     const OrderDetailsFooter = () => {
         return (
@@ -30,7 +30,7 @@ const OrderDetailsModal = (props) => {
                 <div className="d-flex flex-column justify-content-center align-items-end">
                     <p>Shipping Method: {props.shippingMethod}</p>
                     <p>Shipping Cost: Rp. {parseInt(props.shippingCost).toLocaleString("in", "ID")}</p>
-                    {props.totalPayment === 0 ?
+                    {totalPayment === 0 ?
                         <p>Total Payment: Rp. <span style={{ color: "var(--red-color) "}}>...</span></p>
                         :
                         <p>Total Payment: Rp. {(parseInt(totalPayment)+parseInt(props.shippingCost)).toLocaleString("in", "ID")}</p>

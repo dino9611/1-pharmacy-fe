@@ -220,7 +220,6 @@ const OrderRequestTable = (props) => {
                 shippingMethod={shippingMethod} 
                 shippingCost={shippingCost} 
                 closeModal={() => setOrderDetails([])}
-                totalPayment={selectedOrderIndex != null ? orders[selectedOrderIndex].total_payment : ""}
                 prescriptions={selectedOrderIndex != null ? prescriptionsToBeSubmitted.filter(prescriptionToBeSubmitted => prescriptionToBeSubmitted.orderID === orders[selectedOrderIndex].id) : []}
             />
             <CustomPrescriptionsModal 
