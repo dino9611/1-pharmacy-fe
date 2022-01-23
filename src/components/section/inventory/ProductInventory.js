@@ -14,10 +14,13 @@ function ProductInventory() {
 	let [reload, setReload] = useState(false);
 	let [response, setResponse] = useState();
 
-	useEffect(async () => {
-		let response = await axios.get(`${API_URL}/inventory/${page}/${limit}`);
-		setResponse(response.data);
-		setReload(false);
+	useEffect(() => {
+		async function fetchData() {
+			let response = await axios.get(`${API_URL}/inventory/${page}/${limit}`);
+			setResponse(response.data);
+			setReload(false);
+		}
+		fetchData();
 		return;
 	}, [reload, page, limit]);
 

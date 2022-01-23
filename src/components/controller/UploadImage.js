@@ -46,7 +46,7 @@ function UploadImage(props) {
 
 	return (
 		<div className='container align-items-center justify-content-center bg-light'>
-			<label for='imageUpload'>
+			<label htmlFor='imageUpload'>
 				<img className={props.className} src={image ? newImage : avatar} />
 			</label>
 			<input

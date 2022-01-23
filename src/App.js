@@ -24,6 +24,7 @@ import VerifyAccount from './pages/verifyAccount';
 import OrderRequest from './pages/orderRequest';
 import jwt from 'jsonwebtoken';
 import ProductDetailPage from './pages/ProductDetailPage';
+import UserProfilePage from './pages/UserProfilePage';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 

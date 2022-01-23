@@ -3,7 +3,6 @@ import medicine from '../../../assets/medicine.png';
 import prescription from '../../../assets/prescription.png';
 import healthAndLifestyle from '../../../assets/healthAndLifestyle.png';
 import '../../../components/UI/adminInventory/style.css';
-
 const HomeContainer2 = (props) => {
 	return (
 		<div className="d-flex flex-column justify-content-center align-items-center" style={{ height: "75vh", backgroundColor: "whitesmoke", color: "var(--black-color)" }}>

@@ -6,6 +6,7 @@ import { useOnClickOutside } from '../../../hooks/useOnClickOutside';
 import { toast } from 'react-toastify'
 import '../../UI/adminInventory/style.css';
 import { debounce } from '../../controller/E-pharma/debounce';
+import CustomOrder from '../../controller/E-pharma/CustomOrder';
 
 const MarketplaceNavbar = (props) => {
     const dispatch = useDispatch();
@@ -128,13 +129,13 @@ const MarketplaceNavbar = (props) => {
                     }
                 </div>
             </div>
-            <div className={`d-flex justify-content-center flex-row ${ visible ? "mt-4" : "mt-2"}`}>
-                <button className="menuOptions me-4" onClick={() => {history.push("/")}}>BUY MEDICINE</button>
-                <button className="menuOptions me-4">CUSTOM PRESCRIPTION</button>
-                <button className="menuOptions me-4">HEALTH & LIFESTYLE</button>
-                <button className="menuOptions me-4">ABOUT US</button>
-                <button className="menuOptions">CONTACT US</button>
-            </div>
+            <ul className={`d-flex justify-content-center flex-row ${ visible ? "mt-4" : "mt-2"}`} style={{listStyle:'none'}}>
+                <li className="menuOptions me-4" onClick={() => {history.push("/")}}>BUY MEDICINE</li>
+                <li className="menuOptions me-4" ><CustomOrder nav="Custom Order"/></li>
+                <li className="menuOptions me-4">HEALTH & LIFESTYLE</li>
+                <li className="menuOptions me-4">ABOUT US</li>
+                <li className="menuOptions">CONTACT US</li>
+            </ul>
             
         </div>
     );
