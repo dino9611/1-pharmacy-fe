@@ -10,15 +10,12 @@ const AuthWrapper = (props) => {
         <div className={`authWrapper ${props.className}`}>
             <div onClick={() => {history.push("/")}}>
                 <img  
+                    className="obatinLogo"
                     src={Logo} 
                     alt="" 
-                    style={{
-                        maxWidth: 150,
-                        height: "auto",
-                    }}
                 ></img>
             </div>
-            <p className="authTitle lh-1 mt-3 mb-4">
+            <p className="authTitle lh-1">
                 {props.title}
             </p>
             {props.children}

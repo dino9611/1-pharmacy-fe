@@ -29,7 +29,7 @@
 }
 
 /* FOR TABLET */
-@media only screen and (max-width: 750px) {
+@media only screen and (max-width: 800px) {
     .authPage {
         flex-direction: column;
         justify-content: end;
@@ -43,5 +43,8 @@
 
 /* FOR MOBILE */
 @media only screen and (max-width: 480px) {
-   
+    .illustrationWrapper {
+        width: 60vw;
+        margin-bottom: 3vh;
+    }
 }

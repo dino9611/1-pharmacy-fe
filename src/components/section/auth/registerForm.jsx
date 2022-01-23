@@ -6,6 +6,7 @@ import Input from '../../UI/authInventory/input';
 import axios from 'axios';
 import { API_URL } from '../../../constants/api';
 import SquareButton from '../../UI/authInventory/squareButton';
+import '../../UI/authInventory/style.css';
 
 const RegisterForm = (props) => {
     const dispatch = useDispatch();
@@ -74,23 +75,25 @@ const RegisterForm = (props) => {
 
     return (
         <div>
-            <div className="mb-5 mt-4">
-                <Input
-                    type="text" 
-                    onChange={onFormInputChange}
-                    name="firstName" 
-                    value={registerData.firstName} 
-                    placeholder="first name"
-                    style={{width: "19.5vw", marginRight: "0.5vw" }}
-                />
-                <Input
-                    type="text" 
-                    onChange={onFormInputChange}
-                    name="lastName" 
-                    value={registerData.lastName} 
-                    placeholder="last name"
-                    style={{width: "19.5vw", marginLeft: "0.5vw" }}
-                />
+            <div className="mb-4 mt-4">
+                <div className="fullnameInputWrapper d-flex flex-row me-0">
+                    <Input
+                        type="text" 
+                        onChange={onFormInputChange}
+                        name="firstName" 
+                        value={registerData.firstName} 
+                        placeholder="first name"
+                        style={{width: "50%"}}
+                    />
+                    <Input
+                        type="text" 
+                        onChange={onFormInputChange}
+                        name="lastName" 
+                        value={registerData.lastName} 
+                        placeholder="last name"
+                        style={{width: "50%"}}
+                    />
+                </div>
                 <Input
                     type="text" 
                     onChange={onFormInputChange}
@@ -98,6 +101,7 @@ const RegisterForm = (props) => {
                     value={registerData.username} 
                     placeholder="username" 
                 />
+                <br />
                 <Input
                     type="text" 
                     onChange={onFormInputChange}
@@ -105,6 +109,7 @@ const RegisterForm = (props) => {
                     value={registerData.email} 
                     placeholder="email"
                 />
+                <br />
                 <Input
                     type="password"
                     onChange={onFormInputChange}
@@ -112,6 +117,7 @@ const RegisterForm = (props) => {
                     value={registerData.password} 
                     placeholder="password" 
                 />
+                <br />
                 <Input
                     type="password"
                     onChange={onFormInputChange}
@@ -119,10 +125,11 @@ const RegisterForm = (props) => {
                     value={registerData.confirmPassword} 
                     placeholder="confirm password" 
                 />
-                <p style={{ color: "var(--blue-color)"}}>*Password minimum length is 8 letters,<br/> with at least 1 capital letter & at least 1 number</p>
-                <SquareButton label="SIGNUP" className="mt-4" onClick={onClickRegisterButton}/>        
+                <br />
+                <p className="registerText" style={{ color: "var(--blue-color)"}}>*Password minimum length is 8 letters,<br/> with at least 1 capital letter & at least 1 number</p>
+                <SquareButton label="SIGNUP" className="mt-2" onClick={onClickRegisterButton}/>        
             </div>
-            <div>
+            <div className="registerText">
                 <p className="mb-0">Already have an account?</p>
                 <Link to="/login" style={{ color: "var(--pink-color)" }}>Login</Link> or <Link to="/" style={{ color: "var(--pink-color)" }}>Go to Home</Link>
             </div>

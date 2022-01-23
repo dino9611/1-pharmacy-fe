@@ -41,8 +41,3 @@ const Input = (props) => {
 }
  
 export default Input;
-// const onFieldChange = (value, name) => {
-//   setState({ ...state, [name]: value });
-// }
-// <Input onChange={(value) => onFieldChange(value, 'firstName')} />
-// <Input onChange={(value) => onFieldChange(value, 'lastName')} />

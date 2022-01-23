@@ -34,7 +34,7 @@ const ForgotPasswordForm = (props) => {
 
     return (
         <div>
-            <p style={{ color: "var(--gray-color)", marginTop: -20 }}>
+            <p style={{ color: "var(--gray-color)", marginTop: -5 }}>
                 Instructions to reset your password will be sent to your email.
             </p>
             <div className="mb-5 mt-4">
@@ -45,6 +45,7 @@ const ForgotPasswordForm = (props) => {
                     value={forgotPasswordEmail} 
                     placeholder="email"
                 />
+                <br />
                 <SquareButton label="SEND EMAIL" className="mt-4" onClick={onClickForgotPasswordButton}/>        
             </div>
             <div>

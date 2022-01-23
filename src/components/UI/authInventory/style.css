@@ -42,6 +42,7 @@
     color: var(--black-color); 
     font-weight: 700; 
     font-size: 45px;
+    margin-top: 20px;
 }
 
 .authInput {
@@ -51,10 +52,18 @@
     border: 1.5px solid black;
 }
 
+.fullnameInputWrapper{
+    width: 40vw;
+}
+
+.obatinLogo{
+    max-width: 150px;
+    height: auto;
+}
+
 /* FOR TABLET */
 @media only screen and (max-width: 750px) {
     .authWrapper {
-        background-color: whitesmoke; 
         height: 70vh; 
         width: 100vw; 
         border-top-left-radius: 30px; 
@@ -64,13 +73,59 @@
 
     .authTitle{
         font-size: 35px;
+        margin-top: 10px;
+    }
+
+    .authInput {
+        width: 70vw;
+        padding: 7px;
+    }
+
+    .fullnameInputWrapper{
+        width: 70vw;
+    }
+
+    .registerText{
+        font-size: 14px;
+    }
+
+    .obatinLogo{
+        max-width: 120px;
+        height: auto;
     }
 
 }
 
 /* FOR MOBILE */
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 800px) {
     .authTitle{
         font-size: 25px;
+        margin-top: 5px;
+    }
+
+    .authWrapper {
+        height: 75vh; 
+        width: 100vw; 
+        border-top-left-radius: 30px; 
+        border-top-right-radius: 30px;
+        border-bottom-left-radius: 0px; 
+    }
+
+    .authInput {
+        width: 70vw;
+        padding: 5px;
+    }
+
+    .fullnameInputWrapper{
+        width: 70vw;
+    }
+
+    .registerText{
+        font-size: 12px;
+    }
+
+    .obatinLogo{
+        max-width: 100px;
+        height: auto;
     }
 }

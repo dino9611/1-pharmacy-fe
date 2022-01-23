@@ -101,7 +101,6 @@ const LoginForm = (props) => {
                 </span>
                 <br />
                 <p><Link to="/forgotPassword" style={{ color: "var(--blue-color)" }}>Forgot your password?</Link></p>
-                <br />
                 <SquareButton label="LOGIN" className="mt-2" onClick={onClickLoginButton}/>
             </div>
             <div>
