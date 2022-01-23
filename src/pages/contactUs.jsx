@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import { API_URL } from '../constants/api';
 import circle from '../assets/circle.png';
+import HomeContainer6 from '../components/UI/E-Pharma/homeContainer6';
 
 const ContactUs = () => {
     const [sendMessage, setSendMessage] = useState({
@@ -112,6 +113,7 @@ const ContactUs = () => {
                     <SquareButton className="m-3" label="SEND MESSAGE" onClick={onClickSendMessage}/>
                 </div>
             </div>
+            <HomeContainer6/>
             <Footer/>
         </>
     );

@@ -8,9 +8,9 @@ import application from '../assets/application.svg';
 import team from '../assets/team.jpeg';
 import circle from '../assets/circle.png';
 import SquareButton from '../components/UI/authInventory/squareButton';
+import HomeContainer6 from '../components/UI/E-Pharma/homeContainer6';
 
 const AboutUs = () => {
-    
     return (
         <>
             <MarketplaceNavbar showVisible/>
@@ -63,6 +63,7 @@ const AboutUs = () => {
                 <SquareButton label="JOIN US" style={{ position:"absolute", bottom: "15vh", left: "15vw" }}/>
                 <img src={circle} alt="" style={{ position: "absolute", top: -50, right: 0, transform: "scaleX(-1)" }}/>
             </div>
+            <HomeContainer6/>
             <Footer/>
         </>
     );
