@@ -23,10 +23,10 @@ import OrderHistory from './pages/orderHistory';
 import VerifyAccount from './pages/verifyAccount';
 import OrderRequest from './pages/orderRequest';
 import jwt from 'jsonwebtoken';
-import NavbarUser from './components/UI/utility/NavbarUser';
-import Navbar from './components/section/utility/Navbar';
 import ProductDetailPage from './pages/ProductDetailPage';
-import UserProfilePage from './pages/UserProfilePage';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
 function App() {
 	const dispatch = useDispatch();
 
@@ -67,9 +67,7 @@ function App() {
 	}
 
 	return (
-		<div className='App' style={{ overflow: 'auto', height: '100vh' }}>
-			<NavbarUser id={id} logOut={() => console.log('logout')} />
-			<Navbar />
+		<div className='App' style={{ height: '100vh' }}>
 			<Switch>
 				<Route path='/' exact component={Marketplace} />
 				<Route path='/login' component={Login} />

@@ -41,8 +41,8 @@ const SideNavbar = (props) => {
             <div className="d-flex flex-column align-items-start">
                 <p style={{ color: "var(--pink-color)", marginBottom: 5, fontSize: 16 }}>MENU</p>
                 <NavbarButton endpoint="/admin/dashboard" icon="fas fa-home" label="Dashboard"/>
-                <NavbarButton endpoint="/admin/productList" icon="fas fa-prescription-bottle-alt" label="Product List"/>
-                <NavbarButton endpoint="/admin/materialList" icon="fas fa-tablets" label="Material List"/>
+                <NavbarButton endpoint="/admin/inventory/product" icon="fas fa-prescription-bottle-alt" label="Product List"/>
+                <NavbarButton endpoint="/admin/inventory/material" icon="fas fa-tablets" label="Material List"/>
                 <NavbarButton endpoint="/admin/userDatas" icon="fas fa-user" label="User History"/>
                 <br/>
                 <p style={{ color: "var(--pink-color)", marginBottom: 5, fontSize: 16 }}>STATS</p>

@@ -15,7 +15,6 @@ const PrivateRoute = (props) => {
 
   return (
     <div 
-      className=""
       style={{ 
         backgroundColor: "#FFECEE",
       }}

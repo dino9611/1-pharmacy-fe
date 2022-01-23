@@ -1,0 +1,17 @@
+div.carousel-inner{
+    height: 85vh;
+}
+
+div.carousel-caption{
+    top: 40%;
+    bottom: 40%;
+}
+
+.bannerContainer {
+    position: relative;     
+}
+
+.carousel {
+    position: absolute;
+    top: 0;    
+}
