@@ -8,6 +8,7 @@ import SquareButton from '../components/UI/authInventory/squareButton';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { API_URL } from '../constants/api';
+import circle from '../assets/circle.png';
 
 const ContactUs = () => {
     const [sendMessage, setSendMessage] = useState({
@@ -61,6 +62,7 @@ const ContactUs = () => {
             <div style={{ backgroundImage: "linear-gradient(to bottom, var(--pink-color), #ff7b8600", height: "85vh", position: "relative" }}>
                 <img src={nurse} alt="" width= "100%" height="100%" style={{ objectFit: "cover", position:"absolute", zIndex: -10 }} />
                 <h1 style={{ position:"absolute", bottom: "35vh", left: "15vw", color: "white" }}>Contact Us</h1>
+                <img src={circle} alt="" style={{ position: "absolute", top: 50 }}/>
             </div>
             <div className="d-flex flex-row justify-content-center align-items-center" style={{ height: "70vh", backgroundColor: "whitesmoke" }}>
                 <div style={{ height: "50vh", width: "25vw", marginRight: 15 }} >
