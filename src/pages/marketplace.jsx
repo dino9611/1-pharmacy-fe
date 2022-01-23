@@ -18,8 +18,8 @@ const HomeContainer6 = () => {
         </div>
     )
 }
-const Marketplace = () => {
 
+const Marketplace = () => {
     return (
         <>
             <MarketplaceNavbar/>

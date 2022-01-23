@@ -58,7 +58,7 @@ const MarketplaceNavbar = (props) => {
 
     return (
         <div 
-            className="marketplaceNavbar d-flex justify-content-center flex-column px-3" 
+            className="marketplaceNavbar d-flex flex-column justify-content-around px-3" 
             style={{ 
                 height: "15vh", 
                 width: "100vw", 
@@ -71,13 +71,20 @@ const MarketplaceNavbar = (props) => {
             }}
         >
             <div className="d-flex flex-row justify-content-between" style={{ position: "relative" }}>
-                <div className="d-flex flex-row" style={{ transform: !visible && "translateY(40px)" }}>
-                    <button className="marketplaceIconsLight"><i className="fas fa-bars"></i></button>
-                    <p className="textButton ms-2" style={{ transform: "translateY(8px)" }}>ENG</p>
+                <div className="d-flex flex-row" style={{ transform: !visible && "translateY(55px)" }}>
+                    {
+                        window.location.pathname === "/" ?
+                        <button className="textButton" style={{ fontSize: 14 }}>ENG</button>
+                        :
+                        <>
+                            <button className="textButton" style={{ fontSize: 14 }}>HOME</button>
+                            <button className="textButton" style={{ fontSize: 14 }}>ENG</button>
+                        </>
+                    }
                 </div>
                 {visible &&
-                <div className="" style={{ position: "absolute", left: "50%", right: "50%", transform: "translateX(-75px)"}}>
-                    <img src={Obatin} alt="" width="150" />
+                <div style={{ position: "absolute", left: "50%", right: "50%", transform: "translateX(-75px)"}}>
+                    <img src={Obatin} alt="" width="150" onClick={() => {history.push("/")}}/>
                 </div>}
                 <div className="d-flex flex-row">
                     {
@@ -86,8 +93,8 @@ const MarketplaceNavbar = (props) => {
                             {
                                 !Auth.isAdmin ?
                                 <>
-                                    <button className="marketplaceIconsLight"  style={{ transform: !visible && "translateY(40px)" }}><i className="fas fa-shopping-cart me-2"></i></button>
-                                    <div ref={ref} style={{ transform: !visible && "translateY(40px)" }}>
+                                    <button className="marketplaceIconsLight"  style={{ transform: !visible && "translateY(55px)" }}><i className="fas fa-shopping-cart me-2"></i></button>
+                                    <div ref={ref} style={{ transform: !visible && "translateY(55px)" }}>
                                         <button
                                             className="marketplaceIconsLight"
                                             onClick={() => setShowProfileDropdown(!showProfileDropdown)}
@@ -106,10 +113,10 @@ const MarketplaceNavbar = (props) => {
                                 </>
                                 :
                                 <>
-                                    <button className="textButton" style={{ transform: !visible && "translateY(40px)", fontSize: 14 }} onClick={onClickLogoutButton}>
+                                    <button className="textButton" style={{ transform: !visible && "translateY(55px)", fontSize: 14 }} onClick={onClickLogoutButton}>
                                         LOGOUT
                                     </button>
-                                    <button className="textButton" style={{ transform: !visible && "translateY(40px)", fontSize: 14 }} onClick={() => {history.push("/admin")}}>
+                                    <button className="textButton" style={{ transform: !visible && "translateY(55px)", fontSize: 14 }} onClick={() => {history.push("/admin")}}>
                                         ADMIN DASHBOARD ▸
                                     </button>
                                 </>
@@ -117,17 +124,17 @@ const MarketplaceNavbar = (props) => {
                         </>
                         :
                         <>
-                            <button className="textButton"  style={{ transform: !visible && "translateY(40px)", fontSize: 14  }} onClick={() => {history.push("/login")}}>
+                            <button className="textButton"  style={{ transform: !visible && "translateY(55px)", fontSize: 14  }} onClick={() => {history.push("/login")}}>
                                 LOGIN
                             </button>
-                            <button className="textButton"  style={{ transform: !visible && "translateY(40px)", fontSize: 14  }} onClick={() => {history.push("/signup")}}>
+                            <button className="textButton"  style={{ transform: !visible && "translateY(55px)", fontSize: 14  }} onClick={() => {history.push("/signup")}}>
                                 SIGNUP
                             </button>
                         </>
                     }
                 </div>
             </div>
-            <div className={`d-flex justify-content-center flex-row ${ visible ? "mt-4" : "mt-2"}`}>
+            <div className={`d-flex justify-content-center flex-row ${ visible ? "" : ""}`}>
                 <button className="menuOptions me-4" onClick={() => {history.push("/")}}>BUY MEDICINE</button>
                 <button className="menuOptions me-4">CUSTOM PRESCRIPTION</button>
                 <button className="menuOptions me-4">HEALTH & LIFESTYLE</button>

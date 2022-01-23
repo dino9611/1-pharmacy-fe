@@ -26,6 +26,7 @@ import jwt from 'jsonwebtoken';
 import ProductDetailPage from './pages/ProductDetailPage';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import UserOrderHistory from './pages/userOrderHistory';
 
 function App() {
 	const dispatch = useDispatch();
@@ -67,6 +68,8 @@ function App() {
 				<Route path='/resetPassword' component={ResetPassword} />
 				<Route path='/verifyAccount' component={VerifyAccount} />
 				<Route path='/product/:id' component={ProductDetailPage} />
+				<Route path='/orderHistory' component={UserOrderHistory} /> 
+				{/* /orderHistory/:id */}
 				<PrivateRoute
 					path='/checkout'
 					exact
