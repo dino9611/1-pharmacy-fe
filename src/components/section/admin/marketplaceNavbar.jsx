@@ -54,7 +54,7 @@ const MarketplaceNavbar = (props) => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, [prevScrollPos, handleScroll]);
 
-    const visible = prevScrollPos < 70;
+    const visible = props.showVisible ? prevScrollPos < 0 : prevScrollPos < 70 ;
 
     return (
         <div 
@@ -74,10 +74,10 @@ const MarketplaceNavbar = (props) => {
                 <div className="d-flex flex-row" style={{ transform: !visible && "translateY(55px)" }}>
                     {
                         window.location.pathname === "/" ?
-                        <button className="textButton" style={{ fontSize: 14 }}>ENG</button>
+                        <button className="textButton" style={{ fontSize: 14 }}>ENGLISH</button>
                         :
                         <>
-                            <button className="textButton" style={{ fontSize: 14 }}>HOME</button>
+                            <button className="textButton" style={{ fontSize: 14 }} onClick={() => {history.push("/")}}>◂ HOME</button>
                             <button className="textButton" style={{ fontSize: 14 }}>ENG</button>
                         </>
                     }

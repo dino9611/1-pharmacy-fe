@@ -7,10 +7,10 @@ const UserOrderHistory = () => {
 
     return (
         <>
-            <MarketplaceNavbar/>
+            <MarketplaceNavbar showVisible/>
             <div>
-                <div style={{ height: "100vh" }}>
-                    
+                <div style={{ height: "100vh", backgroundColor: "whitesmoke", paddingTop: "15vh" }}>
+                    <h3>My Order History</h3>
                 </div>
                 <Footer/>
             </div>
