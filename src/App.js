@@ -24,6 +24,8 @@ import VerifyAccount from './pages/verifyAccount';
 import OrderRequest from './pages/orderRequest';
 import jwt from 'jsonwebtoken';
 import ProductDetailPage from './pages/ProductDetailPage';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function App() {
 	const dispatch = useDispatch();
@@ -56,7 +58,7 @@ function App() {
 	}
 
 	return (
-		<div className='App' style={{ overflow: 'auto', height: '100vh' }}>
+		<div className='App' style={{ height: '100vh'}}>
 			<Switch>
 				<Route path='/' exact component={Marketplace} />
 				<Route path='/login' component={Login} />
