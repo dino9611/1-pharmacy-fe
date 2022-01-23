@@ -14,7 +14,7 @@ const OrderHistoryTable = (props) => {
     const [orders, setOrders] = useState([]);
     const [status, setStatus] = useState(1);
 
-    const selectedEndpoint = props.isAdmin ? `/admin/transactions/userDatas/` : `/profile/`
+    const selectedEndpoint = props.isAdmin ? `/admin/transactions/userDatas/` : `/`
 
     const fetchOrderHistoryData = useCallback(async () => {
         try {

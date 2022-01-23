@@ -110,7 +110,7 @@ const MarketplaceNavbar = (props) => {
                                             {
                                                 showProfileDropdown && 
                                                 <><div className="profileDropdown px-3 py-2">My Profile</div>
-                                                <div className="profileDropdown px-3 py-2" onClick={() => {history.push("/profile/orderHistory")}}>My History</div>
+                                                <div className="profileDropdown px-3 py-2" onClick={() => {history.push(`/orderHistory/${Auth.id}`)}}>My History</div>
                                                 <div className="profileDropdown px-3 py-2" onClick={onClickLogoutButton}>Logout</div></>
                                             }
                                         </div>

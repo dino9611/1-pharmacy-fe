@@ -68,8 +68,7 @@ function App() {
 				<Route path='/resetPassword' component={ResetPassword} />
 				<Route path='/verifyAccount' component={VerifyAccount} />
 				<Route path='/product/:id' component={ProductDetailPage} />
-				<Route path='/profile/orderHistory' component={UserOrderHistory} /> 
-				{/* /orderHistory/:id */}
+				<Route path='/orderHistory/:id' component={UserOrderHistory} /> 
 				<PrivateRoute
 					path='/checkout'
 					exact
