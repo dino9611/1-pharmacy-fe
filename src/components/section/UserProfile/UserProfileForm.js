@@ -8,20 +8,10 @@ import CustomTextInput from '../../UI/utility/CustomTextInput';
 
 function UserProfileForm(props) {
 	const [image, setImage] = useState(`${props.avatar}`);
-	const [value, setValue] = useState({
-		firstName: props.firstName,
-		lastName: props.lastName,
-		gender: props.gender,
-		birthdate: props.birthdate,
-		address: props.address,
-		email: props.email,
-		username: props.username,
-	});
+
 	const formSubmitHandler = async (input) => {
-		setValue(input);
-		console.log(value);
 		const data = await axios.put(`${API_URL}/profile/info/${props.id}`, {
-			...value,
+			...input,
 			avatar: image,
 		});
 		console.log(data);
@@ -39,7 +29,18 @@ function UserProfileForm(props) {
 							avatar={image}
 						/>
 					</div>
-					<CustomForm initial={value} submitHandler={formSubmitHandler}>
+					<CustomForm
+						initial={{
+							firstName: props.firstName,
+							lastName: props.lastName,
+							gender: props.gender,
+							birthdate: props.birthdate,
+							address: props.address,
+							email: props.email,
+							username: props.username,
+						}}
+						submitHandler={formSubmitHandler}
+					>
 						<CustomTextInput
 							className='form-control'
 							classLabel='form-label'

@@ -21,8 +21,11 @@ const DashboardCard1 = (props) => {
                         "Authorization": `Bearer ${localStorage.getItem("token-access")}`
                     }
                 });
-                setDatas(response.data);
-                setOrderStatus1(response.data[0].current_orders);
+
+                if(response.data.length > 0){
+                    setDatas(response.data);
+                    setOrderStatus1(response.data[0].current_orders);
+                }
             } catch (error) {
                 toast.error(error.response.data.message || "Server Error", {
                     position: "top-right",
@@ -95,7 +98,7 @@ const DashboardCard1 = (props) => {
                     onClick={() => {history.push("/admin/orderRequest")}}
                     style={{ width: "34%"}}
                 >
-                    <CircleProgressBar percentage={completedTaskPercentage}/>
+                    <CircleProgressBar percentage={isNaN(completedTaskPercentage) ? '0' : completedTaskPercentage}/> {/* error handling for NaN value */}
                     <p className="mt-3 mb-0" style={{ color: "var(--blue-color)" }}>
                         Orders Awaiting for Admin Review:
                     </p>

@@ -1,42 +1,53 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import EditProfileModal from '../components/controller/EditProfileModal';
-import UserProfileForm from '../components/section/UserProfile/UserProfileForm';
+import MarketplaceNavbar from '../components/section/admin/marketplaceNavbar';
 import { API_URL } from '../constants/api';
-
 import useAxios from '../hooks/useAxios';
+import useDidUpdate from '../hooks/useDidUpdate';
 
 function UserProfilePage() {
 	const [reload, setReload] = useState(false);
-
 	const { id } = useSelector((state) => {
 		return {
 			id: state.auth.id,
 		};
 	});
 
-	console.log(id);
-
 	let { response } = useAxios({
 		url: `${API_URL}/profile/${id}`, //id params will change from user auth
 		method: 'get',
 	});
-	console.log(response);
+
+	useDidUpdate(() => {
+		console.log('reload');
+		setReload(false);
+	}, reload);
+
+	const x = 0;
+	const y = 30;
+	const styles = {
+		transform: `translate(${x}%, ${y}%)`,
+		borderRadius: '10',
+		border: '2px solid gray',
+	};
+
 	if (id === 0) return <h1>User not found....</h1>;
 
 	if (response) {
 		return (
 			<div>
+				<MarketplaceNavbar />
 				{response && (
-					<div className='container rounded bg-white'>
+					<div className='container rounded bg-white p-2' style={styles}>
 						<div className='row'>
 							<div className='col-md-5'>
 								<div className='d-flex flex-column align-item-center text-center p-3 py-5'>
 									<div>
 										<img
 											alt=''
-											className='rounded-circle'
-											width='150em'
+											className='rounded m-4'
+											width='300em'
 											src={
 												response.avatar
 													? response.avatar
@@ -53,7 +64,7 @@ function UserProfilePage() {
 									<h3>{response.username}'s Profile</h3>
 
 									<EditProfileModal
-										id={5} // will change to id from auth
+										id={id} // will change to id from auth
 										firstName={response.firstName}
 										lastName={response.lastName}
 										gender={response.gender}

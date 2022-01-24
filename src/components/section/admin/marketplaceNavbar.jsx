@@ -6,7 +6,6 @@ import { useOnClickOutside } from '../../../hooks/useOnClickOutside';
 import { toast } from 'react-toastify'
 import '../../UI/adminInventory/style.css';
 import { debounce } from '../../controller/E-pharma/debounce';
-import CustomOrder from '../../controller/E-pharma/CustomOrder';
 
 const MarketplaceNavbar = (props) => {
     const dispatch = useDispatch();
@@ -99,7 +98,7 @@ const MarketplaceNavbar = (props) => {
                                         <div style={{ position: "fixed", backgroundColor: "whitesmoke", minWidth: 150, height: "auto", right: 20, top: 50 }}>
                                             {
                                                 showProfileDropdown && 
-                                                <><div className="profileDropdown px-3 py-2">My Profile</div>
+                                                <><div className="profileDropdown px-3 py-2" onClick={() => history.push('/profile')}>My Profile</div>
                                                 <div className="profileDropdown px-3 py-2">My History</div>
                                                 <div className="profileDropdown px-3 py-2" onClick={onClickLogoutButton}>Logout</div></>
                                             }
@@ -130,8 +129,8 @@ const MarketplaceNavbar = (props) => {
                 </div>
             </div>
             <ul className={`d-flex justify-content-center flex-row ${ visible ? "mt-4" : "mt-2"}`} style={{listStyle:'none'}}>
-                <li className="menuOptions me-4" onClick={() => {history.push("/")}}>BUY MEDICINE</li>
-                <li className="menuOptions me-4" ><CustomOrder nav="Custom Order"/></li>
+                <li className="menuOptions me-4" onClick={() => {history.push("/store")}}>BUY MEDICINE</li>
+                <li className="menuOptions me-4" onClick={() => {history.push('/custom')}}>CUSTOM ORDER</li>
                 <li className="menuOptions me-4">HEALTH & LIFESTYLE</li>
                 <li className="menuOptions me-4">ABOUT US</li>
                 <li className="menuOptions">CONTACT US</li>

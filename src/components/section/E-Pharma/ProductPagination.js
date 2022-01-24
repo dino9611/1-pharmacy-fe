@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import Pagination from '../../controller/Pagination';
 import useAxios from '../../../hooks/useAxios';
-import ProductListWrapper from '../../UI/E-Pharma/ProductListWrapper';
+import ProductItem from '../../UI/E-Pharma/ProductItem';
 import SortButton from '../../controller/E-pharma/SortButton';
 import { API_URL } from '../../../constants/api';
+import MarketplaceNavbar from '../admin/marketplaceNavbar';
+import { style } from '@mui/system';
 
 function ProductPagination() {
-	let [limit, setLimit] = useState(9);
+	let [limit, setLimit] = useState(12);
 	let [page, setPage] = useState(1);
 	let [name, setName] = useState(true);
 	let [price, setPrice] = useState(true);
@@ -18,10 +20,15 @@ function ProductPagination() {
 		method: 'get',
 	});
 
+	const x = 0;
+	const y = 10;
+	const styles = {
+		transform: `translate(${x}%, ${y}%)`,
+	};
 	if (response) {
 		if (response.itemCount > 10) {
 			return (
-				<div>
+				<div className='m-5' style={styles}>
 					<div className='btn-group'>
 						<SortButton
 							sortButtonChange={(value) => setName(value)}
@@ -32,6 +39,28 @@ function ProductPagination() {
 							label='price'
 						/>
 					</div>
+					<div className='d-flex flex-wrap align-items-stretch m-3'>
+						{response &&
+							response.list.map((element, index) => {
+								return (
+									<div class='col-sm-3 d-flex'>
+										<ProductItem
+											itemWrapperClass='card p-3 card-text-start ms-4'
+											image={element.image}
+											imageClass='card-img-top'
+											imageAlt={element.name}
+											itemBodyClass='card-body'
+											itemTitleClass='card-title'
+											itemTitle={element.name}
+											itemTextClass='card-text'
+											itemText={element.price}
+											id={element.id}
+											linkDetailClass='btn btn-primary'
+										/>
+									</div>
+								);
+							})}
+					</div>
 					<Pagination
 						onLimitChange={(value) => setLimit(value)}
 						onPageChange={(value) => setPage(value)}
@@ -39,22 +68,35 @@ function ProductPagination() {
 						siblingCount={2}
 						currentPage={page}
 						pageSize={limit}
-					>
-						<ProductListWrapper
-							data={response && response.list}
-							isError={error}
-							isLoading={loading}
-						/>
-					</Pagination>
+					></Pagination>
 				</div>
 			);
 		} else {
 			return (
-				<ProductListWrapper
-					data={response && response.list}
-					isError={error}
-					isLoading={loading}
-				/>
+				<div className='d-flex flex-wrap'>
+					<MarketplaceNavbar />
+					{response &&
+						response.list.map((element, index) => {
+							return (
+								<div class='col-sm-3 my-3 d-flex align-items-stretch'>
+									<ProductItem
+										itemWrapperClass='card w-100 p-3 card-text-start'
+										image={element.image}
+										imageClass='card-img-top'
+										imageAlt={element.name}
+										itemBodyClass='card-body'
+										itemTitleClass='card-title'
+										itemTitle={element.name}
+										itemTextClass='card-text'
+										itemText={element.price}
+										id={element.id}
+										linkDetailClass='btn btn-primary'
+										style={{ width: '2em' }}
+									/>
+								</div>
+							);
+						})}
+				</div>
 			);
 		}
 	} else {

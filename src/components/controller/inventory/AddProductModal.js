@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Modal } from 'bootstrap';
 import AddInventory from '../../section/inventory/AddInventory';
 
-function AddProductModal() {
+function AddProductModal(props) {
 	const modalRef = useRef();
 
 	const showModal = () => {
@@ -26,7 +26,7 @@ function AddProductModal() {
 				Add
 			</button>
 			<div className='modal fade' ref={modalRef} tabIndex='-1'>
-				<div className='modal-dialog'>
+				<div className={`modal-dialog ${props.size}`}>
 					<div className='modal-content'>
 						<div className='modal-header'>
 							<h5 className='modal-title' id='staticBackdropLabel'>

@@ -45,15 +45,17 @@ function UploadImage(props) {
 	}, [image]);
 
 	return (
-		<div className='container align-items-center justify-content-center bg-light'>
-			<label htmlFor='imageUpload'>
+		<div
+			className={`d-flex justify-content-center bg-light ${props.className}`}
+		>
+			<label htmlFor='imageUpload' style={props.style}>
 				<img className={props.className} src={image ? newImage : avatar} />
 			</label>
 			<input
 				type='file'
 				onChange={changeHandler}
 				id='imageUpload'
-				style={{ opacity: 0, zIndex: -1 }}
+				style={{ opacity: 0, width: 0 }}
 			/>
 			{err && <h6 style={{ color: 'red' }}>Error !!</h6>}
 		</div>

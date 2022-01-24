@@ -27,6 +27,8 @@ import ProductDetailPage from './pages/ProductDetailPage';
 import UserProfilePage from './pages/UserProfilePage';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import StorePage from './pages/StorePage';
+import CustomOrderPage from './pages/CustomOrderPage';
 
 function App() {
 	const dispatch = useDispatch();
@@ -78,6 +80,8 @@ function App() {
 				<Route path='/verifyAccount' component={VerifyAccount} />
 				<Route path='/product/:id' component={ProductDetailPage} />
 				<Route path='/profile' component={UserProfilePage} />
+				<Route path='/store' component={StorePage} />
+				<Route path='/custom' component={CustomOrderPage} />
 				<PrivateRoute
 					path='/checkout'
 					exact
