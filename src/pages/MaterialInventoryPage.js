@@ -3,7 +3,7 @@ import AddMaterial from '../components/section/inventory/AddMaterial';
 import MaterialInventory from '../components/section/inventory/MaterialInventory';
 import SearchBar from '../components/controller/SearchBar';
 import { useState } from 'react/cjs/react.development';
-
+import { API_URL } from '../constants/api';
 function MaterialInventoryPage() {
 	const [addMaterial, isAddMaterial] = useState(false);
 
@@ -16,7 +16,7 @@ function MaterialInventoryPage() {
 			) : (
 				<button onClick={() => isAddMaterial(true)}>add</button>
 			)}
-			<SearchBar url={`http://localhost:2001/material/search`} />
+			<SearchBar url={`${API_URL}/material/search`} />
 			<MaterialInventory />
 		</div>
 	);

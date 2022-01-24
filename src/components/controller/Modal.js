@@ -1,8 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { Modal } from 'bootstrap';
-import AddInventory from '../../section/inventory/AddInventory';
 
-function AddProductModal(props) {
+function CustomModal(props) {
 	const modalRef = useRef();
 
 	const showModal = () => {
@@ -22,15 +21,18 @@ function AddProductModal(props) {
 
 	return (
 		<div>
-			<button className='btn btn-primary' onClick={showModal}>
-				Add
-			</button>
+			{props.button && (
+				<div className='btn btn-primary' onClick={showModal}>
+					{props.button}
+				</div>
+			)}
+			{props.nav && <div onClick={showModal}>CUSTOM ORDER</div>}
 			<div className='modal fade' ref={modalRef} tabIndex='-1'>
 				<div className={`modal-dialog ${props.size}`}>
 					<div className='modal-content'>
 						<div className='modal-header'>
 							<h5 className='modal-title' id='staticBackdropLabel'>
-								Add Inventory
+								{props.title}
 							</h5>
 							<button
 								type='button'
@@ -39,9 +41,7 @@ function AddProductModal(props) {
 								aria-label='Close'
 							></button>
 						</div>
-						<div className='modal-body'>
-							<AddInventory onAddProduct={() => closeModal()} />
-						</div>
+						<div className='modal-body'>{props.children}</div>
 					</div>
 				</div>
 			</div>
@@ -49,4 +49,4 @@ function AddProductModal(props) {
 	);
 }
 
-export default AddProductModal;
+export default CustomModal;

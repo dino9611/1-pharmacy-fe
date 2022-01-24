@@ -1,3 +1,4 @@
+import { color } from '@mui/system';
 import React, { useState } from 'react';
 import useAxios from '../../hooks/useAxios';
 import useDebounce from '../../hooks/useDebounce';
@@ -27,7 +28,7 @@ function SearchBar(props) {
 	};
 
 	return (
-		<div style={{ position: "relative"}}>
+		<div style={{ position: 'relative' }}>
 			<input
 				className='form-control me-2'
 				type='text'
@@ -35,15 +36,25 @@ function SearchBar(props) {
 				onChange={onChangeHandler}
 				value={input}
 			/>
-			<div style={{ position: "absolute", height: "50vh", overflow: "scroll" }}>
+			<div
+				style={{
+					position: 'absolute',
+					height: '50vh',
+					overflow: "scroll"
+				}}
+			>
 				{response && input && searchBarisOpen ? (
 					response.map((element) => {
 						return (
-							<div className='px-3 py-1 dropdownItem' key={element.id} id={element.id} onClick={onClickHandler}
-								style={{ 
-									borderLeft: "0.5px solid gainsboro",
-									borderRight: "0.5px solid gainsboro",
-									borderBottom: "0.5px solid gainsboro",
+							<div
+								className='px-3 py-1 dropdownItem'
+								key={element.id}
+								id={element.id}
+								onClick={onClickHandler}
+								style={{
+									borderLeft: '0.5px solid gainsboro',
+									borderRight: '0.5px solid gainsboro',
+									borderBottom: '0.5px solid gainsboro',
 								}}
 							>
 								{element.name}

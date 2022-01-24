@@ -1,5 +1,4 @@
-import React from 'react';
-import { useEffect, useState } from 'react/cjs/react.development';
+import React, { useEffect, useState } from 'react';
 
 function QuantityCount(props) {
 	const [count, setCount] = useState(1);

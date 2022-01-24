@@ -102,14 +102,14 @@ const ContactUs = () => {
                         style={{ width: "100%" }}
                     />
                     <br />
-                    <Input 
+                    <textarea 
                         type="text" 
-                        onChange={onFormInputChange}
+                        onChange={(e) => onFormInputChange(e.target.value, e.target.name)}
                         value={sendMessage.message} 
                         name="message"  
                         placeholder="Your Message" 
-                        style={{ width: "100%", height: "25vh", borderRadius: 30, padding: 10, overflowY: "visible" }}
-                    ></Input>
+                        style={{ width: "100%", minHeight: "25vh", maxHeight: "35vh", borderRadius: 30, padding: 10 }} 
+                    />
                     <SquareButton className="m-3" label="SEND MESSAGE" onClick={onClickSendMessage}/>
                 </div>
             </div>

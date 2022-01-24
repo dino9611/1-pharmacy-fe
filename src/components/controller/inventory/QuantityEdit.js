@@ -17,7 +17,9 @@ function QuantityEdit(props) {
 		<div className='btn-group'>
 			<button
 				className='btn btn-secondary'
-				onClick={() => setQuantity(quantity - 1)}
+				onClick={() => {
+					setQuantity(quantity - 1);
+				}}
 				disabled={quantity === 0 ? true : false}
 			>
 				-

@@ -108,7 +108,7 @@ const MarketplaceNavbar = (props) => {
                                         <div style={{ position: "fixed", backgroundColor: "whitesmoke", minWidth: 150, height: "auto", right: visible ? 20 : 5, top: visible ? 50 : 30 }}>
                                             {
                                                 showProfileDropdown && 
-                                                <><div className="profileDropdown px-3 py-2">My Profile</div>
+                                                <><div className="profileDropdown px-3 py-2" onClick={() => history.push('/profile')}>My Profile</div>
                                                 <div className="profileDropdown px-3 py-2" onClick={() => {history.push(`/orderHistory/${Auth.id}`)}}>My History</div>
                                                 <div className="profileDropdown px-3 py-2" onClick={onClickLogoutButton}>Logout</div></>
                                             }
@@ -131,7 +131,7 @@ const MarketplaceNavbar = (props) => {
                             <button className="textButton"  style={{ transform: !visible && "translateY(55px)", fontSize: 16  }} onClick={() => {history.push("/login")}}>
                                 LOGIN
                             </button>
-                            <button className="textButton"  style={{ transform: !visible && "translateY(55px)", fontSize: 16  }} onClick={() => {history.push("/signup")}}>
+                            <button className="textButton"  style={{ transform: !visible && "translateY(55px)", fontSize: 16  }} onClick={() => {history.push("/register")}}>
                                 SIGNUP
                             </button>
                         </>
@@ -139,8 +139,8 @@ const MarketplaceNavbar = (props) => {
                 </div>
             </div>
             <div className={`d-flex justify-content-center flex-row ${ visible ? "" : ""}`}>
-                <button className="menuOptions me-4" onClick={() => {history.push("/")}}>MEDICINE & PHARMACY</button>
-                <button className="menuOptions me-4">CUSTOM PRESCRIPTION</button>
+                <button className="menuOptions me-4" onClick={() => {history.push("/store")}}>MEDICINE & PHARMACY</button>
+                <button className="menuOptions me-4" onClick={() => {history.push('/custom')}}>CUSTOM PRESCRIPTION</button>
                 <button className="menuOptions me-4">HEALTH & LIFESTYLE</button>
                 <button className="menuOptions me-4" onClick={() => {history.push("/aboutUs")}}>ABOUT US</button>
                 <button className="menuOptions" onClick={() => {history.push("/contactUs")}}>CONTACT US</button>
