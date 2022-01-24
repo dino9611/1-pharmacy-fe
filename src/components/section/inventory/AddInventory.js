@@ -10,7 +10,10 @@ import { API_URL } from '../../../constants/api';
 function AddInventory(props) {
 	const [body, setBody] = useState();
 	const [materials, setMaterials] = useState([]);
-	const [image, setImage] = useState('');
+	const [image, setImage] = useState(
+		props.image ||
+			'https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-default-placeholder.png',
+	);
 
 	const { response, loading, error } = useAxios({
 		method: 'post',
@@ -23,6 +26,9 @@ function AddInventory(props) {
 		value.image = image;
 		setBody(value);
 		setMaterials([]);
+		setImage(
+			'https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-default-placeholder.png',
+		);
 		props.onAddProduct();
 	};
 	const onAddMaterialHandler = (value) => {
@@ -32,6 +38,11 @@ function AddInventory(props) {
 
 	return (
 		<div>
+			<UploadImage
+				className='img-thumbnail'
+				uploadUrl={(value) => setImage(value)}
+				avatar={image}
+			/>
 			<CustomForm
 				initial={{
 					name: '',
@@ -111,7 +122,11 @@ function AddInventory(props) {
 			<AddMedicineIngredients onAddMaterial={onAddMaterialHandler} />
 			{materials.map((element) => {
 				return (
-					<button id={element.id} value={element.name}>
+					<button
+						id={element.id}
+						value={element.name}
+						className='btn btn-primary'
+					>
 						{element.name}
 					</button>
 				);

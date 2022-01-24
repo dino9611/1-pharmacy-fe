@@ -5,14 +5,15 @@ import ProductItem from '../../UI/E-Pharma/ProductItem';
 import SortButton from '../../controller/E-pharma/SortButton';
 import { API_URL } from '../../../constants/api';
 import MarketplaceNavbar from '../admin/marketplaceNavbar';
-import { style } from '@mui/system';
+import { useHistory } from 'react-router-dom';
+import HomeProductCard from '../../UI/E-Pharma/homeProductCard';
 
 function ProductPagination() {
 	let [limit, setLimit] = useState(12);
 	let [page, setPage] = useState(1);
 	let [name, setName] = useState(true);
 	let [price, setPrice] = useState(true);
-
+	let history = useHistory();
 	let { response, error, loading } = useAxios({
 		url: `${API_URL}/inventory/store/${page}/${limit}/items?name=${
 			name ? 'ASC' : 'DESC'
@@ -43,20 +44,15 @@ function ProductPagination() {
 						{response &&
 							response.list.map((element, index) => {
 								return (
-									<div class='col-sm-3 d-flex'>
-										<ProductItem
-											itemWrapperClass='card p-3 card-text-start ms-4'
-											image={element.image}
-											imageClass='card-img-top'
-											imageAlt={element.name}
-											itemBodyClass='card-body'
-											itemTitleClass='card-title'
-											itemTitle={element.name}
-											itemTextClass='card-text'
-											itemText={element.price}
-											id={element.id}
-											linkDetailClass='btn btn-primary'
-										/>
+									<div class='col-sm-3'>
+										<div className='mt-3'>
+											<HomeProductCard
+												image={element.image}
+												onClick={() => history.push(`/product/${element.id}`)}
+												name={element.name}
+												price={element.price}
+											/>
+										</div>
 									</div>
 								);
 							})}
@@ -74,7 +70,7 @@ function ProductPagination() {
 		} else {
 			return (
 				<div className='d-flex flex-wrap'>
-					<MarketplaceNavbar showVisible/>
+					<MarketplaceNavbar showVisible />
 					{response &&
 						response.list.map((element, index) => {
 							return (
