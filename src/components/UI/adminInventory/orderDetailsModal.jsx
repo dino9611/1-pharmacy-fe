@@ -25,7 +25,7 @@ const OrderDetailsModal = (props) => {
         return (
             <div className="d-flex flex-row justify-content-between px-3" style={{ width: "100%" }}>
                 <div style={{ border: "1px solid black", height: "auto", width: "auto" }}>
-                    <img src={props.orderDetails.map(orderDetail => orderDetail.payment_image_proof)} alt="" height="180" width="auto"/>
+                    <img src="http://www.centrin.net.id/themes/newcentrin/assets/images/payment/klik-bca-new/04.png" alt="" height="180" width="auto"/>
                 </div>
                 <div className="d-flex flex-column justify-content-center align-items-end">
                     <p>Shipping Method: {props.shippingMethod}</p>

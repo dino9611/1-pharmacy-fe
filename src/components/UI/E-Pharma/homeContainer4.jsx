@@ -46,7 +46,7 @@ const HomeContainer4 = (props) => {
                     })
                 }
             </div>
-            <SquareButton label="BUY MEDICINE ▸" onClick={() => {history.push("/")}}/>
+            <SquareButton label="BUY MEDICINE ▸" onClick={() => {history.push("/store")}}/>
         </div>
 	);
 }

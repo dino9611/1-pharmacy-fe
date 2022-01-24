@@ -95,8 +95,6 @@ const CustomPrescriptionsModal = (props) => {
         setPrice(parseInt(generatePrice));
     }
 
-
-
     return (
         <DetailsModal
             size="xl"

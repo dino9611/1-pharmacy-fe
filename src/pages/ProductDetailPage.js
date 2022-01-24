@@ -20,7 +20,7 @@ function ProductDetailPage() {
 
 	return (
 		<div>
-			<MarketplaceNavbar />
+			<MarketplaceNavbar showVisible/>
 			{loading && <h4>loading ...</h4>}
 			{response && (
 				<div

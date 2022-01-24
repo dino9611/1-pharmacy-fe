@@ -6,7 +6,6 @@ import Login from './pages/login';
 import Register from './pages/register';
 import ForgotPassword from './pages/forgotPassword';
 import ResetPassword from './pages/resetPassword';
-import Checkout from './pages/checkout';
 import PageNotFound from './pages/pageNotFound';
 import PrivateRoute from './PrivateRoute';
 import Sales from './pages/sales';
@@ -100,11 +99,6 @@ function App() {
 				<Route
 					path='/custom' 
 					component={CustomOrderPage} 
-				/>
-				<PrivateRoute
-					path='/checkout'
-					exact component={Checkout}
-					adminAuth={true}
 				/>
 				<PrivateRoute
 					path='/admin/inventory/product'
