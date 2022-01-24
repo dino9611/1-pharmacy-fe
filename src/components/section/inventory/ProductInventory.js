@@ -42,14 +42,14 @@ function ProductInventory() {
 							<option value='12'>12</option>
 						</select>
 					</div>
-					<div className='col-7'>
+					{/* <div className='col-7'>
 						<SearchBar
 							url={API_URL + '/inventory/medicines'}
 							onSearchResult={(value) => console.log(value)}
 							onSearchClick={(value) => console.log(value)}
 							//solve for extra feature later
 						/>
-					</div>
+					</div> */}
 					<div className='col-2'>
 						<AddProductModal />
 					</div>

@@ -29,7 +29,7 @@ function MaterialInventory() {
 		return (
 			<div>
 				<div className='row'>
-					<div className='col-3'>
+					<div className='col-2'>
 						<label className='px-2' htmlFor='limit'>
 							Item Limit
 						</label>
@@ -43,14 +43,14 @@ function MaterialInventory() {
 							<option value='12'>12</option>
 						</select>
 					</div>
-					<div className='col-7'>
+					{/* <div className='col-7'>
 						<SearchBar
 							url={API_URL + '/inventory/materials'}
 							onSearchResult={(value) => console.log(value)}
 							onSearchClick={(value) => console.log(value)}
 							//solve for extra feature later
 						/>
-					</div>
+					</div> */}
 					<div className='col-2'>
 						<AddMaterialModal onChangeReload={() => setReload(true)} />
 					</div>
@@ -62,8 +62,8 @@ function MaterialInventory() {
 					currentPage={page}
 					pageSize={limit}
 				>
-					<table className='table'>
-						<thead className='text-center'>
+					<table className='table mt-3'>
+						<thead className='text-center table-dark'>
 							<tr>
 								<th scope='col'>id</th>
 								<th scope='col'>name</th>
