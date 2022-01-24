@@ -32,8 +32,8 @@ const AboutUs = () => {
                             Indonesia's lack of access to medicines is what drives us to pursue Obatin
                         </h3>
                         <p style={{ fontSize: 18 }}>
-                            Over the last decade, global health policies and different research areas have focused on the relevance and impact of medicine shortages. 
-                            Published studies suggest there have been difficulties with access to medicines since the beginning of the 20th century.
+                            Global health policies and different research areas have focused on the relevance and impact of medicine shortages. 
+                            Studies suggest there have been difficulties with access to medicines since the beginning of the 20th century.
                             However, in the response of this concerns with shortages, 
                             we believe this is our opportunity to show that accessible medicine should be served for everyone.
                         </p>

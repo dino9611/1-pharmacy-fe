@@ -27,7 +27,7 @@ const ContactUs = () => {
         e.preventDefault();
         const { name, email, subject, message } = sendMessage;
 
-        if (name !== "" || email !== "" || subject !== "" || message !== "") {
+        if (name.length && email.length && subject.length && message.length) {
             try {
                 let dataBody = {
                     name,

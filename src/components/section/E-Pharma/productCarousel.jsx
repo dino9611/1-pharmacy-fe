@@ -5,8 +5,11 @@ import { API_URL } from '../../../constants/api';
 import Slider from "react-slick";
 import '../../../components/UI/adminInventory/style.css';
 import HomeProductCard from '../../../components/UI/E-Pharma/homeProductCard';
+import { withRouter } from 'react-router-dom';
 
-const ProductCarousel = () => {
+const ProductCarousel = (props) => {
+    const { history } = props;
+
     const settings = {
         dots: true,
         infinite: true,
@@ -47,6 +50,7 @@ const ProductCarousel = () => {
                                 image={data.image}
                                 name={data.medicine}
                                 price={parseInt(data.price).toLocaleString("in", "ID")}
+                                onClick={() => {history.push(`/product/${data.id}`)}}
                             />
                         )
                     })
@@ -60,6 +64,7 @@ const ProductCarousel = () => {
                                 image={data.image}
                                 name={data.medicine}
                                 price={parseInt(data.price).toLocaleString("in", "ID")}
+                                onClick={() => {history.push(`/product/${data.id}`)}}
                             />
                         )
                     })
@@ -71,4 +76,4 @@ const ProductCarousel = () => {
 }
 
 
-export default ProductCarousel;
+export default withRouter(ProductCarousel);

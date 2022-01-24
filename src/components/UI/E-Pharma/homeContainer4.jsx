@@ -40,6 +40,7 @@ const HomeContainer4 = (props) => {
                                 image={data.image}
                                 name={data.medicine}
                                 price={parseInt(data.price).toLocaleString("in", "ID")}
+                                onClick={() => {history.push(`/product/${data.id}`)}}
                             />
                         )
                     })

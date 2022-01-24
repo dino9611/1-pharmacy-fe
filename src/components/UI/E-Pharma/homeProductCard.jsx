@@ -3,7 +3,10 @@ import './style.css';
 
 const HomeProductCard = (props) => {
 	return (
-		<div className="homeProductCard d-flex flex-column justify-content-center align-items-center mx-2">
+		<div 
+            className="homeProductCard d-flex flex-column justify-content-center align-items-center mx-2"
+            onClick={props.onClick}
+        >
             <img 
                 alt="product" 
                 src={props.image}
