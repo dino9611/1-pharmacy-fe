@@ -5,7 +5,7 @@ import './style.css';
 const NavbarButton = (props) => {
     const { history } = props;
     const selectedClass = window.location.pathname.includes(props.endpoint) ? "selectedNavbarButton" : "navbarButton";
-   console.log()
+
     return (
         <div 
             className={`${selectedClass} d-flex flex-row p-2 ${props.className}`}
