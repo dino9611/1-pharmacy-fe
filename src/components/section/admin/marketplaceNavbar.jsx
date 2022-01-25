@@ -9,7 +9,6 @@ import '../../UI/adminInventory/style.css';
 const MarketplaceNavbar = (props) => {
     const dispatch = useDispatch();
     const { history } = props;
-
     const ref = useRef(null);
     const [ showProfileDropdown, setShowProfileDropdown ] = useState(false);
 
@@ -55,7 +54,7 @@ const MarketplaceNavbar = (props) => {
     }, [prevScrollPos, handleScroll]);
 
     const visible = props.showVisible ? prevScrollPos < 0 : prevScrollPos < 70 ;
-
+    
     return (
         <div 
             className="marketplaceNavbar d-flex flex-column justify-content-around px-3" 
@@ -69,83 +68,81 @@ const MarketplaceNavbar = (props) => {
                 transition: 'top 800ms, background-image 0.75s'
             }}
         >
-            <div className="d-flex flex-column justify-content-between" style={{ position: "relative" }}>
+            <div className="d-flex flex-row justify-content-between" style={{ position: "relative" }}>
                 {visible &&
                 <div style={{ position: "absolute", left: "50%", right: "50%", transform: "translateX(-75px)"}}>
                     <img src={Obatin} alt="" width="150" onClick={() => {history.push("/")}}/>
                 </div>}
-                <div className="d-flex flex-row justify-content-between mb-5">
-                    <div className="d-flex flex-row" style={{ transform: !visible && "translateY(55px)" }}>
-                        {
-                            window.location.pathname === "/" ?
-                            <button className="textButton" style={{ fontSize: 16 }}>ENGLISH</button>
-                            :
-                            <>
-                                <button className="textButton" style={{ fontSize: 16 }} onClick={() => {history.push("/")}}>◂ HOME</button>
-                                <button className="textButton" style={{ fontSize: 16 }}>ENG</button>
-                            </>
-                        }
-                    </div>
-                    <div className="d-flex flex-row">
-                        {
-                            Auth.isLogin ?
-                            <>
-                                {
-                                    !Auth.isAdmin ?
-                                    <>
-                                        <button 
-                                            className="marketplaceIconsLight"  
-                                            style={{ transform: !visible && "translateY(55px)" }}
+                <div className="d-flex flex-row" style={{ transform: !visible && "translateY(55px)" }}>
+                    {
+                        window.location.pathname === "/" ?
+                        <button className="textButton" style={{ fontSize: 16 }}>ENGLISH</button>
+                        :
+                        <>
+                            <button className="textButton" style={{ fontSize: 16 }} onClick={() => {history.push("/")}}>◂ HOME</button>
+                            <button className="textButton" style={{ fontSize: 16 }}>ENG</button>
+                        </>
+                    }
+                </div>
+                <div className="d-flex flex-row">
+                    {
+                        Auth.isLogin ?
+                        <>
+                            {
+                                !Auth.isAdmin ?
+                                <>
+                                    <button 
+                                        className="marketplaceIconsLight"  
+                                        style={{ transform: !visible && "translateY(55px)" }}
+                                    >
+                                        <i className="fas fa-shopping-cart me-2"></i>
+                                    </button>
+                                    <div ref={ref} style={{ transform: !visible && "translateY(55px)" }}>
+                                        <button
+                                            className="marketplaceIconsLight"
+                                            onClick={() => setShowProfileDropdown(!showProfileDropdown)}
                                         >
-                                            <i className="fas fa-shopping-cart me-2"></i>
+                                            <i className="fas fa-user"/>
                                         </button>
-                                        <div ref={ref} style={{ transform: !visible && "translateY(55px)" }}>
-                                            <button
-                                                className="marketplaceIconsLight"
-                                                onClick={() => setShowProfileDropdown(!showProfileDropdown)}
-                                            >
-                                                <i className="fas fa-user"/>
-                                            </button>
-                                            <div style={{ position: "fixed", backgroundColor: "whitesmoke", minWidth: 150, height: "auto", right: visible ? 20 : 5, top: visible ? 50 : 30 }}>
-                                                {
-                                                    showProfileDropdown && 
-                                                    <><div className="profileDropdown px-3 py-2" onClick={() => history.push('/profile')}>My Profile</div>
-                                                    <div className="profileDropdown px-3 py-2" onClick={() => {history.push(`/orderHistory/${Auth.id}`)}}>My History</div>
-                                                    <div className="profileDropdown px-3 py-2" onClick={onClickLogoutButton}>Logout</div></>
-                                                }
-                                            </div>
+                                        <div style={{ position: "fixed", backgroundColor: "whitesmoke", minWidth: 150, height: "auto", right: visible ? 20 : 5, top: visible ? 50 : 30 }}>
+                                            {
+                                                showProfileDropdown && 
+                                                <><div className="profileDropdown px-3 py-2" onClick={() => history.push('/profile')}>My Profile</div>
+                                                <div className="profileDropdown px-3 py-2" onClick={() => {history.push(`/orderHistory/${Auth.id}`)}}>My History</div>
+                                                <div className="profileDropdown px-3 py-2" onClick={onClickLogoutButton}>Logout</div></>
+                                            }
                                         </div>
-                                    </>
-                                    :
-                                    <>
-                                        <button className="textButton" style={{ transform: !visible && "translateY(55px)", fontSize: 16 }} onClick={onClickLogoutButton}>
-                                            LOGOUT
-                                        </button>
-                                        <button className="textButton" style={{ transform: !visible && "translateY(55px)", fontSize: 16 }} onClick={() => {history.push("/admin")}}>
-                                            DASHBOARD ▸
-                                        </button>
-                                    </>
-                                }
-                            </>
-                            :
-                            <>
-                                <button className="textButton"  style={{ transform: !visible && "translateY(55px)", fontSize: 16  }} onClick={() => {history.push("/login")}}>
-                                    LOGIN
-                                </button>
-                                <button className="textButton"  style={{ transform: !visible && "translateY(55px)", fontSize: 16  }} onClick={() => {history.push("/register")}}>
-                                    SIGNUP
-                                </button>
-                            </>
-                        }
-                    </div>
+                                    </div>
+                                </>
+                                :
+                                <>
+                                    <button className="textButton" style={{ transform: !visible && "translateY(55px)", fontSize: 16 }} onClick={onClickLogoutButton}>
+                                        LOGOUT
+                                    </button>
+                                    <button className="textButton" style={{ transform: !visible && "translateY(55px)", fontSize: 16 }} onClick={() => {history.push("/admin")}}>
+                                        DASHBOARD ▸
+                                    </button>
+                                </>
+                            }
+                        </>
+                        :
+                        <>
+                            <button className="textButton"  style={{ transform: !visible && "translateY(55px)", fontSize: 16  }} onClick={() => {history.push("/login")}}>
+                                LOGIN
+                            </button>
+                            <button className="textButton"  style={{ transform: !visible && "translateY(55px)", fontSize: 16  }} onClick={() => {history.push("/register")}}>
+                                SIGNUP
+                            </button>
+                        </>
+                    }
                 </div>
-                <div className="d-flex justify-content-center flex-row" style={{ zIndex: 200, position: "absolute", bottom: 0, right: -15, width: "100vw" }}>
-                    <button style={{ opacity: "100%" }} className="menuOptions me-4" onClick={() => {history.push("/store")}}>MEDICINE & PHARMACY</button>
-                    <button style={{ opacity: "100%" }} className="menuOptions me-4" onClick={() => {history.push('/custom')}}>CUSTOM PRESCRIPTION</button>
-                    <button style={{ opacity: "100%" }} className="menuOptions me-4">HEALTH & LIFESTYLE</button>
-                    <button style={{ opacity: "100%" }} className="menuOptions me-4" onClick={() => {history.push("/aboutUs")}}>ABOUT US</button>
-                    <button style={{ opacity: "100%" }} className="menuOptions" onClick={() => {history.push("/contactUs")}}>CONTACT US</button>
-                </div>
+            </div>
+            <div className={`d-flex justify-content-center flex-row`}>
+                <button className="menuOptions me-4" onClick={() => {history.push("/store")}}>MEDICINE & PHARMACY</button>
+                <button className="menuOptions me-4" onClick={() => {history.push("/custom")}}>CUSTOM PRESCRIPTION</button>
+                <button className="menuOptions me-4">HEALTH & LIFESTYLE</button>
+                <button className="menuOptions me-4" onClick={() => {history.push("/aboutUs")}}>ABOUT US</button>
+                <button className="menuOptions" onClick={() => {history.push("/contactUs")}}>CONTACT US</button>
             </div>
         </div>
     );

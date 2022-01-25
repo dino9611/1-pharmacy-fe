@@ -53,7 +53,7 @@ const SideNavbar = (props) => {
                 <NavbarButton endpoint="/admin/orderRequest" icon="fas fa-plus-square" label="Order Request"/>
             </div>
             <div className="d-flex flex-column align-items-center">
-                <SquareButton className="text-center mb-2" label="LOGOUT" onClick={onClickLogoutButton}/>
+                <SquareButton className="text-center mb-2" label="LOGOUT" onClick={onClickLogoutButton} style={{ backgroundColor: "mistyrose", color: "var(--pink-color)" }}/>
             </div>
         </div>
     );
