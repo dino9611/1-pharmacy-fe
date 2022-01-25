@@ -15,7 +15,9 @@ const Marketplace = () => {
         <>
             <MarketplaceNavbar/>
             <div className="d-flex flex-column">
-                <HomeCarousel/>
+                <div style={{ width: "100vw", height: "85vh" }}>
+                    <HomeCarousel/>
+                </div>
                 <HomeContainer1/>
                 <HomeContainer2/>
                 <HomeContainer3/>
