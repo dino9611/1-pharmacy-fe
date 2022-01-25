@@ -5,12 +5,12 @@ import './style.css';
 const NavbarButton = (props) => {
     const { history } = props;
     const selectedClass = window.location.pathname.includes(props.endpoint) ? "selectedNavbarButton" : "navbarButton";
-   
+   console.log()
     return (
         <div 
             className={`${selectedClass} d-flex flex-row p-2 ${props.className}`}
             onClick={() => {history.push(props.endpoint)}}
-            style={{ marginBottom: 10 }}
+            style={{ marginBottom: 10, cursor: "pointer" }}
         >
             <div style={{ width: 40 }}>
                 <i class={props.icon}></i>
