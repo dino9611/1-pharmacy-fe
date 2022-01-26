@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
-import axios from 'axios'
-import { API_URL } from '../constants/api'
 import { Link } from 'react-router-dom';
-import Navbar from '../components/section/utility/Navbar';
 import Checkout from '../components/UI/utility/Checkout';
-
+import MarketplaceNavbar from '../components/section/admin/marketplaceNavbar';
 const Cart = () => {
     const cart = useSelector((state) => state.cart);
     console.log(cart);
@@ -20,11 +17,11 @@ const Cart = () => {
 
     return (
         <>
-            <Navbar />
-            <div className='wrapper p-2'>
+            <MarketplaceNavbar showVisible/>
+            <div className='wrapper p-2' style={{ marginTop: 100 }}>
                 <h1 className="title fw-bolder" style={{ textAlign: 'center' }}>YOUR CART</h1>
                 <div className='top d-flex p-2' style={{ alignItems: 'center', justifyContent: 'space-between' }}>
-                    <Link to='/marketplace'>
+                    <Link to='/'>
                         <button className="btn p-2 m-2 btn-primary text-light btn-lg">
                             BACK TO HOME
                         </button>
