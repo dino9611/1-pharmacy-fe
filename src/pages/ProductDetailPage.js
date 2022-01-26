@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import QuantityCount from '../components/controller/E-pharma/QuantityCount';
 import useAxios from '../hooks/useAxios';
+import { addProduct } from '../redux/cartReducer';
+import { Link } from 'react-router-dom'
 
 function ProductDetailPage() {
 	let [quantity, setQuantity] = useState(1);
@@ -10,7 +13,17 @@ function ProductDetailPage() {
 		url: `http://localhost:2001/inventory/${id}`,
 		method: 'get',
 	});
-	console.log(quantity);
+	console.log(response);
+
+	const dispatch = useDispatch()
+
+	const handleAddToCart = () => {
+		localStorage.setItem("cart-item", response.data)
+		dispatch(
+			addProduct({ ...response, quantity })
+		)
+	}
+
 	return (
 		<div>
 			{loading && <h4>loading ...</h4>}
@@ -38,8 +51,9 @@ function ProductDetailPage() {
 								/>
 							</div>
 							<div className='col-5'>
-								<button className='btn btn-primary'>Add to cart</button>
+								<button className='btn btn-primary' onClick={handleAddToCart}>Add to cart</button>
 							</div>
+							<Link to='/cart'>tap</Link>
 						</div>
 					</div>
 				</div>

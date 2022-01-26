@@ -26,6 +26,8 @@ import jwt from 'jsonwebtoken';
 import NavbarUser from './components/UI/utility/NavbarUser';
 import Navbar from './components/section/utility/Navbar';
 import ProductDetailPage from './pages/ProductDetailPage';
+import Cart from './pages/Cart'
+import Success from './pages/Success'
 function App() {
 	const dispatch = useDispatch();
 
@@ -66,6 +68,8 @@ function App() {
 				<Route path='/resetPassword' component={ResetPassword} />
 				<Route path='/verifyAccount' component={VerifyAccount} />
 				<Route path='/product/:id' component={ProductDetailPage} />
+				<Route path='/cart' component={Cart} />
+				<Route path='/success' component={Success} />
 				<PrivateRoute
 					path='/checkout'
 					exact

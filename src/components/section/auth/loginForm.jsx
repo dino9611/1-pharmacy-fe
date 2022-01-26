@@ -26,24 +26,24 @@ const LoginForm = (props) => {
     };
 
     const onFormInputChange = (value, name) => {
-        setLoginData({...loginData, [name]: value });
+        setLoginData({ ...loginData, [name]: value });
     };
 
     const onClickLoginButton = async (e) => {
         e.preventDefault();
         const { usernameOrEmail, password } = loginData;
-        
+
         try {
             let dataBody = {
                 usernameOrEmail,
-                password,             
-            };            
+                password,
+            };
 
             const response = await axios.post(`${API_URL}/auth/login`, dataBody);
 
             localStorage.setItem("token-access", response.data.token);
             dispatch({ type: "LOGIN", payload: response.data });
-            
+
             toast.success("Login is successful!", {
                 position: "top-right",
                 icon: "🔓"
@@ -74,19 +74,19 @@ const LoginForm = (props) => {
     return (
         <div>
             <div className="mb-5 mt-4">
-                <Input 
-                    type="text" 
+                <Input
+                    type="text"
                     onChange={onFormInputChange}
-                    name="usernameOrEmail" 
-                    value={loginData.usernameOrEmail} 
-                    placeholder="username or email" 
-                />      
-                <Input 
+                    name="usernameOrEmail"
+                    value={loginData.usernameOrEmail}
+                    placeholder="username or email"
+                />
+                <Input
                     type="password"
                     onChange={onFormInputChange}
-                    name="password"  
+                    name="password"
                     value={loginData.password}
-                    placeholder="password" 
+                    placeholder="password"
                 />
                 <span onClick={onClickShowPassword}
                     style={{
@@ -99,7 +99,7 @@ const LoginForm = (props) => {
                 >
                 </span>
                 <p><Link to="/forgotPassword" style={{ color: "var(--blue-color)" }}>Forgot your password?</Link></p>
-                <SquareButton label="LOGIN" className="mt-4" onClick={onClickLoginButton}/>
+                <SquareButton label="LOGIN" className="mt-4" onClick={onClickLoginButton} />
             </div>
             <div>
                 <p className="mb-0">Don't have an account? Register now!</p>
@@ -108,5 +108,5 @@ const LoginForm = (props) => {
         </div>
     );
 }
- 
+
 export default withRouter(LoginForm);
