@@ -94,6 +94,7 @@ const MarketplaceNavbar = (props) => {
                                     <button 
                                         className="marketplaceIconsLight"  
                                         style={{ transform: !visible && "translateY(55px)" }}
+                                        onClick={() => {history.push("/cart")}}
                                     >
                                         <i className="fas fa-shopping-cart me-2"></i>
                                     </button>

@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from 'react-router-dom';
 import Checkout from '../components/UI/utility/Checkout';
 import MarketplaceNavbar from '../components/section/admin/marketplaceNavbar';
+import Footer from '../components/UI/E-Pharma/footer';
+
 const Cart = () => {
     const cart = useSelector((state) => state.cart);
     console.log(cart);
@@ -18,7 +20,7 @@ const Cart = () => {
     return (
         <>
             <MarketplaceNavbar showVisible/>
-            <div className='wrapper p-2' style={{ marginTop: 100 }}>
+            <div className='wrapper px-5' style={{ paddingTop: 100, backgroundColor: 'whitesmoke', minHeight: '70vh', width: '100vw' }}>
                 <h1 className="title fw-bolder" style={{ textAlign: 'center' }}>YOUR CART</h1>
                 <div className='top d-flex p-2' style={{ alignItems: 'center', justifyContent: 'space-between' }}>
                     <Link to='/'>
@@ -97,6 +99,7 @@ const Cart = () => {
                     </div>
                 </div>
             </div >
+            <Footer/>
         </>
     )
 };
