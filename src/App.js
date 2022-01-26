@@ -31,6 +31,8 @@ import CustomOrderPage from './pages/CustomOrderPage';
 import UserOrderHistory from './pages/userOrderHistory';
 import ContactUs from './pages/contactUs';
 import AboutUs from './pages/aboutUs';
+import Cart from './pages/Cart';
+import Success from './pages/Success';
 
 function App() {
 	const dispatch = useDispatch();
@@ -84,6 +86,8 @@ function App() {
 				<PrivateRoute path='/admin/userDatas' exact component={UserDatas} adminAuth={true}/>
 				<PrivateRoute path='/admin/userDatas/orderHistory/:id' exact component={OrderHistory} adminAuth={true}/>
 				<PrivateRoute path='/admin/orderRequest' exact component={OrderRequest} adminAuth={true}/>
+				<Route path='/cart' component={Cart} />
+				<Route path='/success' component={Success} />
 				<Route
 					path='/product/:id' 
 					component={ProductDetailPage} 

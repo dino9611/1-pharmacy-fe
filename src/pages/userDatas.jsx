@@ -6,9 +6,9 @@ const UserDatas = () => {
     return (
         <div className="m-5">
             <h3 className="mb-4">User Transactions History</h3>
-            <UserDatasTable/>
+            <UserDatasTable />
         </div>
     );
 }
- 
+
 export default UserDatas;

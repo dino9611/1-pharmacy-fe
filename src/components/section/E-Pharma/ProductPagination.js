@@ -3,6 +3,7 @@ import Pagination from '../../controller/Pagination';
 import useAxios from '../../../hooks/useAxios';
 import ProductItem from '../../UI/E-Pharma/ProductItem';
 import SortButton from '../../controller/E-pharma/SortButton';
+import Category from './Category';
 import { API_URL } from '../../../constants/api';
 import MarketplaceNavbar from '../admin/marketplaceNavbar';
 import { useHistory } from 'react-router-dom';
@@ -14,10 +15,12 @@ function ProductPagination() {
 	let [name, setName] = useState(true);
 	let [price, setPrice] = useState(true);
 	let history = useHistory();
+	let [filteredData, setFilteredData] = useState()
+
+
 	let { response, error, loading } = useAxios({
-		url: `${API_URL}/inventory/store/${page}/${limit}/items?name=${
-			name ? 'ASC' : 'DESC'
-		}&price=${price ? 'ASC' : 'DESC'}&min=1000&max=10000000`,
+		url: `${API_URL}/inventory/store/${page}/${limit}/items?name=${name ? 'ASC' : 'DESC'
+			}&price=${price ? 'ASC' : 'DESC'}&min=1000&max=10000000`,
 		method: 'get',
 	});
 
@@ -30,6 +33,7 @@ function ProductPagination() {
 		if (response.itemCount > 10) {
 			return (
 				<div className='m-5' style={styles}>
+					<Category setFilteredData={setFilteredData} />
 					<div className='btn-group'>
 						<SortButton
 							sortButtonChange={(value) => setName(value)}
@@ -64,7 +68,13 @@ function ProductPagination() {
 						siblingCount={2}
 						currentPage={page}
 						pageSize={limit}
-					></Pagination>
+					>
+						<ProductListWrapper
+							data={filteredData ? filteredData : response && response.list}
+							isError={error}
+							isLoading={loading}
+						/>
+					</Pagination>
 				</div>
 			);
 		} else {

@@ -19,10 +19,10 @@ const Login = () => {
                 ></img>
             </div>
             <AuthWrapper title="Login to your account">
-                <LoginForm/>
+                <LoginForm />
             </AuthWrapper>
         </div>
     );
 }
- 
+
 export default Login;
