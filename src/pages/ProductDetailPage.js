@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import QuantityCount from '../components/controller/E-pharma/QuantityCount';
 import MarketplaceNavbar from '../components/section/admin/marketplaceNavbar';
 import { API_URL } from '../constants/api';
 import useAxios from '../hooks/useAxios';
-import { addProduct } from '../redux/cartReducer';
 import { Link } from 'react-router-dom'
 
 function ProductDetailPage() {
@@ -52,7 +50,7 @@ function ProductDetailPage() {
 								/>
 							</div>
 							<div className='col-5'>
-								<button className='btn btn-primary' onClick={handleAddToCart}>Add to cart</button>
+								<button className='btn btn-primary'>Add to cart</button>
 							</div>
 							<Link to='/cart'>tap</Link>
 						</div>

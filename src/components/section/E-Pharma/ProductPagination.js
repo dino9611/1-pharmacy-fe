@@ -8,6 +8,7 @@ import { API_URL } from '../../../constants/api';
 import MarketplaceNavbar from '../admin/marketplaceNavbar';
 import { useHistory } from 'react-router-dom';
 import HomeProductCard from '../../UI/E-Pharma/homeProductCard';
+import ProductListWrapper from '../../UI/productInventory/ProductListWrapper';
 
 function ProductPagination() {
 	let [limit, setLimit] = useState(12);
