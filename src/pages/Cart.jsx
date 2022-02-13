@@ -1,8 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
-import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
-import Checkout from '../components/UI/utility/Checkout';
 import MarketplaceNavbar from '../components/section/admin/marketplaceNavbar';
 import QuantityCount from '../components/controller/E-pharma/QuantityCount';
 import Footer from '../components/UI/E-Pharma/footer';
@@ -126,7 +122,7 @@ const Cart = () => {
                         <h3 style={{ color: 'var(--pink-color)' }}>Checkout Summary</h3>
                         <hr />
                         <div className='my-4'>
-                            <p style={{ fontSize: 18 }} className='mb-2'>Shipping Details</p>
+                            <p style={{ fontSize: 18, fontWeight: 500 }} className='mb-2'>Shipping Details</p>
                             <div className='d-flex flex-column' style={{ width: '100%' }}>
                                 <Input 
                                     type='text' 
