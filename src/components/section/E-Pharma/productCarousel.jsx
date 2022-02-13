@@ -39,6 +39,28 @@ const ProductCarousel = (props) => {
         fetchData();
     }, []);
 
+    const addToCart = async (id) => {
+		try {
+			await axios.post(`${API_URL}/cart`, {
+				medicineId: id,
+				quantity: 1,
+			}, {
+				headers: {
+					'Authorization': `Bearer ${localStorage.getItem('token-access')}`
+				}
+			});
+			toast.success("Item added to cart", {
+				position: "top-right",
+				icon: "🤩"
+			});
+		} catch (error) {
+			toast.error(error.response.data.data.message || "Failed to add to cart. Try again.", {
+				position: "top-right",
+				icon: "😭"
+			});
+		}
+	}
+
     return (
       <div>
         <Slider {...settings}>
@@ -51,6 +73,7 @@ const ProductCarousel = (props) => {
                                 name={data.medicine}
                                 price={parseInt(data.price).toLocaleString("in", "ID")}
                                 onClick={() => {history.push(`/product/${data.id}`)}}
+								onAddToCartClick={() => addToCart(data.id)}
                             />
                         )
                     })
@@ -65,6 +88,7 @@ const ProductCarousel = (props) => {
                                 name={data.medicine}
                                 price={parseInt(data.price).toLocaleString("in", "ID")}
                                 onClick={() => {history.push(`/product/${data.id}`)}}
+								onAddToCartClick={() => addToCart(data.id)}
                             />
                         )
                     })

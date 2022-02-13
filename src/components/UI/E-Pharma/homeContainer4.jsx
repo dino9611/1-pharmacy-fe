@@ -30,6 +30,28 @@ const HomeContainer4 = (props) => {
         fetchData();
     }, []);
 
+    const addToCart = async (id) => {
+		try {
+			await axios.post(`${API_URL}/cart`, {
+				medicineId: id,
+				quantity: 1,
+			}, {
+				headers: {
+					'Authorization': `Bearer ${localStorage.getItem('token-access')}`
+				}
+			});
+			toast.success("Item added to cart", {
+				position: "top-right",
+				icon: "🤩"
+			});
+		} catch (error) {
+			toast.error(error.response.data.data.message || "Failed to add to cart. Try again.", {
+				position: "top-right",
+				icon: "😭"
+			});
+		}
+	}
+
 	return (
 		<div className="d-flex flex-column justify-content-center align-items-center" style={{ height: "110vh", backgroundColor: "whitesmoke" }}>
             <div className="d-flex flex-row justify-content-center flex-wrap mt-4" style={{ height: "90vh", width: "85vw" }}>
@@ -41,6 +63,7 @@ const HomeContainer4 = (props) => {
                                 name={data.medicine}
                                 price={parseInt(data.price).toLocaleString("in", "ID")}
                                 onClick={() => {history.push(`/product/${data.id}`)}}
+								onAddToCartClick={() => addToCart(data.id)}
                             />
                         )
                     })

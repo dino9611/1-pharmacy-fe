@@ -9,13 +9,18 @@ function SortButton(props) {
 	}, [asc]);
 
 	return (
-		<div className='btn-group ms-2'>
-			<h6 className='m-2 pt-1'>{props.label}</h6>
+		<div className='d-flex flex-row ps-3' style={{ backgroundColor: 'mistyrose', width: 'fit-content', borderRadius: 5 }}>
+			<p style={{ transform: 'translateY(8px)', fontSize: 18, fontWeight: 500 }}>{props.label}:</p>
 			<button
-				className={`m-2 btn ${asc ? 'btn-primary' : 'btn-danger'}`}
+				className={`btn ms-3 ${asc ? 'btn-primary' : 'btn-danger'}`}
 				onClick={() => setAsc(!asc)}
+				style={{
+					color: 'white',
+					backgroundColor: 'var(--pink-color)',
+					border: '1px solid var(--red-color)',
+				}}
 			>
-				{asc ? 'ASC' : 'DESC'}
+				{asc ? 'Highest to Lowest' : 'Lowest to Highest'}
 			</button>
 		</div>
 	);

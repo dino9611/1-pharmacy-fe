@@ -1,33 +1,48 @@
 import React, { useEffect, useState } from 'react';
 
-function QuantityCount(props) {
-	const [count, setCount] = useState(1);
+function QuantityCount({
+	quantity,
+	onChange
+}) {
+	const [count, setCount] = useState(quantity);
+	const onInputChange = (value) => {
+		setCount(Number(value));
+		onChange(Number(value));
+	};
 
 	useEffect(() => {
-		props.onChange(count);
-	}, [count]);
+		if (quantity !== count) {
+			setCount(quantity);
+		}
+	}, [count, quantity]);
 
 	return (
-		<div className='row'>
-			<div className='col'>
+		<div className='d-flex flex-row'>
+			<div>
 				<button
-					className='btn btn-secondary'
-					onClick={() => setCount(count - 1)}
-					disabled={count === 1 ? true : false}
+					className='btn me-3'
+					onClick={() => onInputChange(quantity - 1)}
+					disabled={quantity === 1}
+					style={{ backgroundColor: 'var(--pink-color)', border: '1px solid var(--pink-color)', color: 'white' }}
 				>
 					-
 				</button>
 			</div>
-			<div className='col-5'>
+			<div>
 				<input
 					className='form-control'
 					type='number'
-					value={props.quantity}
-					onChange={(event) => setCount(+event.target.value)}
+					value={count}
+					onChange={(event) => onInputChange(event.target.value)}
+					style={{ width: 150 }}
 				/>
 			</div>
-			<div className='col'>
-				<button className='btn btn-primary' onClick={() => setCount(count + 1)}>
+			<div>
+				<button 
+					className='btn ms-3' 
+					onClick={() => onInputChange(quantity + 1)}
+					style={{ backgroundColor: 'var(--pink-color)', border: '1px solid var(--pink-color)', color: 'white' }}
+				>
 					+
 				</button>
 			</div>
