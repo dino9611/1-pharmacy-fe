@@ -13,7 +13,7 @@ const StatusButtons = (props) => {
                 backgroundColor= "darkgray"
                 border= "2px solid gray"
                 onClick={() => props.onClick(1)}
-                label="Awaiting for Review"
+                label={props.user ?"Awaiting for Review" : "Awaiting for Review / Payment"}
                 ternary={ props.status === 1 ? underline : null }
             />
             {
