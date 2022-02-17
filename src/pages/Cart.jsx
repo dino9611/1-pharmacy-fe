@@ -154,8 +154,7 @@ const Cart = (props) => {
             </div>
           </DetailsModal>
         )
-      }
-    
+    }
 
     return (
         <>
