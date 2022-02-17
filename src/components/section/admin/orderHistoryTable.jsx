@@ -89,6 +89,7 @@ const OrderHistoryTable = (props) => {
                 orderHistoryTable
             />
             <StatusButtons
+                user={props.user}
                 status={status}
                 onClick={(value) => setStatus(value)}
                 showStatus3

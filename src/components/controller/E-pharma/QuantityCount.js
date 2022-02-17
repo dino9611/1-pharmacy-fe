@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 function QuantityCount({
 	quantity,
-	onChange
+	onChange,
+	style
 }) {
 	const [count, setCount] = useState(quantity);
 	const onInputChange = (value) => {
@@ -34,7 +35,7 @@ function QuantityCount({
 					type='number'
 					value={count}
 					onChange={(event) => onInputChange(event.target.value)}
-					style={{ width: 150 }}
+					style={{ width: 150, ...style }}
 				/>
 			</div>
 			<div>
