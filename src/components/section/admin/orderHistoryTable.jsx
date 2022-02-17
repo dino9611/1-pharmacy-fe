@@ -125,6 +125,6 @@ const OrderHistoryTable = (props) => {
             }
         </>
     );
-}
+};
  
 export default OrderHistoryTable;

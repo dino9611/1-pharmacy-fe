@@ -154,8 +154,8 @@ const Cart = (props) => {
             </div>
           </DetailsModal>
         )
-    }
-
+      }
+    
     return (
         <>
             <RenderCheckoutModal />
@@ -305,7 +305,7 @@ const Cart = (props) => {
             </div >
             <Footer/>
         </>
-    )
+    );
 };
 
 export default withRouter(Cart);

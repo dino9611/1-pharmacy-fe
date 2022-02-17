@@ -31,6 +31,6 @@ const UserOrderHistory = (props) => {
             <Footer/>
         </>
     );
-}
+};
  
 export default withRouter(UserOrderHistory);

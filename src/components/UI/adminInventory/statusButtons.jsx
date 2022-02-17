@@ -50,7 +50,7 @@ const StatusButtons = (props) => {
                 ternary={ props.status === 4 ? underline : null }
             />
         </div>
-    )
+    );
 };
  
 export default (withRouter(StatusButtons));

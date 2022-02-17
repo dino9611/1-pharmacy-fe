@@ -49,6 +49,6 @@ function QuantityCount({
 			</div>
 		</div>
 	);
-}
+};
 
 export default QuantityCount;
