@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import MarketplaceNavbar from '../components/section/admin/marketplaceNavbar';
-import OrderHistoryTable from '../components/section/admin/orderHistoryTable';
+import UserOrderHistoryTable from '../components/section/auth/UserOrderHistoryTable';
 import Footer from '../components/UI/E-Pharma/footer';
 import '../style.css';
 
@@ -25,7 +25,7 @@ const UserOrderHistory = (props) => {
                     <h3 className="mb-4">My Order History</h3>
                 </div>
                 <div className="mx-5">
-                    <OrderHistoryTable/>
+                    <UserOrderHistoryTable/>
                 </div>
             </div>
             <Footer/>

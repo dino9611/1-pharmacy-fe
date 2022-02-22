@@ -12,7 +12,7 @@ import { withRouter } from 'react-router-dom';
 
 const Cart = (props) => {
     const [cartData, setCartData] = useState([]);
-    const { history} = props;
+    const { history } = props;
     
     useEffect(() => {
         const fetchCart = async () => {
@@ -74,9 +74,13 @@ const Cart = (props) => {
     )).reduce((prev, curr) => prev  + curr, 50000).toLocaleString('in', 'ID')
     
     const [openModalCheckout, setOpenModalCheckout] = useState(false);
+    const [picture, setPicture] = useState(null);
 
-    const onCheckout = async (e) => {
-        e.preventDefault();
+    const onChangePicture = e => {
+        setPicture(e.target.files[0]);
+    };
+
+    const onCheckout = async () => {
         const { name, phoneNumber, address } = shippingDetails;
 
         try {
@@ -85,8 +89,8 @@ const Cart = (props) => {
                 phoneNumber,
                 address,
                 grandTotal,
+                picture,
             };
-
             
             toast.success("Order is confirmed!", {
                 position: "top-right",
@@ -110,7 +114,6 @@ const Cart = (props) => {
         };
     };
     
-
     const RenderCheckoutModal = () => {
         return (
           <DetailsModal
@@ -147,15 +150,22 @@ const Cart = (props) => {
             <p style={{ textAlign: 'center' }}>Make sure your order, total, and shipping details are all correct.</p>
             <p style={{ textAlign: 'center' }}>Please transfer <b style={{ fontWeight: 500, color: 'var(--pink-color)'}}>Rp. {grandTotal}</b> to this bank account:<br/>
             <b style={{ fontWeight: 500, color: 'var(--pink-color)'}}>BCA 42740127427 a/n Obatin Pharmaceuticals.</b></p>
-            <p style={{ textAlign: 'center' }}>Don't forget to <b style={{ fontWeight: 500, color: 'var(--pink-color)'}}>screenshoot the payment proof</b>, and<br/>attach it in <b style={{ fontWeight: 500, color: 'var(--pink-color)'}}>My History page</b>. Click confirm to create this order.</p>
-            <div className='d-flex justify-content-center'>
-                <SquareButton label='CANCEL ORDER' onClick={() => setOpenModalCheckout(false)} className='me-3' style={{ backgroundColor: 'gainsboro', color: 'gray' }} />
-                <SquareButton label='CONFIRM ORDER' onClick={onCheckout}/>
+            <p style={{ textAlign: 'center' }}><b style={{ fontWeight: 500, color: 'var(--pink-color)'}}>Screenshoot the payment proof</b>, and<br/>upload it below. Click confirm to create this order.</p>
+            <hr/> 
+            <div style={{ transform: 'translateX(325px)' }}>
+                <input id="paymentPic" type="file" onChange={onChangePicture} style={{ color: 'white' }}/>
+            </div>
+            {picture ? <div style={{ textAlign: 'center' }}>{picture.name}</div> : <div style={{ textAlign: 'center' }}>Upload your payment image</div>}
+            <hr/> 
+            <div className='d-flex justify-content-center' style={{ display: 'flex',justifyContent: 'center', alignItems: 'center', flexDirection: picture ? 'row' : 'column'}}>
+                <SquareButton label='CANCEL ORDER' onClick={() => setOpenModalCheckout(false)} className={ picture ?'me-3' : 'mb-2'} style={{ backgroundColor: 'gainsboro', color: 'white' }} />
+                {picture ? <SquareButton label='CONFIRM ORDER' onClick={onCheckout}/> : 
+                <SquareButton label='CHECKOUT' disabled disabledMessage="*upload your payment image!" />}
             </div>
           </DetailsModal>
         )
       }
-    
+
     return (
         <>
             <RenderCheckoutModal />
@@ -188,7 +198,7 @@ const Cart = (props) => {
                             {(cartData.cartDetails || []).map(cartItem => (
                                 <div className='d-flex mb-3'>
                                     <div className='d-flex me-3'>
-                                        <img src={cartItem.Medicine.img} alt='medicine' style={{ width: 80, height: 80, border: '1px solid lightgray' }} />
+                                        <img src={cartItem.Medicine.image} alt='medicine' style={{ width: 80, height: 80, border: '1px solid lightgray' }} />
                                     </div>
                                     <div style={{ width: 300 }}>
                                         <p className='mb-0 mt-3'>{cartItem.Medicine.name}</p>
@@ -271,7 +281,7 @@ const Cart = (props) => {
                                         borderRadius: 5, 
                                         border: '1px solid black',
                                         minHeight: '20vh', 
-                                        maxHeight: '30vh',
+                                        maxHeight: '25vh',
                                         padding: 10
                                     }} 
                                     placeholder='address'
@@ -291,13 +301,13 @@ const Cart = (props) => {
                             <b style={{ fontWeight: 500, color: 'var(--blue-color)'}}>Grand Total:</b> Rp. {grandTotal}
                         </p>
                         {
-                            (shippingDetails.name.length && shippingDetails.phoneNumber.length && shippingDetails.address.length) ?
+                            (shippingDetails.name.length && shippingDetails.phoneNumber.length && shippingDetails.address.length && cartData.cartDetails.length > 0) ?
                             <div style={{ width: '100%', textAlign: 'center' }}>
                                 <SquareButton label='CHECKOUT' onClick={() => setOpenModalCheckout(!openModalCheckout)}/>
                             </div>
                             :
                             <div style={{ width: '100%', textAlign: 'center' }}>
-                                <SquareButton label='CHECKOUT' disabled disabledMessage="*please input all shipping details fields!" />
+                                <SquareButton label='CHECKOUT' disabled disabledMessage="*please add items to your cart and input all your shipping details fields!" />
                             </div>
                         }
                     </div>

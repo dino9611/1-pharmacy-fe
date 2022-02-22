@@ -10,17 +10,15 @@ import OrderDetailsModal from '../../UI/adminInventory/orderDetailsModal';
 import ShippingDetailsModal from '../../UI/adminInventory/shippingDetailsModal';
 import DashboardLoading from '../../../pages/dashboardLoading';
 
-const OrderHistoryTable = (props) => {
+const UserOrderHistoryTable = (props) => {
     const { id } = useParams();
     const [orders, setOrders] = useState([]);
     const [status, setStatus] = useState(1);
     const [loading, setLoading] = useState(true);
 
-    const selectedEndpoint = props.isAdmin ? `/admin/transactions/userDatas/` : `/`
-
     const fetchOrderHistoryData = useCallback(async () => {
         try {
-            const response = await axios.get(`${API_URL}${selectedEndpoint}orderHistory?filter=byUser&id=${id}&status=${status}`, {
+            const response = await axios.get(`${API_URL}/orderHistory?filter=byUser&id=${id}&status=${status}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem("token-access")}`
                 }
@@ -33,16 +31,16 @@ const OrderHistoryTable = (props) => {
                 icon: "😵"
             });
         }
-    }, [id, selectedEndpoint, status]);
+    }, [id, status]);
 
     useEffect(() => {
         fetchOrderHistoryData();
     }, [fetchOrderHistoryData])
 
     const [shippingDetails, setShippingDetails] = useState([]);
-    const fetchShippingDetailsData = async () => {
+    const fetchShippingDetailsData = async (orderId) => {
         try {
-            const response = await axios.get(`${API_URL}${selectedEndpoint}orderHistory?filter=byUser&id=${id}&status=${status}`, {
+            const response = await axios.get(`${API_URL}/orderHistory?filter=user&orderId=${orderId}&status=${status}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem("token-access")}`
                 }
@@ -58,9 +56,9 @@ const OrderHistoryTable = (props) => {
     }
     
     const [orderDetails, setOrderDetails] = useState([]);
-    const fetchOrderDetailsData = async (index) => {
+    const fetchOrderDetailsData = async (orderId) => {
         try {
-            const response = await axios.get(`${API_URL}${selectedEndpoint}orderHistory/order-details?filter=byUser&id=${id}&status=${status}`, {
+            const response = await axios.get(`${API_URL}/orderHistory/order-details?filter=byOrder&id=${orderId}&status=${status}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem("token-access")}`
                 }
@@ -86,9 +84,10 @@ const OrderHistoryTable = (props) => {
                 closeModal={() => setOrderDetails([])}
                 shippingMethod={orders.map(order => order.shipping_method)}
                 shippingCost={orders.map(order => order.shipping_cost)}
-                orderHistoryTable
+                User
             />
             <StatusButtons
+                user={props.user}
                 status={status}
                 onClick={(value) => setStatus(value)}
                 showStatus3
@@ -104,9 +103,9 @@ const OrderHistoryTable = (props) => {
                             createdAt={order.createdAt}
                             totalPayment={parseInt(order.total_payment).toLocaleString("in", "ID")}
                             buttonLabel1="SHIPPING DETAILS" 
-                            onClickButton1={() => fetchShippingDetailsData()}
+                            onClickButton1={() => fetchShippingDetailsData(order.id)}
                             buttonLabel2="ORDER DETAILS" 
-                            onClickButton2={() => fetchOrderDetailsData()}
+                            onClickButton2={() => fetchOrderDetailsData(order.id)}
                         />
                     );
                 })
@@ -124,6 +123,6 @@ const OrderHistoryTable = (props) => {
             }
         </>
     );
-}
+};
  
-export default OrderHistoryTable;
+export default UserOrderHistoryTable;
