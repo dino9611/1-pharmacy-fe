@@ -40,7 +40,7 @@ const UserOrderHistoryTable = (props) => {
     const [shippingDetails, setShippingDetails] = useState([]);
     const fetchShippingDetailsData = async (orderId) => {
         try {
-            const response = await axios.get(`${API_URL}/orderHistory?filter=user&orderId=${orderId}&status=${status}`, {
+            const response = await axios.get(`${API_URL}/orderHistory?filter=user&id=${orderId}&status=${status}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem("token-access")}`
                 }
